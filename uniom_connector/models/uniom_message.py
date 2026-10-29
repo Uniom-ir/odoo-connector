@@ -125,8 +125,11 @@ class UniomMessage(models.Model):
     def create(self, vals_list):
         messages = super().create(vals_list)
         for message in messages:
-            chat = self.env["uniom.chat"]._get_or_create_for(message)
-            message.chat_session_id = chat.id
+            # trust an explicit link (reply box, copies); only derive when
+            # absent so a differently-spelled chat id never splits a thread
+            chat = message.chat_session_id or self.env["uniom.chat"]._get_or_create_for(message)
+            if message.chat_session_id != chat:
+                message.chat_session_id = chat.id
             chat._touch_from(message)
         return messages
 

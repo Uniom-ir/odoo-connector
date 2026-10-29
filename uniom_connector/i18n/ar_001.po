@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-30 00:56\n"
-"PO-Revision-Date: 2026-10-30 00:56\n"
+"POT-Creation-Date: 2026-10-30 01:32\n"
+"PO-Revision-Date: 2026-10-30 01:32\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom <support@uniom.ir>\n"
 "Language: ar_001\n"
@@ -18,6 +18,16 @@ msgstr ""
 #: code:addons/uniom_connector/wizards/uniom_send_wizard.py:0
 msgid " %s failed and were queued or marked failed (see the log)."
 msgstr " فشل %s وأُضيف إلى قائمة الانتظار أو عُلّم كفاشل (راجع السجل)."
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_chat.py:0
+msgid ""
+"%(sent)s reply(ies) sent, %(failed)s failed — see the message log for the "
+"reason; failed replies stay queued in the thread."
+msgstr ""
+"أُرسلت %(sent)s ردود وفشل %(failed)s — السبب في سجل الرسائل؛ الردود الفاشلة "
+"تبقى في قائمة الانتظار ضمن المحادثة."
 
 #. module: uniom_connector
 #. odoo-python
@@ -167,6 +177,11 @@ msgid "Automation Rules"
 msgstr "قواعد الأتمتة"
 
 #. module: uniom_connector
+#: model:uniom.connection,name:uniom_connector.demo_connection_bale
+msgid "Bale — Sales Notifications (Demo)"
+msgstr "بله — إشعارات المبيعات (تجريبي)"
+
+#. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_connection__base_url
 msgid ""
 "Base URL of the Uniom Bot API. Use https://api.uniom.ir (Iran) or "
@@ -207,7 +222,7 @@ msgstr "محادثة"
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__chat_session_id
 msgid "Chat Session"
-msgstr ""
+msgstr "المحادثة"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__company_id
@@ -344,6 +359,8 @@ msgid ""
 "Create one in your Uniom dashboard: Account → API Keys (uniom_... — one key "
 "per messenger account)."
 msgstr ""
+"أنشئه في لوحة تحكم Uniom: الحساب ← مفاتيح API ‏(uniom_... — مفتاح واحد لكل "
+"حساب مراسلة)."
 
 #. module: uniom_connector
 #: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_connection
@@ -706,12 +723,12 @@ msgstr "آخر خطأ"
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__last_message_date
 msgid "Last Message Date"
-msgstr ""
+msgstr "تاريخ آخر رسالة"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__last_message_preview
 msgid "Last Message Preview"
-msgstr ""
+msgstr "معاينة آخر رسالة"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__write_uid
@@ -770,7 +787,7 @@ msgstr "الرسالة"
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__message_count
 msgid "Message Count"
-msgstr ""
+msgstr "عدد الرسائل"
 
 #. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_message__uniom_message_id
@@ -880,6 +897,11 @@ msgstr "إشعار العميل: استلام الدفعة"
 #: model:uniom.rule,name:uniom_connector.rule_quotation_sent
 msgid "Notify customer: quotation sent"
 msgstr "إشعار العميل: إرسال عرض السعر"
+
+#. module: uniom_connector
+#: model:ir.model.constraint,message:uniom_connector.constraint_uniom_chat_connection_chat_uniq
+msgid "One conversation per connection and chat id."
+msgstr "محادثة واحدة لكل اتصال ومعرف محادثة."
 
 #. module: uniom_connector
 #. odoo-python
@@ -1172,6 +1194,11 @@ msgstr "إعادة المحاولة %(n)s/%(max)s بعد %(mins)s دقيقة: %(
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__retry_count
 msgid "Retry Count"
 msgstr "عدد المحاولات"
+
+#. module: uniom_connector
+#: model:uniom.connection,name:uniom_connector.demo_connection_rubika
+msgid "Rubika — Shop Channel (Demo)"
+msgstr "روبيكا — قناة المتجر (تجريبي)"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__rule_id

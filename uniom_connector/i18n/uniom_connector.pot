@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-30 00:56\n"
-"PO-Revision-Date: 2026-10-30 00:56\n"
+"POT-Creation-Date: 2026-10-30 01:32\n"
+"PO-Revision-Date: 2026-10-30 01:32\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom\n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,14 @@ msgstr ""
 #. odoo-python
 #: code:addons/uniom_connector/wizards/uniom_send_wizard.py:0
 msgid " %s failed and were queued or marked failed (see the log)."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_chat.py:0
+msgid ""
+"%(sent)s reply(ies) sent, %(failed)s failed — see the message log for the "
+"reason; failed replies stay queued in the thread."
 msgstr ""
 
 #. module: uniom_connector
@@ -157,6 +165,11 @@ msgstr ""
 #: model:ir.actions.act_window,name:uniom_connector.action_uniom_rule
 #: model:ir.ui.menu,name:uniom_connector.menu_uniom_rules
 msgid "Automation Rules"
+msgstr ""
+
+#. module: uniom_connector
+#: model:uniom.connection,name:uniom_connector.demo_connection_bale
+msgid "Bale — Sales Notifications (Demo)"
 msgstr ""
 
 #. module: uniom_connector
@@ -858,6 +871,11 @@ msgid "Notify customer: quotation sent"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.constraint,message:uniom_connector.constraint_uniom_chat_connection_chat_uniq
+msgid "One conversation per connection and chat id."
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "Only http:// and https:// URLs are allowed, got: %s"
@@ -1141,6 +1159,11 @@ msgstr ""
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__retry_count
 msgid "Retry Count"
+msgstr ""
+
+#. module: uniom_connector
+#: model:uniom.connection,name:uniom_connector.demo_connection_rubika
+msgid "Rubika — Shop Channel (Demo)"
 msgstr ""
 
 #. module: uniom_connector

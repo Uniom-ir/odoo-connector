@@ -54,6 +54,28 @@ class TestConversations(UniomTestCase):
         self.assertEqual(chat.message_count, 2)
         self.assertEqual(chat.last_message_preview, "مرسی، رسید")
 
+    def test_inbound_raw_phone_id_does_not_split_thread(self):
+        # gateway may report the chat id in a non-canonical spelling;
+        # the thread key must still converge on one conversation
+        self._outbound()
+        self.connection._process_inbound_update(
+            {
+                "update_id": 2,
+                "message": {
+                    "message_id": 10,
+                    "text": "ok",
+                    "chat": {"id": "989120000001", "type": "private"},
+                    "from": {"id": 7, "first_name": "Sara"},
+                },
+            }
+        )
+        chats = self.env["uniom.chat"].search(
+            [("connection_id", "=", self.connection.id)]
+        )
+        self.assertEqual(len(chats), 1)
+        self.assertEqual(chats.chat_id, "+989120000001")
+        self.assertEqual(chats.message_count, 2)
+
     def test_reply_box_sends_through_connection(self):
         self._outbound()
         chat = self.env["uniom.chat"].search([("chat_id", "=", "+989120000001")])

@@ -22,7 +22,8 @@
                         <button name="%(uniom_connector.action_uniom_connection)d" type="action" string="Open Connections" class="btn-secondary o_form_uri" icon="fa-arrow-right"/>
                     </setting>
                     <setting id="uniom_connect_account" string="Connect Account"
-                             help="Add a messenger account with one API key — like logging in.">
+                             help="Add a messenger account with one API key — like logging in."
+                             groups="uniom_connector.group_uniom_manager">
                         <button name="%(uniom_connector.action_uniom_setup_wizard)d" type="action" string="Connect Uniom Account" class="btn-primary o_form_uri" icon="fa-plug"/>
                     </setting>
                 </block>

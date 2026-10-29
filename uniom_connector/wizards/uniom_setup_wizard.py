@@ -18,7 +18,7 @@ class UniomSetupWizard(models.TransientModel):
 
     api_key = fields.Char(
         required=True,
-        password="True",
+        password=True,
         help="Create one in your Uniom dashboard: Account → API Keys "
         "(uniom_... — one key per messenger account).",
     )
@@ -45,7 +45,7 @@ class UniomSetupWizard(models.TransientModel):
             }
         )
         try:
-            result = connection._call("getMe")
+            result = connection._call("getMe") or {}
         except UniomAPIError as error:
             # rollback removes the just-created connection: nothing partial
             # survives a failed "login"

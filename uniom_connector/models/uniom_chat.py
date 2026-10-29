@@ -4,6 +4,8 @@
 incoming and outgoing message into a messenger-like thread with a quick
 reply box — the WhatsApp-connector style UI, on top of the same queue."""
 
+from psycopg2 import IntegrityError
+
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
@@ -13,7 +15,14 @@ from .uniom_tools import canonicalize_chat_id
 class UniomChat(models.Model):
     _name = "uniom.chat"
     _description = "Uniom Conversation"
-    _order = "last_message_date desc, id desc"
+    _order = "last_message_date desc nulls last, id desc"
+    _sql_constraints = [
+        (
+            "connection_chat_uniq",
+            "unique(connection_id, chat_id)",
+            "One conversation per connection and chat id.",
+        )
+    ]
 
     connection_id = fields.Many2one(
         "uniom.connection", required=True, index=True, ondelete="restrict"
@@ -60,15 +69,27 @@ class UniomChat(models.Model):
             limit=1,
         )
         if not chat:
-            chat = self.create(
-                {
-                    "connection_id": message.connection_id.id,
-                    "chat_id": message.chat_id,
-                    "partner_id": message.partner_id.id,
-                    "company_id": message.company_id.id,
-                }
-            )
-        elif message.partner_id and not chat.partner_id:
+            values = {
+                "connection_id": message.connection_id.id,
+                "chat_id": message.chat_id,
+                "partner_id": message.partner_id.id,
+                "company_id": message.company_id.id,
+            }
+            try:
+                # unique(connection_id, chat_id): concurrent creators race to
+                # the same row; the loser rolls back to this savepoint only
+                # and re-searches
+                with self.env.cr.savepoint():
+                    chat = self.create(values)
+            except IntegrityError:
+                chat = self.search(
+                    [
+                        ("connection_id", "=", message.connection_id.id),
+                        ("chat_id", "=", message.chat_id),
+                    ],
+                    limit=1,
+                )
+        if message.partner_id and not chat.partner_id:
             chat.partner_id = message.partner_id
         return chat
 
@@ -85,22 +106,25 @@ class UniomChat(models.Model):
     # Reply from the thread view
     # ------------------------------------------------------------------
     def action_send_reply(self):
+        # validate every draft first: a mid-loop error must not roll back
+        # replies the gateway already received
         for chat in self:
-            body = (chat.reply_body or "").strip()
-            if not body:
+            if not (chat.reply_body or "").strip():
                 raise UserError(_("Write a reply first."))
-            chat_id = canonicalize_chat_id(chat.chat_id)
-            if not chat_id:
+            if not canonicalize_chat_id(chat.chat_id):
                 raise UserError(
                     _("This conversation has an invalid destination: %s"), chat.chat_id
                 )
+        sent = failed = 0
+        for chat in self:
+            body = (chat.reply_body or "").strip()
             message = self.env["uniom.message"].create(
                 {
                     "connection_id": chat.connection_id.id,
                     "chat_session_id": chat.id,
                     "direction": "out",
                     "state": "outgoing",
-                    "chat_id": chat_id,
+                    "chat_id": canonicalize_chat_id(chat.chat_id),
                     "partner_id": chat.partner_id.id,
                     "body": body,
                     "record_res_model": "res.partner",
@@ -109,7 +133,27 @@ class UniomChat(models.Model):
                 }
             )
             message._send_message()
-        self.write({"reply_body": False})
+            if message.state == "sent" and not message.error_message:
+                sent += 1
+                chat.reply_body = False
+            else:
+                failed += 1
+        if failed:
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "type": "warning",
+                    "sticky": True,
+                    "message": _(
+                        "%(sent)s reply(ies) sent, %(failed)s failed — see the "
+                        "message log for the reason; failed replies stay queued "
+                        "in the thread.",
+                        sent=sent,
+                        failed=failed,
+                    ),
+                },
+            }
         return True
 
     # ------------------------------------------------------------------

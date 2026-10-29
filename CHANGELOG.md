@@ -1,5 +1,17 @@
 # Changelog
 
+## 18.0.1.1.1 (2026-10-30)
+
+* Fix: conversations kanban crashed on render (kanban template name and the
+  removed `kanban_image` helper) — now a plain `/web/image` avatar.
+* Fix: inbound chat ids are canonicalized, so differently-spelled gateway ids
+  never split a conversation; explicit thread links are trusted on create.
+* Uniqueness constraint on (connection, chat id) with a savepoint-safe
+  race recovery; inbound records anchored to the connection's company.
+* Reply box reports failures and keeps failed drafts queued instead of
+  clearing silently; drafts validated before any send.
+* Settings "Connect Account" gated to Uniom managers; misc hardening.
+
 ## 18.0.1.1.0 (2026-10-30)
 
 * Conversations: messenger-style UI (WhatsApp-connector parity) — every
