@@ -19,6 +19,10 @@ venv/
 # local security-tool state
 .mimosa/
 
+# internal strategy docs, not part of the public repo
+docs/MARKETPLACES.md
+docs/PUBLISHING.md
+
 # Test artifacts
 .geanyprj.py
 .coverage

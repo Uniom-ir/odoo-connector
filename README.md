@@ -95,15 +95,6 @@ CI (`.github/workflows/ci.yml`) runs the full suite on Odoo 18 with
 `fa_IR`/`ar_001` loaded. `screenshots.yml` (workflow_dispatch) boots Odoo
 with demo data and captures the store screenshots with Playwright.
 
-## Publish
-
-* Odoo Apps store: branch per version (`17.0`, `18.0`), `OPL-1` if you list
-  it as paid (manifest already carries `LGPL-3` for the open listing);
-  description from `static/description/index.html` (English, per store rules).
-* Iranian marketplaces: see `docs/MARKETPLACES.md` for the full landscape
-  (RTL-Theme/Zhaket are WordPress-only; Hooshan, OdooLearn and the
-  Odoo-Iran community shop are the real Odoo channels).
-
 ## License
 
 LGPL-3 (see `LICENSE`). © Uniom — https://uniom.ir
