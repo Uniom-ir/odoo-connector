@@ -3,9 +3,12 @@ access_uniom_connection_manager,uniom.connection.manager,model_uniom_connection,
 access_uniom_connection_user,uniom.connection.user,model_uniom_connection,group_uniom_user,1,0,0,0
 access_uniom_message_manager,uniom.message.manager,model_uniom_message,group_uniom_manager,1,1,1,1
 access_uniom_message_user,uniom.message.user,model_uniom_message,group_uniom_user,1,1,1,0
+access_uniom_chat_manager,uniom.chat.manager,model_uniom_chat,group_uniom_manager,1,1,1,1
+access_uniom_chat_user,uniom.chat.user,model_uniom_chat,group_uniom_user,1,1,1,0
 access_uniom_template_manager,uniom.template.manager,model_uniom_template,group_uniom_manager,1,1,1,1
 access_uniom_template_user,uniom.template.user,model_uniom_template,group_uniom_user,1,0,0,0
 access_uniom_rule_manager,uniom.rule.manager,model_uniom_rule,group_uniom_manager,1,1,1,1
 access_uniom_rule_user,uniom.rule.user,model_uniom_rule,group_uniom_user,1,0,0,0
 access_uniom_send_wizard_user,uniom.send.wizard.user,model_uniom_send_wizard,group_uniom_user,1,1,1,1
 access_uniom_send_recipient_user,uniom.send.recipient.user,model_uniom_send_recipient,group_uniom_user,1,1,1,1
+access_uniom_setup_wizard_user,uniom.setup.wizard.user,model_uniom_setup_wizard,group_uniom_manager,1,1,1,1

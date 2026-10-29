@@ -1,5 +1,16 @@
 # Changelog
 
+## 18.0.1.1.0 (2026-10-30)
+
+* Conversations: messenger-style UI (WhatsApp-connector parity) — every
+  inbound/outbound message auto-opens a thread, kanban of conversations,
+  thread form with IN/OUT badges and a **reply box** that sends via Uniom.
+* **Connect Uniom Account** wizard: login-style onboarding (API key +
+  Connect; gateway-confirmed account name), from the Uniom menu and Settings.
+* Partner smart button now opens their conversations.
+* Translations extended to 272 terms (fa/ar), new screenshots, go-to-market
+  notes removed from the public repo.
+
 ## 18.0.1.0.0 (2026-10-29)
 
 Initial release.
