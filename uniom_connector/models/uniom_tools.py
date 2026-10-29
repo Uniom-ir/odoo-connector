@@ -119,7 +119,12 @@ def validate_public_http_url(url, resolve_dns=True):
     try:
         from urllib3.util import parse_url as parse_url_transport
 
-        transport_host = parse_url_transport(url).host
+        try:
+            transport_host = parse_url_transport(url).host
+        except ValueError as error:  # e.g. invalid port (LocationParseError)
+            raise ValidationError(
+                _("Invalid URL %s: rejected by the HTTP stack (%s).", url, error)
+            ) from error
         if transport_host != hostname:
             raise ValidationError(
                 _("Ambiguous URL %s: the HTTP stack resolves a different host than the validator.", url)

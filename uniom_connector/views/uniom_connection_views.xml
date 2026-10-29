@@ -49,7 +49,7 @@
                     <group string="Inbound Messages (Webhook)" name="webhook">
                         <field name="webhook_registered"/>
                         <field name="webhook_url"/>
-                        <field name="webhook_secret" groups="uniom_connector.group_uniom_manager"/>
+                        <field name="webhook_secret" groups="uniom_connector.group_uniom_manager" password="True"/>
                         <field name="inbound_create_partner"/>
                     </group>
                     <group string="Notes">

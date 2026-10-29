@@ -1,11 +1,9 @@
 # Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
 # copyright and licensing details.
-from odoo.tests import TransactionCase
-
-from .common import BASE_URL, FAKE_KEY
+from .common import BASE_URL, FAKE_KEY, UniomTestCase
 
 
-class TestInboundWebhook(TransactionCase):
+class TestInboundWebhook(UniomTestCase):
     def setUp(self):
         super().setUp()
         self.connection = self.env["uniom.connection"].create(

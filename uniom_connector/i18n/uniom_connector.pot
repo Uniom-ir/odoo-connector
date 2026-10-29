@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 18.0/17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 05:04\n"
-"PO-Revision-Date: 2026-10-29 05:04\n"
+"POT-Creation-Date: 2026-10-29 05:18\n"
+"PO-Revision-Date: 2026-10-29 05:18\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom\n"
 "MIME-Version: 1.0\n"
@@ -197,6 +197,10 @@ msgstr ""
 
 #: models/uniom_models.py:1
 msgid "Incoming"
+msgstr ""
+
+#: models/uniom_models.py:1
+msgid "Invalid URL %s: rejected by the HTTP stack (%s)."
 msgstr ""
 
 #: models/uniom_models.py:1

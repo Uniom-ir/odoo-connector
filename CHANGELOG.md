@@ -10,8 +10,12 @@ Initial release.
   `editMessageText` in-place editing.
 * Message queue with retry/backoff cron, `429 retry_after`, 504 no-retry policy,
   full in/out log and chatter notes.
-* Templates with `${object.field}` rendering and per-language variants (en/fa/ar).
+* Templates with `{{ object.field }}` rendering and per-language variants (en/fa/ar).
 * Inbound webhook controller with secret-token verification and contact matching.
 * "Send via Uniom" wizard on partners, sale orders, invoices, deliveries.
 * Security groups, multi-company record rules, master switch in Settings.
 * UI translations: English (source), Persian (fa_IR), Arabic (ar_001).
+* Hardening: SSRF-guarded HTTP client (public hosts only, no redirects,
+  parser-confusion resistant), allowlisted PDF reports with per-user record
+  access checks, API-key-safe error reporting, webhook auth-before-parse
+  with size cap.

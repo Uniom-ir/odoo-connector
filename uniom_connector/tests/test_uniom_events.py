@@ -3,12 +3,10 @@
 """End-to-end event tests with a mocked transport: confirming a sale order
 posts a rendered message to the customer's canonical phone."""
 
-from odoo.tests import TransactionCase
-
-from .common import BASE_URL, FAKE_KEY, FakeResponse, ok_response, patched_transport
+from .common import BASE_URL, FAKE_KEY, FakeResponse, UniomTestCase, ok_response, patched_transport
 
 
-class TestSaleOrderEvent(TransactionCase):
+class TestSaleOrderEvent(UniomTestCase):
     def setUp(self):
         super().setUp()
         self.connection = self.env["uniom.connection"].create(
@@ -95,7 +93,7 @@ class TestSaleOrderEvent(TransactionCase):
         self.assertFalse(transport.calls)
 
 
-class TestProductPriceEdit(TransactionCase):
+class TestProductPriceEdit(UniomTestCase):
     def setUp(self):
         super().setUp()
         self.connection = self.env["uniom.connection"].create(

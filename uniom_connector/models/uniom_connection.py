@@ -67,7 +67,6 @@ class UniomConnection(models.Model):
         copy=False,
         default=lambda self: secrets.token_hex(16),
         groups="uniom_connector.group_uniom_manager",
-        password="True",
         help="Secret sent back by Uniom in the "
         "X-Telegram-Bot-Api-Secret-Token header. Regenerate to invalidate.",
     )

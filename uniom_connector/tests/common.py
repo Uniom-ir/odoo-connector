@@ -9,6 +9,8 @@ suite never performs real lookups (the URL validator resolves hosts).
 from contextlib import contextmanager
 from unittest.mock import patch
 
+from odoo.tests import TransactionCase
+
 from odoo.addons.uniom_connector.models import uniom_connection as uniom_connection_module
 from odoo.addons.uniom_connector.models import uniom_tools as uniom_tools_module
 
@@ -68,3 +70,18 @@ def patched_transport(script=None):
     with patch.object(uniom_connection_module.requests, "post", transport), \
             patch.object(uniom_tools_module.socket, "getaddrinfo", _fake_resolver()):
         yield transport
+
+
+class UniomTestCase(TransactionCase):
+    """Base class for the module's tests: pins DNS resolution to a public
+    address so connection creation (base URL constraint) never performs a
+    real lookup, on- or offline."""
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        resolver = patch.object(
+            uniom_tools_module.socket, "getaddrinfo", _fake_resolver()
+        )
+        resolver.start()
+        cls.addClassCleanup(resolver.stop)

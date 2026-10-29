@@ -137,6 +137,9 @@ class UniomMessage(models.Model):
 
     def _send_one(self):
         self.ensure_one()
+        # fresh attempt: clear stale notes, then let _ensure_document set a
+        # new "document skipped" note that must survive a successful send
+        self.error_message = False
         connection = self.connection_id.sudo()
         attachment = self._ensure_document()
         if attachment:
@@ -164,7 +167,8 @@ class UniomMessage(models.Model):
                 "state": "sent",
                 "uniom_message_id": (result or {}).get("message_id"),
                 "date_sent": fields.Datetime.now(),
-                "error_message": False,
+                # keep a possible "PDF not attached" note from _ensure_document
+                "error_message": self.error_message or False,
                 "next_attempt": False,
             }
         )

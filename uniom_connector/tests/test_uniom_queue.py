@@ -6,15 +6,21 @@ no-retry, permanent failure, retries exhausted."""
 from datetime import timedelta
 
 from odoo import fields
-from odoo.tests import TransactionCase
-
 from odoo.addons.uniom_connector.models import uniom_message as uniom_message_module
 from odoo.addons.uniom_connector.models.uniom_tools import UniomAPIError
 
-from .common import BASE_URL, FAKE_KEY, FakeResponse, error_response, ok_response, patched_transport
+from .common import (
+    BASE_URL,
+    FAKE_KEY,
+    FakeResponse,
+    UniomTestCase,
+    error_response,
+    ok_response,
+    patched_transport,
+)
 
 
-class TestQueue(TransactionCase):
+class TestQueue(UniomTestCase):
     def setUp(self):
         super().setUp()
         self.connection = self.env["uniom.connection"].create(

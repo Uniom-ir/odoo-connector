@@ -3,8 +3,7 @@
 from unittest.mock import patch
 
 from odoo.exceptions import ValidationError
-from odoo.tests import TransactionCase
-
+from .common import UniomTestCase
 from odoo.addons.uniom_connector.models import uniom_tools
 from odoo.addons.uniom_connector.models.uniom_tools import canonicalize_chat_id, parse_manual_chat_ids
 
@@ -15,7 +14,7 @@ def _fake_resolver(addresses):
     return resolver
 
 
-class TestChatIdCanonicalization(TransactionCase):
+class TestChatIdCanonicalization(UniomTestCase):
     def test_iranian_phone_formats(self):
         self.assertEqual(canonicalize_chat_id("09123456789"), "+989123456789")
         self.assertEqual(canonicalize_chat_id("989123456789"), "+989123456789")
@@ -43,7 +42,7 @@ class TestChatIdCanonicalization(TransactionCase):
         )
 
 
-class TestUrlValidation(TransactionCase):
+class TestUrlValidation(UniomTestCase):
     def test_rejects_non_http(self):
         with self.assertRaises(ValidationError):
             uniom_tools.validate_public_http_url("ftp://api.uniom.ir")

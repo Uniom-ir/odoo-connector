@@ -1,14 +1,22 @@
 # Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
 # copyright and licensing details.
 from odoo.exceptions import ValidationError
-from odoo.tests import TransactionCase
 
 from odoo.addons.uniom_connector.models.uniom_tools import UniomAPIError
 
-from .common import BASE_URL, FAKE_KEY, INVALID_KEY, FakeResponse, error_response, ok_response, patched_transport
+from .common import (
+    BASE_URL,
+    FAKE_KEY,
+    INVALID_KEY,
+    FakeResponse,
+    UniomTestCase,
+    error_response,
+    ok_response,
+    patched_transport,
+)
 
 
-class TestConnection(TransactionCase):
+class TestConnection(UniomTestCase):
     def _create_connection(self, **kwargs):
         values = {
             "name": "Test Bale",

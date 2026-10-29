@@ -1,9 +1,9 @@
 # Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
 # copyright and licensing details.
-from odoo.tests import TransactionCase
+from .common import UniomTestCase
 
 
-class TestTemplate(TransactionCase):
+class TestTemplate(UniomTestCase):
     def test_render_placeholders(self):
         template = self.env["uniom.template"].create(
             {
