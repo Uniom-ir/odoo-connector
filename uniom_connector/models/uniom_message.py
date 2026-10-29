@@ -61,6 +61,12 @@ class UniomMessage(models.Model):
     )
     rule_id = fields.Many2one("uniom.rule", ondelete="set null", index=True)
     template_id = fields.Many2one("uniom.template", ondelete="set null")
+    chat_session_id = fields.Many2one(
+        "uniom.chat",
+        index=True,
+        ondelete="set null",
+        help="Conversation this message belongs to (kept for history).",
+    )
     uniom_message_id = fields.Integer(
         copy=False, help="Message id assigned by the messenger, needed to edit later."
     )
@@ -111,6 +117,18 @@ class UniomMessage(models.Model):
         for message in self:
             label = (message.body or "").strip().replace("\n", " ")[:80]
             message.display_label = label or _("Uniom message to %s", message.chat_id)
+
+    # ------------------------------------------------------------------
+    # Conversation grouping
+    # ------------------------------------------------------------------
+    @api.model_create_multi
+    def create(self, vals_list):
+        messages = super().create(vals_list)
+        for message in messages:
+            chat = self.env["uniom.chat"]._get_or_create_for(message)
+            message.chat_session_id = chat.id
+            chat._touch_from(message)
+        return messages
 
     # ------------------------------------------------------------------
     # Sending

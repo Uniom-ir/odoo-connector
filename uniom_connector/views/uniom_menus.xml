@@ -8,11 +8,24 @@
               sequence="95"
               groups="uniom_connector.group_uniom_user"/>
 
+    <menuitem id="menu_uniom_conversations"
+              name="Conversations"
+              parent="menu_uniom_root"
+              action="action_uniom_chat"
+              sequence="5"/>
+
     <menuitem id="menu_uniom_messages"
               name="Messages"
               parent="menu_uniom_root"
               action="action_uniom_message"
               sequence="10"/>
+
+    <menuitem id="menu_uniom_setup"
+              name="Connect Uniom Account"
+              parent="menu_uniom_root"
+              action="action_uniom_setup_wizard"
+              groups="uniom_connector.group_uniom_manager"
+              sequence="15"/>
 
     <menuitem id="menu_uniom_rules"
               name="Automation Rules"

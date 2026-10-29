@@ -18,8 +18,12 @@
                         <field name="uniom_default_base_url"/>
                     </setting>
                     <setting id="uniom_open_connections" string="Connections"
-                             help="Create API-key connections and register the inbound webhook.">
+                             help="Manage API-key connections and register the inbound webhook.">
                         <button name="%(uniom_connector.action_uniom_connection)d" type="action" string="Open Connections" class="btn-secondary o_form_uri" icon="fa-arrow-right"/>
+                    </setting>
+                    <setting id="uniom_connect_account" string="Connect Account"
+                             help="Add a messenger account with one API key — like logging in.">
+                        <button name="%(uniom_connector.action_uniom_setup_wizard)d" type="action" string="Connect Uniom Account" class="btn-primary o_form_uri" icon="fa-plug"/>
                     </setting>
                 </block>
             </xpath>

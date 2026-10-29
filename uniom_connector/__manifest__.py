@@ -9,15 +9,19 @@
 Uniom Messaging Gateway for Odoo
 ================================
 
-Connect Odoo to the Uniom messaging gateway (https://uniom.ir) and notify
+Connect Odoo to the Uniom messaging gateway (https://uniom.ir) and reach
 your customers on the messengers they actually use -- Bale, Rubika, Eitaa,
 Soroush+ and Telegram -- straight from sale orders, invoices, payments,
-deliveries and product price changes.
+deliveries and product price changes. Replies arrive in a built-in
+messenger UI, and you answer from the same thread.
 
 Highlights
 ----------
 
-* One API key, full messenger coverage (Telegram Bot API compatible gateway)
+* Login-style setup: Connect Uniom Account -- one API key, one click
+
+* Conversations: every inbound/outbound message opens a thread, with a
+  reply box that goes out through Uniom
 
 * Event automation: quotation sent, sale confirmed, invoice posted (with
   PDF), payment received, delivery done, product published, price change
@@ -34,7 +38,7 @@ Highlights
     "author": "Uniom",
     "website": "https://uniom.ir",
     "category": "Discuss",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "license": "LGPL-3",
     "development_status": "Production/Stable",
     "depends": [
@@ -54,8 +58,10 @@ Highlights
         "data/uniom_template_data.xml",
         "data/uniom_rule_data.xml",
         "wizards/uniom_send_wizard_views.xml",
+        "wizards/uniom_setup_wizard_views.xml",
         "views/uniom_connection_views.xml",
         "views/uniom_message_views.xml",
+        "views/uniom_chat_views.xml",
         "views/uniom_rule_views.xml",
         "views/uniom_template_views.xml",
         "views/res_partner_views.xml",
@@ -69,6 +75,9 @@ Highlights
         "demo/uniom_demo.xml",
     ],
     "images": [
+        "static/description/uniom_conversations_screenshot.png",
+        "static/description/uniom_conversation_form_screenshot.png",
+        "static/description/uniom_connect_wizard_screenshot.png",
         "static/description/uniom_messages_screenshot.png",
         "static/description/uniom_messages_rtl_screenshot.png",
         "static/description/uniom_message_form_screenshot.png",

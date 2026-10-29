@@ -23,21 +23,28 @@ Delivery done ───┤        (retry + backoff)      Bot API        / @chann
 Price changed ───┘                                        (editMessageText)
 ```
 
+![Uniom Conversations](uniom_connector/static/description/uniom_conversations_screenshot.png)
+
+![Reply from the thread](uniom_connector/static/description/uniom_conversation_form_screenshot.png)
+
+![Connect Uniom Account](uniom_connector/static/description/uniom_connect_wizard_screenshot.png)
+
 ![Uniom Messages in Odoo](uniom_connector/static/description/uniom_messages_screenshot.png)
 
 ![Uniom Messages — Persian RTL](uniom_connector/static/description/uniom_messages_rtl_screenshot.png)
 
 ## Out of the box
 
-After install you get seven ready automation rules (five active), templates
-in **English, Persian and Arabic**, and a message log — the only thing to do
-is paste one API key:
+After install you get **Conversations** (messenger UI), seven ready automation
+rules (five active), templates in **English, Persian and Arabic**, and the
+message log. The only thing to do is connect:
 
-1. Install the module, then **Uniom → Connections → New**.
+1. Install the module, then **Uniom → Connect Uniom Account** (or the button
+   in Settings).
 2. Paste the `uniom_...` API key from your Uniom dashboard
-   (Account → API Keys — one key per messenger account).
-3. Press **Test Connection** — the connected account name is confirmed by the
-   gateway (`getMe`).
+   (Account → API Keys — one key per messenger account) and press
+   **Connect** — the gateway replies with the account name and the
+   connection is live.
 
 Rules fire only when an active connection exists, so installing the module
 never surprises anyone with sends. Nothing else is required: customer phone
@@ -47,6 +54,8 @@ numbers are canonicalized automatically (`09123456789` → `+989123456789`).
 
 | Area | What you get |
 | --- | --- |
+| Conversations | Messenger UI à la WhatsApp connectors: every inbound/outbound message opens a thread (kanban of conversations, per-thread history with IN/OUT badges, **reply box that sends through Uniom**) |
+| Setup | **Connect Uniom Account** wizard — paste one API key, press Connect, the gateway confirms the account name. No configuration pages needed |
 | Events | Quotation sent · sale confirmed · invoice posted (PDF attached) · payment received · delivery done · product published · **product price changed (edits the previous channel post)** |
 | Recipients | Customer's phone / explicit chat id, per-contact opt-out, plus manual destinations (`@channel`, phones, numeric ids) |
 | Templates | `{{ object.field }}` placeholders (same engine as Odoo mail templates), per-language templates picked by customer language |

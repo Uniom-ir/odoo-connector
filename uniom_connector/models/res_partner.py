@@ -22,6 +22,8 @@ class ResPartner(models.Model):
     )
     uniom_message_ids = fields.One2many("uniom.message", "partner_id", string="Uniom Messages")
     uniom_message_count = fields.Integer(compute="_compute_uniom_message_count")
+    uniom_chat_ids = fields.One2many("uniom.chat", "partner_id", string="Uniom Conversations")
+    uniom_chat_count = fields.Integer(compute="_compute_uniom_chat_count")
 
     def _compute_uniom_message_count(self):
         groups = self.env["uniom.message"]._read_group(
@@ -30,6 +32,14 @@ class ResPartner(models.Model):
         counts = {partner.id: count for partner, count in groups}
         for partner in self:
             partner.uniom_message_count = counts.get(partner.id, 0)
+
+    def _compute_uniom_chat_count(self):
+        groups = self.env["uniom.chat"]._read_group(
+            [("partner_id", "in", self.ids)], ["partner_id"], ["__count"]
+        )
+        counts = {partner.id: count for partner, count in groups}
+        for partner in self:
+            partner.uniom_chat_count = counts.get(partner.id, 0)
 
     def _uniom_default_chat_id(self):
         """Best messenger destination for this partner (explicit chat id,
@@ -59,9 +69,8 @@ class ResPartner(models.Model):
         self.ensure_one()
         return {
             "type": "ir.actions.act_window",
-            "name": "Uniom Messages",
-            "res_model": "uniom.message",
-            "view_mode": "list,form",
+            "name": "Uniom Conversations",
+            "res_model": "uniom.chat",
+            "view_mode": "kanban,form",
             "domain": [("partner_id", "child_of", self.id)],
-            "context": {"default_partner_id": self.id},
         }

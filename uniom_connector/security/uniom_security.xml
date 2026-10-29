@@ -37,4 +37,9 @@
         <field name="model_id" ref="model_uniom_rule"/>
         <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
     </record>
+    <record id="uniom_chat_company_rule" model="ir.rule">
+        <field name="name">Uniom chat: multi-company</field>
+        <field name="model_id" ref="model_uniom_chat"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+    </record>
 </odoo>

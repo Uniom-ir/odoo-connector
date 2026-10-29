@@ -16,8 +16,8 @@
                     </div>
                 </button>
                 <button name="action_view_uniom_messages" type="object" class="oe_stat_button" icon="fa-comments-o"
-                        groups="uniom_connector.group_uniom_user" invisible="uniom_message_count == 0">
-                    <field name="uniom_message_count" widget="statinfo" string="Uniom Messages"/>
+                        groups="uniom_connector.group_uniom_user" invisible="uniom_chat_count == 0">
+                    <field name="uniom_chat_count" widget="statinfo" string="Uniom Conversations"/>
                 </button>
             </xpath>
             <xpath expr="//page[@name='sales_purchases']" position="inside">

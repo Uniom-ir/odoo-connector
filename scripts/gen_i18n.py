@@ -184,6 +184,57 @@ T = {
     # ---- demo data names ----------------------------------------------------
     "Bale — Sales Notifications (Demo)": ("بله — اطلاع‌رسانی فروش (نمایشی)", "بله — إشعارات المبيعات (تجريبي)"),
     "Rubika — Shop Channel (Demo)": ("روبیکا — کانال فروشگاه (نمایشی)", "روبيكا — قناة المتجر (تجريبي)"),
+    # ---- conversations (messenger UI) ---------------------------------------
+    "Conversations": ("گفتگوها", "المحادثات"),
+    "Uniom Conversations": ("گفتگوهای یونیوم", "محادثات Uniom"),
+    "Uniom Conversation": ("گفتگوی یونیوم", "محادثة Uniom"),
+    "Thread": ("گفتگو", "سلسلة الرسائل"),
+    "Reply": ("پاسخ", "الرد"),
+    "Send Reply": ("ارسال پاسخ", "إرسال الرد"),
+    "Draft reply": ("پاسخ پیش‌نویس", "مسودة الرد"),
+    "Write a reply first.": ("ابتدا پاسخ بنویسید.", "اكتب رداً أولاً."),
+    "Write a reply and press Send Reply...": ("پاسخ را بنویسید و دکمه ارسال پاسخ را بزنید...", "اكتب الرد ثم اضغط زر إرسال الرد..."),
+    "Write a reply here and press Send Reply; it goes out through the connection of this conversation.": (
+        "پاسخ را اینجا بنویسید و دکمه «ارسال پاسخ» را بزنید؛ از طریق اتصال همین گفتگو ارسال می‌شود.",
+        "اكتب الرد هنا واضغط «إرسال الرد»؛ سيُرسل عبر اتصال هذه المحادثة.",
+    ),
+    "This conversation has an invalid destination: %s": (
+        "مقصد این گفتگو نامعتبر است: %s",
+        "وجهة هذه المحادثة غير صالحة: %s",
+    ),
+    "Conversation this message belongs to (kept for history).": (
+        "گفتگویی که این پیام به آن تعلق دارد (برای تاریخچه).",
+        "المحادثة التي تنتمي إليها هذه الرسالة (للأرشيف).",
+    ),
+    "Open Contact": ("باز کردن مخاطب", "فتح جهة الاتصال"),
+    "No conversations yet": ("هنوز گفتگویی وجود ندارد", "لا محادثات بعد"),
+    "Every incoming and outgoing message opens a thread here — reply straight from Odoo via Uniom. Connect your account to start.": (
+        "هر پیام ورودی و خروجی اینجا یک گفتگو باز می‌کند — مستقیم از اودو از طریق یونیوم پاسخ دهید. برای شروع حساب خود را متصل کنید.",
+        "كل رسالة واردة أو صادرة تفتح محادثة هنا — رُدّ مباشرةً من أودو عبر Uniom. اربط حسابك للبدء.",
+    ),
+    # ---- connect wizard -------------------------------------------------------
+    "Connect Uniom Account": ("اتصال حساب یونیوم", "ربط حساب Uniom"),
+    "Connect Account": ("اتصال حساب", "ربط الحساب"),
+    "Connect": ("اتصال", "ربط"),
+    "Connect your Uniom account": ("حساب یونیوم خود را متصل کنید", "اربط حساب Uniom الخاص بك"),
+    "Add a messenger account with one API key — like logging in.": (
+        "افزودن حساب پیام‌رسان فقط با یک کلید API — مثل ورود.",
+        "إضافة حساب مراسلة بمفتاح API واحد — مثل تسجيل الدخول.",
+    ),
+    "Uniom Account": ("حساب یونیوم", "حساب Uniom"),
+    "Label (optional)": ("برچسب (اختیاری)", "تسمية (اختياري)"),
+    "How this connection should be listed in Odoo. Leave empty to use the account name reported by the gateway.": (
+        "نام این اتصال در اودو. خالی بگذارید تا نام حساب گزارش‌شده توسط دروازه استفاده شود.",
+        "اسم هذا الاتصال في أودو. اتركه فارغاً لاستخدام اسم الحساب الذي تبلغ عنه البوابة.",
+    ),
+    "Create an API key in your Uniom dashboard (Account → API Keys) and paste it below — one key per messenger account (Bale, Rubika, Eitaa, Soroush+, Telegram).": (
+        "در داشبورد یونیوم یک کلید API بسازید (حساب ← کلیدهای API) و آن را در پایین بچسبانید — یک کلید برای هر حساب پیام‌رسان (بله، روبیکا، ایتا، سروش‌پلاس، تلگرام).",
+        "أنشئ مفتاح API في لوحة تحكم Uniom ‏(الحساب ← مفاتيح API) والصقه أدناه — مفتاح واحد لكل حساب مراسلة (بله، روبيكا، إيتا، سروش+، تيليجرام).",
+    ),
+    "Could not connect to Uniom: %s\nCheck the API key and try again.": (
+        "اتصال به یونیوم ممکن نشد: %s\nکلید API را بررسی کنید و دوباره تلاش کنید.",
+        "تعذّر الاتصال بـ Uniom: %s\nتحقق من مفتاح API وحاول مجدداً.",
+    ),
     "Applies to": ("برای", "ينطبق على"),
     "Fallback Template": ("قالب پیش‌فرض", "القالب الافتراضي"),
     "Translated Templates": ("قالب‌های ترجمه‌شده", "القوالب المترجمة"),

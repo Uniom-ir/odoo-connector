@@ -3,6 +3,7 @@
 from . import uniom_tools
 from . import uniom_connection
 from . import uniom_message
+from . import uniom_chat
 from . import uniom_template
 from . import uniom_rule
 from . import res_config_settings

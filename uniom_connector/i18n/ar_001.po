@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 06:06\n"
-"PO-Revision-Date: 2026-10-29 06:06\n"
+"POT-Creation-Date: 2026-10-30 00:56\n"
+"PO-Revision-Date: 2026-10-30 00:56\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom <support@uniom.ir>\n"
 "Language: ar_001\n"
@@ -29,6 +29,11 @@ msgstr "تم إرسال %s رسالة."
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
 msgid "+989123456789 or @channel"
 msgstr "+989123456789 or @channel"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_kanban
+msgid "<i class=\"fa fa-comment-o\" role=\"img\" aria-label=\"Messages\"/>"
+msgstr "<i class=\"fa fa-comment-o\" role=\"img\" aria-label=\"الرسائل\"/>"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_partner_form_uniom
@@ -58,6 +63,7 @@ msgstr "مفتاح API"
 #. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
+#: code:addons/uniom_connector/wizards/uniom_setup_wizard.py:0
 msgid "Account #%s"
 msgstr "حساب #%s"
 
@@ -83,6 +89,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__active_model
 msgid "Active Model"
 msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
+msgid "Add a messenger account with one API key — like logging in."
+msgstr "إضافة حساب مراسلة بمفتاح API واحد — مثل تسجيل الدخول."
 
 #. module: uniom_connector
 #: model:res.groups,name:uniom_connector.group_uniom_manager
@@ -111,6 +122,11 @@ msgstr "عنوان غامض %s: يحدد مكدس HTTP مضيفاً مختلفا
 #: model:uniom.rule,name:uniom_connector.rule_product_created
 msgid "Announce new product in channel"
 msgstr "الإعلان عن منتج جديد في القناة"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__api_key
+msgid "Api Key"
+msgstr ""
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__model_id
@@ -151,11 +167,6 @@ msgid "Automation Rules"
 msgstr "قواعد الأتمتة"
 
 #. module: uniom_connector
-#: model:uniom.connection,name:uniom_connector.demo_connection_bale
-msgid "Bale — Sales Notifications (Demo)"
-msgstr "بله — إشعارات المبيعات (تجريبي)"
-
-#. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_connection__base_url
 msgid ""
 "Base URL of the Uniom Bot API. Use https://api.uniom.ir (Iran) or "
@@ -177,6 +188,7 @@ msgstr "إرسال رسائل Uniom وقراءة سجل الرسائل."
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_form
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_setup_wizard_form
 msgid "Cancel"
 msgstr "إلغاء"
 
@@ -186,12 +198,19 @@ msgid "Canceled"
 msgstr "ملغى"
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__chat_id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__chat_id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__chat_id
 msgid "Chat"
 msgstr "محادثة"
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__chat_session_id
+msgid "Chat Session"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__company_id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__company_id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__company_id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__company_id
@@ -203,6 +222,30 @@ msgstr "الشركة"
 #: model:ir.model,name:uniom_connector.model_res_config_settings
 msgid "Config Settings"
 msgstr "تنظیمات پیکربندی"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_setup_wizard_form
+msgid "Connect"
+msgstr "ربط"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
+msgid "Connect Account"
+msgstr "ربط الحساب"
+
+#. module: uniom_connector
+#: model:ir.actions.act_window,name:uniom_connector.action_uniom_setup_wizard
+#: model:ir.model,name:uniom_connector.model_uniom_setup_wizard
+#: model:ir.ui.menu,name:uniom_connector.menu_uniom_setup
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_setup_wizard_form
+msgid "Connect Uniom Account"
+msgstr "ربط حساب Uniom"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_setup_wizard_form
+msgid "Connect your Uniom account"
+msgstr "اربط حساب Uniom الخاص بك"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__account_display
@@ -217,9 +260,11 @@ msgid "Connected as %(account)s via %(url)s"
 msgstr "تم الاتصال باسم %(account)s عبر %(url)s"
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__connection_id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__connection_id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__connection_id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__connection_id
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_search
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_search
 msgid "Connection"
@@ -240,20 +285,47 @@ msgid "Contact"
 msgstr "جهة الاتصال"
 
 #. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__chat_session_id
+msgid "Conversation this message belongs to (kept for history)."
+msgstr "المحادثة التي تنتمي إليها هذه الرسالة (للأرشيف)."
+
+#. module: uniom_connector
+#: model:ir.actions.act_window,name:uniom_connector.action_uniom_chat
+#: model:ir.ui.menu,name:uniom_connector.menu_uniom_conversations
+msgid "Conversations"
+msgstr "المحادثات"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_setup_wizard.py:0
+msgid ""
+"Could not connect to Uniom: %s\n"
+"Check the API key and try again."
+msgstr ""
+"تعذّر الاتصال بـ Uniom: %s\n"
+"تحقق من مفتاح API وحاول مجدداً."
+
+#. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Could not render the PDF report: %s"
 msgstr "تعذّر إنشاء تقرير PDF: %s"
 
 #. module: uniom_connector
-#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
-msgid "Create API-key connections and register the inbound webhook."
-msgstr "Create API-key connections and register the inbound webhook."
-
-#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__inbound_create_partner
 msgid "Create Contacts from Inbound Messages"
 msgstr "إنشاء جهات اتصال من الرسائل الواردة"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_setup_wizard_form
+msgid ""
+"Create an API key in your Uniom dashboard (Account → API Keys)\n"
+"                        and paste it below — one key per messenger account\n"
+"                        (Bale, Rubika, Eitaa, Soroush+, Telegram)."
+msgstr ""
+"Create an API key in your Uniom dashboard (Account → مفتاح APIs)\n"
+"                        and paste it below — one key per messenger account\n"
+"                        (Bale, Rubika, Eitaa, Soroush+, Telegram)."
 
 #. module: uniom_connector
 #: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_rule
@@ -267,31 +339,43 @@ msgid "Create at least one record of %s first."
 msgstr "أنشئ أولاً سجلاً واحداً على الأقل من %s."
 
 #. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_setup_wizard__api_key
+msgid ""
+"Create one in your Uniom dashboard: Account → API Keys (uniom_... — one key "
+"per messenger account)."
+msgstr ""
+
+#. module: uniom_connector
 #: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_connection
 msgid "Create your first Uniom connection"
 msgstr "أنشئ أول اتصال Uniom لك"
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__create_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__create_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__create_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__create_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__create_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__create_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__create_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__create_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__create_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__create_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__create_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__create_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__create_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__create_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_search
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Customer"
 msgstr "العميل"
@@ -370,11 +454,13 @@ msgid "Display Label"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__display_name
 msgid "Display Name"
 msgstr ""
@@ -384,6 +470,11 @@ msgstr ""
 #: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Document not attached: %s"
 msgstr "لم يُرفق المستند: %s"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__reply_body
+msgid "Draft reply"
+msgstr "مسودة الرد"
 
 #. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_message__next_attempt
@@ -409,6 +500,15 @@ msgstr "رسالة الخطأ"
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_search
 msgid "Event"
 msgstr "الحدث"
+
+#. module: uniom_connector
+#: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_chat
+msgid ""
+"Every incoming and outgoing message opens a thread here — reply straight "
+"from Odoo via Uniom. Connect your account to start."
+msgstr ""
+"كل رسالة واردة أو صادرة تفتح محادثة هنا — رُدّ مباشرةً من أودو عبر Uniom. "
+"اربط حسابك للبدء."
 
 #. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_res_partner__uniom_opt_out
@@ -441,11 +541,13 @@ msgstr "البوابة"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__base_url
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__base_url
 #: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Gateway URL"
 msgstr "عنوان البوابة"
 
 #. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_search
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_search
 msgid "Group By"
@@ -481,11 +583,22 @@ msgid "Host %s resolves to a private or reserved address and is refused."
 msgstr "المضيف %s يشير إلى عنوان خاص أو محجوز وقد رُفض."
 
 #. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_setup_wizard__name
+msgid ""
+"How this connection should be listed in Odoo. Leave empty to use the account"
+" name reported by the gateway."
+msgstr ""
+"اسم هذا الاتصال في أودو. اتركه فارغاً لاستخدام اسم الحساب الذي تبلغ عنه "
+"البوابة."
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__id
 msgid "ID"
 msgstr ""
@@ -576,6 +689,11 @@ msgid "Journal Entry"
 msgstr "داده روزنامه"
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__name
+msgid "Label (optional)"
+msgstr "تسمية (اختياري)"
+
+#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__lang
 msgid "Language"
 msgstr "اللغة"
@@ -586,21 +704,35 @@ msgid "Last Error"
 msgstr "آخر خطأ"
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__last_message_date
+msgid "Last Message Date"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__last_message_preview
+msgid "Last Message Preview"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__write_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__write_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__write_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__write_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__write_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__write_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__write_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__write_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__write_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__write_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__write_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__write_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__write_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__write_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__write_date
 msgid "Last Updated on"
 msgstr ""
@@ -616,6 +748,11 @@ msgid "Leave empty to make this connection available in every company."
 msgstr ""
 
 #. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
+msgid "Manage API-key connections and register the inbound webhook."
+msgstr "Manage API-key connections and register the inbound webhook."
+
+#. module: uniom_connector
 #: model:res.groups,comment:uniom_connector.group_uniom_manager
 msgid "Manages connections, API keys, automation rules and templates."
 msgstr ""
@@ -629,6 +766,11 @@ msgstr "Master switch for all automated Uniom messages."
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "Message"
 msgstr "الرسالة"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__message_count
+msgid "Message Count"
+msgstr ""
 
 #. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_message__uniom_message_id
@@ -698,6 +840,11 @@ msgid "No Uniom Messages"
 msgstr "بدون رسائل Uniom"
 
 #. module: uniom_connector
+#: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_chat
+msgid "No conversations yet"
+msgstr "لا محادثات بعد"
+
+#. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_rule.py:0
 msgid "No record of type %(model)s exists yet to test this rule."
@@ -744,6 +891,11 @@ msgstr "يُسمح فقط بعناوين http:// و https://؛ تم استلام
 #: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Open Connections"
 msgstr "فتح الاتصالات"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
+msgid "Open Contact"
+msgstr "فتح جهة الاتصال"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_form
@@ -809,6 +961,7 @@ msgid "Outgoing"
 msgstr "صادر"
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__partner_id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__partner_id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__partner_id
 msgid "Partner"
@@ -993,6 +1146,11 @@ msgid "Rendering Model"
 msgstr ""
 
 #. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
+msgid "Reply"
+msgstr "الرد"
+
+#. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Report %s is not allowed for this document."
@@ -1014,11 +1172,6 @@ msgstr "إعادة المحاولة %(n)s/%(max)s بعد %(mins)s دقيقة: %(
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__retry_count
 msgid "Retry Count"
 msgstr "عدد المحاولات"
-
-#. module: uniom_connector
-#: model:uniom.connection,name:uniom_connector.demo_connection_rubika
-msgid "Rubika — Shop Channel (Demo)"
-msgstr "روبيكا — قناة المتجر (تجريبي)"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__rule_id
@@ -1063,6 +1216,11 @@ msgstr "إرسال / إعادة المحاولة"
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__send_immediately
 msgid "Send Immediately"
 msgstr "إرسال فوري"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
+msgid "Send Reply"
+msgstr "إرسال الرد"
 
 #. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_send_wizard__attach_document
@@ -1197,6 +1355,18 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-python
+#: code:addons/uniom_connector/models/uniom_chat.py:0
+msgid "This conversation has an invalid destination: %s"
+msgstr "وجهة هذه المحادثة غير صالحة: %s"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__message_ids
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
+msgid "Thread"
+msgstr "سلسلة الرسائل"
+
+#. module: uniom_connector
+#. odoo-python
 #: code:addons/uniom_connector/models/uniom_message.py:0
 #: model:ir.model,name:uniom_connector.model_stock_picking
 msgid "Transfer"
@@ -1233,9 +1403,21 @@ msgid "Uniom"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_setup_wizard.py:0
+msgid "Uniom Account"
+msgstr "حساب Uniom"
+
+#. module: uniom_connector
 #: model:ir.model,name:uniom_connector.model_uniom_rule
 msgid "Uniom Automation Rule"
 msgstr "قاعدة أتمتة Uniom"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_res_partner__uniom_chat_count
+#: model:ir.model.fields,field_description:uniom_connector.field_res_users__uniom_chat_count
+msgid "Uniom Chat Count"
+msgstr ""
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_res_partner__uniom_chat_id
@@ -1244,9 +1426,23 @@ msgid "Uniom Chat ID"
 msgstr "معرف محادثة Uniom"
 
 #. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_setup_wizard.py:0
 #: model:ir.model,name:uniom_connector.model_uniom_connection
 msgid "Uniom Connection"
 msgstr "اتصال Uniom"
+
+#. module: uniom_connector
+#: model:ir.model,name:uniom_connector.model_uniom_chat
+msgid "Uniom Conversation"
+msgstr "محادثة Uniom"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_res_partner__uniom_chat_ids
+#: model:ir.model.fields,field_description:uniom_connector.field_res_users__uniom_chat_ids
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_partner_form_uniom
+msgid "Uniom Conversations"
+msgstr "محادثات Uniom"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_res_config_settings__uniom_default_base_url
@@ -1275,7 +1471,6 @@ msgstr "قالب رسالة Uniom"
 #: code:addons/uniom_connector/models/uniom_rule.py:0
 #: model:ir.model.fields,field_description:uniom_connector.field_res_partner__uniom_message_ids
 #: model:ir.model.fields,field_description:uniom_connector.field_res_users__uniom_message_ids
-#: model_terms:ir.ui.view,arch_db:uniom_connector.view_partner_form_uniom
 msgid "Uniom Messages"
 msgstr "رسائل Uniom"
 
@@ -1404,6 +1599,24 @@ msgstr "مع أخطاء"
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__wizard_id
 msgid "Wizard"
 msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
+msgid "Write a reply and press Send Reply..."
+msgstr "اكتب الرد ثم اضغط زر إرسال الرد..."
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_chat.py:0
+msgid "Write a reply first."
+msgstr "اكتب رداً أولاً."
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_chat__reply_body
+msgid ""
+"Write a reply here and press Send Reply; it goes out through the connection "
+"of this conversation."
+msgstr "اكتب الرد هنا واضغط «إرسال الرد»؛ سيُرسل عبر اتصال هذه المحادثة."
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
