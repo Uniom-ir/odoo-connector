@@ -3,7 +3,13 @@
      copyright and licensing details. -->
 <odoo>
     <!-- Demo data: a fake (invalid) API key — enough to explore the UI and
-         take screenshots without touching the real gateway. -->
+         take screenshots without touching the real gateway. Admin needs the
+         Uniom group so the app is visible on demo databases (runbot,
+         screenshots, trial instances). -->
+    <record id="base.user_admin" model="res.users">
+        <field name="groups_id" eval="[(4, ref('group_uniom_manager'))]"/>
+    </record>
+
     <record id="demo_connection_bale" model="uniom.connection">
         <field name="name">Bale — Sales Notifications (Demo)</field>
         <field name="base_url">https://api.uniom.ir</field>
@@ -38,6 +44,7 @@
         <field name="partner_id" ref="demo_partner_customer"/>
         <field name="body">سلام سارا محمدی عزیز، سفارش S00001 شما تأیید شد. مبلغ کل: 2500000.00 IRT</field>
         <field name="date_sent" eval="(DateTime.now() - timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="next_attempt" eval="False"/>
         <field name="uniom_message_id">4821</field>
     </record>
 

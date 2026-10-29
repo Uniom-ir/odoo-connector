@@ -20,6 +20,10 @@ Delivery done ───┤        (retry + backoff)      Bot API        / @chann
 Price changed ───┘                                        (editMessageText)
 ```
 
+![Uniom Messages in Odoo](uniom_connector/static/description/uniom_messages_screenshot.png)
+
+![Uniom Messages — Persian RTL](uniom_connector/static/description/uniom_messages_rtl_screenshot.png)
+
 ## Out of the box
 
 After install you get seven ready automation rules (five active), templates

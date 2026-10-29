@@ -68,9 +68,14 @@ Highlights
     "demo": [
         "demo/uniom_demo.xml",
     ],
-    # add real screenshots here (static/description/screenshot_01.png ...)
-    # after running .github/workflows/screenshots.yml
-    "images": [],
+    "images": [
+        "static/description/uniom_messages_screenshot.png",
+        "static/description/uniom_messages_rtl_screenshot.png",
+        "static/description/uniom_message_form_screenshot.png",
+        "static/description/uniom_rules_screenshot.png",
+        "static/description/uniom_connections_screenshot.png",
+        "static/description/uniom_templates_screenshot.png",
+    ],
     "installable": True,
     "application": True,
     "auto_install": False,
