@@ -241,7 +241,10 @@ def build_pot():
     }
     for msgid in sorted(T):
         entry = polib.POEntry(msgid=msgid, msgstr="")
-        entry.occurrences = [("models/uniom_models.py", "1")]
+        # Odoo's translation importer requires a "# module: <name>" comment
+        # on every entry (tools/translate.py_POReader.__iter__)
+        entry.comment = f"module: {MODULE}"
+        entry.occurrences = [("models/uniom_tools.py", "1")]
         pot.append(entry)
     return pot
 
@@ -255,7 +258,10 @@ def build_po(lang, code, team, index):
         "nplurals=2; plural=(n > 1);" if code.startswith("ar") else "nplurals=2; plural=(n > 1);"
     )
     for msgid in sorted(T):
-        po.append(polib.POEntry(msgid=msgid, msgstr=T[msgid][index]))
+        entry = polib.POEntry(msgid=msgid, msgstr=T[msgid][index])
+        entry.comment = f"module: {MODULE}"
+        entry.occurrences = [("models/uniom_tools.py", "1")]
+        po.append(entry)
     return po
 
 

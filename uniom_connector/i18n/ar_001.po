@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 18.0/17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 05:18\n"
-"PO-Revision-Date: 2026-10-29 05:18\n"
+"POT-Creation-Date: 2026-10-29 05:29\n"
+"PO-Revision-Date: 2026-10-29 05:29\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom <support@uniom.ir>\n"
 "Language: ar_001\n"
@@ -13,98 +13,160 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid " %s failed and were queued or marked failed (see the log)."
 msgstr " فشل %s وأُضيف إلى قائمة الانتظار أو عُلّم كفاشل (راجع السجل)."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "%s message(s) sent."
 msgstr "تم إرسال %s رسالة."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "API Key"
 msgstr "مفتاح API"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Account #%s"
 msgstr "حساب #%s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Advanced"
 msgstr "متقدم"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Also Send To"
 msgstr "إرسال أيضاً إلى"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid ""
 "Ambiguous URL %s: the HTTP stack resolves a different host than the "
 "validator."
 msgstr "عنوان غامض %s: يحدد مكدس HTTP مضيفاً مختلفاً عن المدقق."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Announce new product in channel"
 msgstr "الإعلان عن منتج جديد في القناة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Applies to"
 msgstr "ينطبق على"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Apply on"
 msgstr "التطبيق على"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Archived"
 msgstr "مؤرشف"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Attach PDF"
 msgstr "إرفاق PDF"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Attach PDF Report"
 msgstr "إرفاق تقرير PDF"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Automation Rules"
 msgstr "قواعد الأتمتة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Cancel"
 msgstr "إلغاء"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Canceled"
 msgstr "ملغى"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Company"
 msgstr "الشركة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Connected Account"
 msgstr "الحساب المتصل"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Connected as %(account)s via %(url)s"
 msgstr "تم الاتصال باسم %(account)s عبر %(url)s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Connection"
 msgstr "الاتصال"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Connections"
 msgstr "الاتصالات"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Contact"
 msgstr "جهة الاتصال"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Could not render the PDF report: %s"
 msgstr "تعذّر إنشاء تقرير PDF: %s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Create Contacts from Inbound Messages"
 msgstr "إنشاء جهات اتصال من الرسائل الواردة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Create at least one record of %s first."
 msgstr "أنشئ أولاً سجلاً واحداً على الأقل من %s."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Customer"
 msgstr "العميل"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Delivery Done"
 msgstr "إتمام التسليم"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Delivery Done (Arabic)"
 msgstr "إتمام التسليم (العربية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Delivery Done (English)"
 msgstr "إتمام التسليم (الإنجليزية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Delivery Done (Persian)"
 msgstr "إتمام التسليم (الفارسية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid ""
 "Delivery outcome unknown (gateway timeout). Not retried to avoid duplicates,"
 " please verify on the messenger."
@@ -112,248 +174,410 @@ msgstr ""
 "نتيجة التسليم غير معروفة (انتهاء مهلة البوابة). لم تُكرَّر المحاولة تجنباً "
 "للتكرار؛ يرجى التحقق في تطبيق المراسلة."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Direction"
 msgstr "الاتجاه"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Document not attached: %s"
 msgstr "لم يُرفق المستند: %s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Edit Previous Message"
 msgstr "تعديل الرسالة السابقة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Event"
 msgstr "الحدث"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Failed"
 msgstr "فشل"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Fallback Template"
 msgstr "القالب الافتراضي"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Gateway"
 msgstr "البوابة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Gateway URL"
 msgstr "عنوان البوابة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Group By"
 msgstr "تجميع حسب"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Hello, here is an update about %s."
 msgstr "مرحباً، إليك تحديثاً بشأن %s."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Host %s is not allowed: private or local hosts are refused."
 msgstr "المضيف %s غير مسموح: تُرفض المضيفات المحلية والخاصة."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Host %s resolves to a private or reserved address and is refused."
 msgstr "المضيف %s يشير إلى عنوان خاص أو محجوز وقد رُفض."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "IP address %s is not allowed: only public addresses are accepted."
 msgstr "عنوان IP ‏%s غير مسموح: تُقبل العناوين العامة فقط."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Inbound Messages (Webhook)"
 msgstr "الرسائل الواردة (Webhook)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Incoming"
 msgstr "وارد"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Invalid URL %s: rejected by the HTTP stack (%s)."
 msgstr "عنوان غير صالح %s: رفضه مكدس HTTP ‏(%s)."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Invalid URL: control characters are not allowed."
 msgstr "عنوان غير صالح: رموز التحكم غير مسموحة."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Invalid destination '%s'. Use +989123456789, @channel or a numeric id."
 msgstr "وجهة غير صالحة «%s». استخدم +989123456789 أو @قناة أو معرّفاً رقمياً."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Invalid gateway URL"
 msgstr "عنوان البوابة غير صالح"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Invoice"
 msgstr "الفاتورة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Invoice Posted"
 msgstr "ترحيل الفاتورة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Invoice Posted (Arabic)"
 msgstr "ترحيل الفاتورة (العربية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Invoice Posted (English)"
 msgstr "ترحيل الفاتورة (الإنجليزية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Invoice Posted (Persian)"
 msgstr "ترحيل الفاتورة (الفارسية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Language"
 msgstr "اللغة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Last Error"
 msgstr "آخر خطأ"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Message"
 msgstr "الرسالة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Message sent via Uniom (%s)."
 msgstr "تم إرسال الرسالة عبر Uniom ‏(%s)."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Messages"
 msgstr "الرسائل"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Network error while contacting Uniom: %s"
 msgstr "خطأ في الشبكة أثناء الاتصال بـ Uniom: %s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "New Secret"
 msgstr "رمز جديد"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "No Uniom Messages"
 msgstr "بدون رسائل Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "No record of type %(model)s exists yet to test this rule."
 msgstr "لا يوجد بعد سجل من نوع %(model)s لاختبار هذه القاعدة."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Notes"
 msgstr "ملاحظات"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Notify customer: delivery done"
 msgstr "إشعار العميل: إتمام التسليم"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Notify customer: invoice posted (with PDF)"
 msgstr "إشعار العميل: ترحيل الفاتورة (مع PDF)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Notify customer: order confirmed"
 msgstr "إشعار العميل: تأكيد أمر البيع"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Notify customer: payment received"
 msgstr "إشعار العميل: استلام الدفعة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Notify customer: quotation sent"
 msgstr "إشعار العميل: إرسال عرض السعر"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Only http:// and https:// URLs are allowed, got: %s"
 msgstr "يُسمح فقط بعناوين http:// و https://؛ تم استلام: %s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Open Connections"
 msgstr "فتح الاتصالات"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Open Record"
 msgstr "فتح السجل"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Order Confirmed (Arabic)"
 msgstr "تأكيد الطلب (العربية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Order Confirmed (English)"
 msgstr "تأكيد الطلب (الإنجليزية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Order Confirmed (Persian)"
 msgstr "تأكيد الطلب (الفارسية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Outgoing"
 msgstr "صادر"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Payment"
 msgstr "الدفعة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Payment Received"
 msgstr "استلام الدفعة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Payment Received (English)"
 msgstr "استلام الدفعة (الإنجليزية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Payment Received (Persian)"
 msgstr "استلام الدفعة (الفارسية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Preview"
 msgstr "معاينة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Price Updated (Arabic)"
 msgstr "تحديث السعر (العربية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Price Updated (English)"
 msgstr "تحديث السعر (الإنجليزية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Price Updated (Persian)"
 msgstr "تحديث السعر (الفارسية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Product"
 msgstr "المنتج"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Product Price Changed"
 msgstr "تغيير سعر المنتج"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Product Published"
 msgstr "نشر المنتج"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Product Published (English)"
 msgstr "نشر المنتج (الإنجليزية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Queued"
 msgstr "في الانتظار"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Quotation Sent"
 msgstr "إرسال عرض السعر"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Quotation Sent (English)"
 msgstr "إرسال عرض السعر (الإنجليزية)"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Recipients"
 msgstr "المستلمون"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Register Webhook"
 msgstr "تسجيل Webhook"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Remove Webhook"
 msgstr "إزالة Webhook"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Report %s is not allowed for this document."
 msgstr "التقرير %s غير مسموح لهذا المستند."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Retry %(n)s/%(max)s scheduled in %(mins)s min: %(err)s"
 msgstr "إعادة المحاولة %(n)s/%(max)s بعد %(mins)s دقيقة: %(err)s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Sale Order"
 msgstr "أمر البيع"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Sale Order Confirmed"
 msgstr "تأكيد أمر البيع"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Send"
 msgstr "إرسال"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Send / Retry"
 msgstr "إرسال / إعادة المحاولة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Send Immediately"
 msgstr "إرسال فوري"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Send via Uniom"
 msgstr "إرسال عبر Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Sent"
 msgstr "تم الإرسال"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Set the 'web.base.url' system parameter to your Odoo base URL first."
 msgstr "عيّن أولاً معامل النظام web.base.url على العنوان الأساسي لأودو."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Status"
 msgstr "الحالة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid ""
 "Template '%(template)s' applies to %(model)s but got a %(other)s record."
 msgstr ""
 "القالب «%(template)s» مخصص لـ %(model)s لكنه استقبل سجلاً من %(other)s."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Templates"
 msgstr "القوالب"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Test Connection"
 msgstr "اختبار الاتصال"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Test with Last Record"
 msgstr "اختبار مع آخر سجل"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "The URL %s has no host."
 msgstr "العنوان %s بلا مضيف."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid ""
 "The Uniom API key must start with '%(prefix)s' — copy it exactly as shown in"
 " your Uniom dashboard."
@@ -361,86 +585,142 @@ msgstr ""
 "يجب أن يبدأ مفتاح Uniom API بـ «%(prefix)s» — انسخه تماماً كما يظهر في لوحة "
 "تحكم Uniom."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "The connection '%s' has no API key."
 msgstr "الاتصال «%s» لا يحتوي على مفتاح API."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Transfer"
 msgstr "التحويل"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Translated Templates"
 msgstr "القوالب المترجمة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Unexpected error: %s"
 msgstr "خطأ غير متوقع: %s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Automation Rule"
 msgstr "قاعدة أتمتة Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Chat ID"
 msgstr "معرف محادثة Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Connection"
 msgstr "اتصال Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Gateway URL"
 msgstr "عنوان بوابة Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Message"
 msgstr "رسالة Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Message Template"
 msgstr "قالب رسالة Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Messages"
 msgstr "رسائل Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Messaging"
 msgstr "مراسلات Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Messaging Gateway"
 msgstr "بوابة مراسلات Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Notifications"
 msgstr "إشعارات Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Notifications Enabled"
 msgstr "إشعارات Uniom مفعّلة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom Send Wizard Recipient"
 msgstr "مستلم معالج إرسال Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom answered with a redirect (HTTP %s) which is refused."
 msgstr "ردّ Uniom بإعادة توجيه (HTTP %s) وقد رُفضت."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom answered with invalid JSON (HTTP %s)."
 msgstr "ردّ Uniom بـ JSON غير صالح (HTTP %s)."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom contact %s"
 msgstr "جهة اتصال Uniom ‏%s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom error %(code)s: %(description)s"
 msgstr "خطأ Uniom ‏%(code)s: %(description)s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom message failed permanently: %s"
 msgstr "فشلت رسالة Uniom نهائياً: %s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom message to %s"
 msgstr "رسالة Uniom إلى %s"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Uniom template preview"
 msgstr "معاينة قالب Uniom"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Unknown error"
 msgstr "خطأ غير معروف"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Update price post in channel"
 msgstr "تحديث منشور السعر في القناة"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "Webhook registered."
 msgstr "تم تسجيل Webhook."
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "With Errors"
 msgstr "مع أخطاء"
 
+#. module: uniom_connector
+#: models/uniom_tools.py:1
 msgid "empty"
 msgstr "فارغ"

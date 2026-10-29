@@ -9,7 +9,7 @@ from odoo.addons.uniom_connector.models.uniom_tools import canonicalize_chat_id,
 
 
 def _fake_resolver(addresses):
-    def resolver(hostname):
+    def resolver(hostname, *args, **kwargs):
         return [(0, 0, 0, "", (address, 0)) for address in addresses]
     return resolver
 
