@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+     copyright and licensing details. -->
+<odoo>
+    <record id="view_uniom_connection_tree" model="ir.ui.view">
+        <field name="name">uniom.connection.tree</field>
+        <field name="model">uniom.connection</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="base_url"/>
+                <field name="account_display" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_uniom_connection_form" model="ir.ui.view">
+        <field name="name">uniom.connection.form</field>
+        <field name="model">uniom.connection</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_test_connection" type="object" string="Test Connection" icon="fa-plug" class="oe_stat_button"/>
+                        <button name="action_register_webhook" type="object" string="Register Webhook" icon="fa-rss" class="oe_stat_button"/>
+                        <button name="action_delete_webhook" type="object" string="Remove Webhook" icon="fa-times-circle" class="oe_stat_button" invisible="not webhook_registered"/>
+                        <button name="action_regenerate_webhook_secret" type="object" string="New Secret" icon="fa-key" class="oe_stat_button"/>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Bale — Sales Notifications"/></h1>
+                        <field name="account_display" invisible="not account_display" class="oe_text_muted"/>
+                    </div>
+                    <group>
+                        <group string="Gateway">
+                            <field name="active" invisible="1"/>
+                            <field name="base_url"/>
+                            <field name="api_key" password="True"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group string="Connected Account">
+                            <field name="account_display"/>
+                            <field name="account_details" invisible="not account_details"/>
+                        </group>
+                    </group>
+                    <group string="Inbound Messages (Webhook)" name="webhook">
+                        <field name="webhook_registered"/>
+                        <field name="webhook_url"/>
+                        <field name="webhook_secret" groups="uniom_connector.group_uniom_manager"/>
+                        <field name="inbound_create_partner"/>
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" placeholder="Internal notes..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_uniom_connection" model="ir.actions.act_window">
+        <field name="name">Connections</field>
+        <field name="res_model">uniom.connection</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create your first Uniom connection</p>
+            <p>Paste an API key from your Uniom dashboard — one key per messenger account (Bale, Rubika, Eitaa, Soroush+, Telegram).</p>
+        </field>
+    </record>
+</odoo>

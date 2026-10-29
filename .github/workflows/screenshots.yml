@@ -1,0 +1,95 @@
+name: Screenshots
+
+# Boots Odoo 18 with demo data + the module, then captures the UI with
+# Playwright into screenshots/ (uploaded as an artifact). Run manually:
+# Actions -> Screenshots -> Run workflow.
+
+on: workflow_dispatch
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: odoo
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U odoo"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DB_USER: odoo
+      DB_PASSWORD: odoo
+      DB_HOST: localhost
+      DB_PORT: 5432
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout Odoo
+        uses: actions/checkout@v4
+        with:
+          repository: odoo/odoo
+          ref: "18.0"
+          path: odoo
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpq-dev
+          pip install -r odoo/requirements.txt
+          pip install playwright
+          playwright install --with-deps chromium
+
+      - name: Link module into addons path
+        run: ln -s "$GITHUB_WORKSPACE/uniom_connector" odoo/addons/uniom_connector
+
+      - name: Initialize database with demo data
+        run: |
+          python odoo/odoo-bin -d demo \
+            --db_host "$DB_HOST" --db_port "$DB_PORT" \
+            --db_user "$DB_USER" --db_password "$DB_PASSWORD" \
+            --addons-path odoo/addons \
+            -i uniom_connector --load-language en_US,fa_IR \
+            --stop-after-init
+
+      - name: Start Odoo server
+        run: |
+          python odoo/odoo-bin -d demo \
+            --db_host "$DB_HOST" --db_port "$DB_PORT" \
+            --db_user "$DB_USER" --db_password "$DB_PASSWORD" \
+            --addons-path odoo/addons \
+            --http-port 8069 &> odoo-server.log &
+          for i in $(seq 1 60); do
+            curl -sf http://localhost:8069/web/login > /dev/null && break
+            sleep 5
+          done
+
+      - name: Capture screenshots
+        run: python scripts/take_screenshots.py
+        env:
+          ODOO_URL: http://localhost:8069
+          ODOO_DB: demo
+          ODOO_LOGIN: admin
+          ODOO_PASSWORD: admin
+          OUT_DIR: screenshots
+
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: uniom-screenshots
+          path: screenshots/
+      - name: Upload server log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: odoo-server-log
+          path: odoo-server.log

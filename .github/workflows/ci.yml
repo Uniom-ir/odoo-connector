@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        odoo: ["18.0"]
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: odoo
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U odoo"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DB_USER: odoo
+      DB_PASSWORD: odoo
+      DB_HOST: localhost
+      DB_PORT: 5432
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout Odoo ${{ matrix.odoo }}
+        uses: actions/checkout@v4
+        with:
+          repository: odoo/odoo
+          ref: ${{ matrix.odoo }}
+          path: odoo
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install Odoo python dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y libpq-dev
+          pip install -r odoo/requirements.txt
+
+      - name: Link module into addons path
+        run: ln -s "$GITHUB_WORKSPACE/uniom_connector" odoo/addons/uniom_connector
+
+      - name: Run module test suite
+        run: |
+          python odoo/odoo-bin \
+            -d test \
+            --db_host "$DB_HOST" --db_port "$DB_PORT" \
+            --db_user "$DB_USER" --db_password "$DB_PASSWORD" \
+            --addons-path odoo/addons \
+            -i uniom_connector \
+            --without-demo=all \
+            --load-language en_US,fa_IR,ar_001 \
+            --test-enable --test-tags /uniom_connector \
+            --stop-after-init \
+            --log-level info \
+            2>&1 | tee odoo-test.log
+          grep -qE "0 failed|0 error(s)?" odoo-test.log || \
+            (grep -E "FAIL|ERROR" odoo-test.log | head -50; exit 1)
+
+      - name: Show test summary on failure
+        if: failure()
+        run: grep -E "odoo.tests|FAIL|ERROR" odoo-test.log | tail -80 || true

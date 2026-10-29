@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+     copyright and licensing details. -->
+<odoo>
+    <record id="view_uniom_rule_tree" model="ir.ui.view">
+        <field name="name">uniom.rule.tree</field>
+        <field name="model">uniom.rule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="trigger"/>
+                <field name="template_id"/>
+                <field name="connection_id" optional="show"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+                <field name="active" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_uniom_rule_form" model="ir.ui.view">
+        <field name="name">uniom.rule.form</field>
+        <field name="model">uniom.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_test_rule" type="object" string="Test with Last Record" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Notify customer when order is confirmed"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="trigger"/>
+                            <field name="trigger_model" invisible="1"/>
+                            <field name="partner_field" invisible="trigger_model not in ('sale.order', 'account.move', 'account.payment', 'stock.picking')"/>
+                            <field name="connection_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="send_immediately"/>
+                            <field name="edit_previous" invisible="trigger not in ('product_price_changed',)"/>
+                            <field name="include_document" invisible="not report_ref"/>
+                            <field name="report_ref" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Message" name="page_message">
+                            <group>
+                                <field name="template_id"/>
+                                <field name="template_ids" widget="many2many_tags" placeholder="Per-language templates (fa, ar, ...)"/>
+                            </group>
+                        </page>
+                        <page string="Recipients" name="page_recipients">
+                            <group>
+                                <field name="manual_chat_ids" placeholder="@mychannel&#10;+989123456789&#10;-1001234567890"/>
+                            </group>
+                            <p class="text-muted">
+                                Customers are notified on their phone number (or Uniom Chat ID) unless they opted out. Extra destinations above receive every message too — one per line.
+                            </p>
+                        </page>
+                        <page string="Advanced" name="page_advanced">
+                            <group>
+                                <field name="domain" placeholder="[('amount_total', '&gt;', 1000000)]"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_uniom_rule_search" model="ir.ui.view">
+        <field name="name">uniom.rule.search</field>
+        <field name="model">uniom.rule</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="trigger"/>
+                <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_trigger" string="Event" context="{'group_by': 'trigger'}"/>
+                    <filter name="group_by_connection" string="Connection" context="{'group_by': 'connection_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_uniom_rule" model="ir.actions.act_window">
+        <field name="name">Automation Rules</field>
+        <field name="res_model">uniom.rule</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create an automation rule</p>
+            <p>Pick a business event (order confirmed, invoice posted, price changed...), a message template and the destinations — Uniom does the rest.</p>
+        </field>
+    </record>
+</odoo>

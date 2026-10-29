@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+     copyright and licensing details. -->
+<odoo>
+    <record id="view_uniom_template_tree" model="ir.ui.view">
+        <field name="name">uniom.template.tree</field>
+        <field name="model">uniom.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="model_id"/>
+                <field name="lang_id" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_uniom_template_form" model="ir.ui.view">
+        <field name="name">uniom.template.form</field>
+        <field name="model">uniom.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_preview" type="object" string="Preview" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Order Confirmed (English)"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="model_id" widget="selection"/>
+                            <field name="model" invisible="1"/>
+                            <field name="lang_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <label for="body"/>
+                    <field name="body" placeholder="Hello ${object.partner_id.name},&#10;your order ${object.name} is confirmed.&#10;Total: ${object.amount_total} ${object.currency_id.name}"/>
+                    <p class="text-muted">
+                        Placeholders use the standard Odoo syntax: ${object.field}, ${object.partner_id.name}, ...
+                    </p>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_uniom_template" model="ir.actions.act_window">
+        <field name="name">Templates</field>
+        <field name="res_model">uniom.template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

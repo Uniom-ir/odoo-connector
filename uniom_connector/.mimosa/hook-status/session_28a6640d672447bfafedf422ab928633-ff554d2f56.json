@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "mimosa-hook-status/v1",
+  "recordedAt": "2026-10-29T00:36:22.255Z",
+  "sessionId": "session_28a6640d672447bfafedf422ab928633",
+  "event": "PostToolUse",
+  "toolName": "Edit",
+  "file": "/Stuff/mahdi/Work/16-uniom/uniom-odoo/scripts/gen_i18n.py",
+  "outcome": "inconclusive",
+  "coverage": "partial",
+  "findingCount": 0,
+  "durationMs": 15,
+  "hostState": "hook_complete",
+  "reportHint": ".mimosa/reports/"
+}

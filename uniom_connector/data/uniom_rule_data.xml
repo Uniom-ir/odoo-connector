@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+     copyright and licensing details. -->
+<odoo>
+    <!-- Out-of-the-box rules. Customer events start active (they only fire
+         once a connection exists); channel events start archived because
+         they need a @channel destination first. -->
+    <data noupdate="1">
+        <record id="rule_quotation_sent" model="uniom.rule">
+            <field name="name">Notify customer: quotation sent</field>
+            <field name="trigger">quotation_sent</field>
+            <field name="template_id" ref="template_quotation_sent_en"/>
+            <field name="template_ids" eval="[]"/>
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="rule_sale_order_confirmed" model="uniom.rule">
+            <field name="name">Notify customer: order confirmed</field>
+            <field name="trigger">sale_order_confirmed</field>
+            <field name="template_id" ref="template_sale_confirmed_en"/>
+            <field name="template_ids" eval="[(6, 0, [ref('template_sale_confirmed_fa'), ref('template_sale_confirmed_ar')])]"/>
+        </record>
+
+        <record id="rule_invoice_posted" model="uniom.rule">
+            <field name="name">Notify customer: invoice posted (with PDF)</field>
+            <field name="trigger">invoice_posted</field>
+            <field name="domain">[('move_type', 'in', ('out_invoice', 'out_refund'))]</field>
+            <field name="template_id" ref="template_invoice_posted_en"/>
+            <field name="template_ids" eval="[(6, 0, [ref('template_invoice_posted_fa'), ref('template_invoice_posted_ar')])]"/>
+            <field name="include_document" eval="True"/>
+            <field name="report_ref">account.account_invoices</field>
+        </record>
+
+        <record id="rule_payment_received" model="uniom.rule">
+            <field name="name">Notify customer: payment received</field>
+            <field name="trigger">payment_received</field>
+            <field name="domain">[('payment_type', '=', 'inbound')]</field>
+            <field name="template_id" ref="template_payment_received_en"/>
+            <field name="template_ids" eval="[(6, 0, [ref('template_payment_received_fa')])]"/>
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="rule_picking_done" model="uniom.rule">
+            <field name="name">Notify customer: delivery done</field>
+            <field name="trigger">picking_done</field>
+            <field name="template_id" ref="template_picking_done_en"/>
+            <field name="template_ids" eval="[(6, 0, [ref('template_picking_done_fa'), ref('template_picking_done_ar')])]"/>
+        </record>
+
+        <record id="rule_product_created" model="uniom.rule">
+            <field name="name">Announce new product in channel</field>
+            <field name="trigger">product_created</field>
+            <field name="template_id" ref="template_product_created_en"/>
+            <field name="active" eval="False"/>
+        </record>
+
+        <record id="rule_product_price_changed" model="uniom.rule">
+            <field name="name">Update price post in channel</field>
+            <field name="trigger">product_price_changed</field>
+            <field name="template_id" ref="template_price_changed_en"/>
+            <field name="template_ids" eval="[(6, 0, [ref('template_price_changed_fa'), ref('template_price_changed_ar')])]"/>
+            <field name="edit_previous" eval="True"/>
+            <field name="active" eval="False"/>
+        </record>
+    </data>
+</odoo>

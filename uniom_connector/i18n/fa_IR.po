@@ -1,0 +1,406 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 18.0/17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-29 04:06\n"
+"PO-Revision-Date: 2026-10-29 04:06\n"
+"Last-Translator: Uniom\n"
+"Language-Team: Uniom <support@uniom.ir>\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid " %s failed and were queued or marked failed (see the log)."
+msgstr ""
+"‏%s ناموفق بود و در صف قرار گرفت یا ناموفق علامت خورد (لاگ را ببینید)."
+
+msgid "%s message(s) sent."
+msgstr "‏%s پیام ارسال شد."
+
+msgid "API Key"
+msgstr "کلید API"
+
+msgid "Account #%s"
+msgstr "حساب #%s"
+
+msgid "Advanced"
+msgstr "پیشرفته"
+
+msgid "Also Send To"
+msgstr "ارسال به‌علاوه به"
+
+msgid "Announce new product in channel"
+msgstr "اعلام محصول جدید در کانال"
+
+msgid "Applies to"
+msgstr "برای"
+
+msgid "Apply on"
+msgstr "اعمال روی"
+
+msgid "Archived"
+msgstr "بایگانی شده"
+
+msgid "Attach PDF"
+msgstr "پیوست PDF"
+
+msgid "Attach PDF Report"
+msgstr "پیوست گزارش PDF"
+
+msgid "Automation Rules"
+msgstr "قوانین خودکار"
+
+msgid "Cancel"
+msgstr "انصراف"
+
+msgid "Canceled"
+msgstr "لغو شد"
+
+msgid "Company"
+msgstr "شرکت"
+
+msgid "Connected Account"
+msgstr "حساب متصل"
+
+msgid "Connected as %(account)s via %(url)s"
+msgstr "به‌عنوان %(account)s از طریق %(url)s متصل شد"
+
+msgid "Connection"
+msgstr "اتصال"
+
+msgid "Connections"
+msgstr "اتصال‌ها"
+
+msgid "Create Contacts from Inbound Messages"
+msgstr "ایجاد مخاطب از پیام‌های ورودی"
+
+msgid "Create at least one record of %s first."
+msgstr "ابتدا حداقل یک رکورد از %s ایجاد کنید."
+
+msgid "Customer"
+msgstr "مشتری"
+
+msgid "Delivery Done"
+msgstr "انجام تحویل"
+
+msgid "Delivery Done (Arabic)"
+msgstr "انجام تحویل (عربی)"
+
+msgid "Delivery Done (English)"
+msgstr "انجام تحویل (انگلیسی)"
+
+msgid "Delivery Done (Persian)"
+msgstr "انجام تحویل (فارسی)"
+
+msgid ""
+"Delivery outcome unknown (gateway timeout). Not retried to avoid duplicates,"
+" please verify on the messenger."
+msgstr ""
+"نتیجه تحویل نامشخص است (تایم‌اوت دروازه). برای جلوگیری از تکرار، دوباره "
+"ارسال نشد؛ لطفاً در پیام‌رسان بررسی کنید."
+
+msgid "Direction"
+msgstr "جهت"
+
+msgid "Edit Previous Message"
+msgstr "ویرایش پیام قبلی"
+
+msgid "Event"
+msgstr "رویداد"
+
+msgid "Failed"
+msgstr "ناموفق"
+
+msgid "Fallback Template"
+msgstr "قالب پیش‌فرض"
+
+msgid "Gateway"
+msgstr "دروازه"
+
+msgid "Gateway URL"
+msgstr "نشانی دروازه پیام"
+
+msgid "Group By"
+msgstr "گروه‌بندی بر اساس"
+
+msgid "Hello, here is an update about %s."
+msgstr "سلام، این یک به‌روزرسانی درباره %s است."
+
+msgid "Host %s is not allowed: private or local hosts are refused."
+msgstr "میزبان %s مجاز نیست: میزبان‌های محلی و خصوصی رد می‌شوند."
+
+msgid "Host %s resolves to a private or reserved address and is refused."
+msgstr "میزبان %s به نشانی خصوصی یا رزروشده اشاره می‌کند و رد می‌شود."
+
+msgid "IP address %s is not allowed: only public addresses are accepted."
+msgstr "نشانی IP %s مجاز نیست: فقط نشانی‌های عمومی پذیرفته می‌شوند."
+
+msgid "Inbound Messages (Webhook)"
+msgstr "پیام‌های ورودی (وب‌هوک)"
+
+msgid "Incoming"
+msgstr "ورودی"
+
+msgid "Invalid destination '%s'. Use +989123456789, @channel or a numeric id."
+msgstr ""
+"مقصد نامعتبر «%s». از +989123456789، @کانال یا شناسه عددی استفاده کنید."
+
+msgid "Invalid gateway URL"
+msgstr "نشانی دروازه نامعتبر"
+
+msgid "Invoice Posted"
+msgstr "ثبت فاکتور"
+
+msgid "Invoice Posted (Arabic)"
+msgstr "ثبت فاکتور (عربی)"
+
+msgid "Invoice Posted (English)"
+msgstr "ثبت فاکتور (انگلیسی)"
+
+msgid "Invoice Posted (Persian)"
+msgstr "ثبت فاکتور (فارسی)"
+
+msgid "Language"
+msgstr "زبان"
+
+msgid "Last Error"
+msgstr "آخرین خطا"
+
+msgid "Message"
+msgstr "پیام"
+
+msgid "Message sent via Uniom (%s)."
+msgstr "پیام از طریق یونیوم ارسال شد (%s)."
+
+msgid "Messages"
+msgstr "پیام‌ها"
+
+msgid "Network error while contacting Uniom: %s"
+msgstr "خطای شبکه در تماس با یونیوم: %s"
+
+msgid "New Secret"
+msgstr "رمز جدید"
+
+msgid "No Uniom Messages"
+msgstr "بدون پیام یونیوم"
+
+msgid "No record of type %(model)s exists yet to test this rule."
+msgstr "هنوز رکوردی از نوع %(model)s برای آزمایش این قانون وجود ندارد."
+
+msgid "Notes"
+msgstr "یادداشت‌ها"
+
+msgid "Notify customer: delivery done"
+msgstr "اطلاع به مشتری: انجام تحویل"
+
+msgid "Notify customer: invoice posted (with PDF)"
+msgstr "اطلاع به مشتری: ثبت فاکتور (با PDF)"
+
+msgid "Notify customer: order confirmed"
+msgstr "اطلاع به مشتری: تأیید سفارش"
+
+msgid "Notify customer: payment received"
+msgstr "اطلاع به مشتری: دریافت پرداخت"
+
+msgid "Notify customer: quotation sent"
+msgstr "اطلاع به مشتری: ارسال پیش‌فاکتور"
+
+msgid "Only http:// and https:// URLs are allowed, got: %s"
+msgstr "فقط نشانی‌های http:// و https:// مجاز هستند؛ دریافت شد: %s"
+
+msgid "Open Connections"
+msgstr "باز کردن اتصال‌ها"
+
+msgid "Open Record"
+msgstr "باز کردن رکورد"
+
+msgid "Order Confirmed (Arabic)"
+msgstr "تأیید سفارش (عربی)"
+
+msgid "Order Confirmed (English)"
+msgstr "تأیید سفارش (انگلیسی)"
+
+msgid "Order Confirmed (Persian)"
+msgstr "تأیید سفارش (فارسی)"
+
+msgid "Outgoing"
+msgstr "خروجی"
+
+msgid "Payment Received"
+msgstr "دریافت پرداخت"
+
+msgid "Payment Received (English)"
+msgstr "دریافت پرداخت (انگلیسی)"
+
+msgid "Payment Received (Persian)"
+msgstr "دریافت پرداخت (فارسی)"
+
+msgid "Preview"
+msgstr "پیش‌نمایش"
+
+msgid "Price Updated (Arabic)"
+msgstr "به‌روزرسانی قیمت (عربی)"
+
+msgid "Price Updated (English)"
+msgstr "به‌روزرسانی قیمت (انگلیسی)"
+
+msgid "Price Updated (Persian)"
+msgstr "به‌روزرسانی قیمت (فارسی)"
+
+msgid "Product Price Changed"
+msgstr "تغییر قیمت محصول"
+
+msgid "Product Published"
+msgstr "انتشار محصول"
+
+msgid "Product Published (English)"
+msgstr "انتشار محصول (انگلیسی)"
+
+msgid "Queued"
+msgstr "در صف"
+
+msgid "Quotation Sent"
+msgstr "ارسال پیش‌فاکتور"
+
+msgid "Quotation Sent (English)"
+msgstr "ارسال پیش‌فاکتور (انگلیسی)"
+
+msgid "Recipients"
+msgstr "گیرندگان"
+
+msgid "Register Webhook"
+msgstr "ثبت وب‌هوک"
+
+msgid "Remove Webhook"
+msgstr "حذف وب‌هوک"
+
+msgid "Retry %(n)s/%(max)s scheduled in %(mins)s min: %(err)s"
+msgstr "تلاش مجدد %(n)s/%(max)s تا %(mins)s دقیقه دیگر: %(err)s"
+
+msgid "Sale Order Confirmed"
+msgstr "تأیید سفارش فروش"
+
+msgid "Send"
+msgstr "ارسال"
+
+msgid "Send / Retry"
+msgstr "ارسال / تلاش مجدد"
+
+msgid "Send Immediately"
+msgstr "ارسال فوری"
+
+msgid "Send via Uniom"
+msgstr "ارسال با یونیوم"
+
+msgid "Sent"
+msgstr "ارسال شد"
+
+msgid "Set the 'web.base.url' system parameter to your Odoo base URL first."
+msgstr "ابتدا پارامتر سیستم web.base.url را روی نشانی اصلی اودو تنظیم کنید."
+
+msgid "Status"
+msgstr "وضعیت"
+
+msgid ""
+"Template '%(template)s' applies to %(model)s but got a %(other)s record."
+msgstr "قالب «%(template)s» برای %(model)s است اما رکورد %(other)s داده شد."
+
+msgid "Templates"
+msgstr "قالب‌ها"
+
+msgid "Test Connection"
+msgstr "تست اتصال"
+
+msgid "Test with Last Record"
+msgstr "آزمایش با آخرین رکورد"
+
+msgid "The URL %s has no host."
+msgstr "نشانی %s میزبان ندارد."
+
+msgid ""
+"The Uniom API key must start with '%(prefix)s' — copy it exactly as shown in"
+" your Uniom dashboard."
+msgstr ""
+"کلید API یونیوم باید با «%(prefix)s» شروع شود — آن را دقیقاً مطابق داشبورد "
+"یونیوم کپی کنید."
+
+msgid "The connection '%s' has no API key."
+msgstr "اتصال «%s» کلید API ندارد."
+
+msgid "Translated Templates"
+msgstr "قالب‌های ترجمه‌شده"
+
+msgid "Uniom Automation Rule"
+msgstr "قانون خودکار یونیوم"
+
+msgid "Uniom Chat ID"
+msgstr "شناسه چت یونیوم"
+
+msgid "Uniom Connection"
+msgstr "اتصال یونیوم"
+
+msgid "Uniom Gateway URL"
+msgstr "نشانی دروازه یونیوم"
+
+msgid "Uniom Message"
+msgstr "پیام یونیوم"
+
+msgid "Uniom Message Template"
+msgstr "قالب پیام یونیوم"
+
+msgid "Uniom Messages"
+msgstr "پیام‌های یونیوم"
+
+msgid "Uniom Messaging"
+msgstr "پیام‌رسانی یونیوم"
+
+msgid "Uniom Messaging Gateway"
+msgstr "دروازه پیام‌رسانی یونیوم"
+
+msgid "Uniom Notifications"
+msgstr "اطلاع‌رسانی یونیوم"
+
+msgid "Uniom Notifications Enabled"
+msgstr "اطلاع‌رسانی یونیوم فعال است"
+
+msgid "Uniom Send Wizard Recipient"
+msgstr "گیرنده ویزارد ارسال یونیوم"
+
+msgid "Uniom answered with a redirect (HTTP %s) which is refused."
+msgstr "یونیوم پاسخ تغییر مسیر (HTTP %s) داد که رد شد."
+
+msgid "Uniom answered with invalid JSON (HTTP %s)."
+msgstr "یونیوم JSON نامعتبر (HTTP %s) پاسخ داد."
+
+msgid "Uniom contact %s"
+msgstr "مخاطب یونیوم %s"
+
+msgid "Uniom error %(code)s: %(description)s"
+msgstr "خطای یونیوم %(code)s: %(description)s"
+
+msgid "Uniom message failed permanently: %s"
+msgstr "پیام یونیوم برای همیشه ناموفق شد: %s"
+
+msgid "Uniom message to %s"
+msgstr "پیام یونیوم به %s"
+
+msgid "Uniom template preview"
+msgstr "پیش‌نمایش قالب یونیوم"
+
+msgid "Unknown error"
+msgstr "خطای ناشناخته"
+
+msgid "Update price post in channel"
+msgstr "به‌روزرسانی پست قیمت در کانال"
+
+msgid "Webhook registered."
+msgstr "وب‌هوک ثبت شد."
+
+msgid "With Errors"
+msgstr "دارای خطا"
+
+msgid "empty"
+msgstr "خالی"

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+     copyright and licensing details. -->
+<odoo>
+    <record id="view_order_form_uniom" model="ir.ui.view">
+        <field name="name">sale.order.form.uniom</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_uniom_send" type="object" string="Send via Uniom"
+                        class="btn-secondary" groups="uniom_connector.group_uniom_user"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

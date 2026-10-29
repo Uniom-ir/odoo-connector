@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Odoo
+*.pyc
+.filestore/
+.session
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Test artifacts
+.geanyprj.py
+.coverage
+htmlcov/

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+     copyright and licensing details. -->
+<odoo>
+    <record id="view_uniom_send_wizard_form" model="ir.ui.view">
+        <field name="name">uniom.send.wizard.form</field>
+        <field name="model">uniom.send.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Send via Uniom">
+                <field name="active_model" invisible="1"/>
+                <field name="active_id" invisible="1"/>
+                <group>
+                    <group>
+                        <field name="connection_id"/>
+                        <field name="attach_document" invisible="1"/>
+                    </group>
+                </group>
+                <label for="body"/>
+                <field name="body" placeholder="Write your message..."/>
+                <field name="recipient_ids">
+                    <tree editable="bottom">
+                        <field name="partner_id"/>
+                        <field name="chat_id" placeholder="+989123456789 or @channel"/>
+                    </tree>
+                </field>
+                <footer>
+                    <button name="action_send" string="Send" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

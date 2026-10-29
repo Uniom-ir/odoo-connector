@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "mimosa-finding-ledger-batch/v1",
+  "batchId": "posttooluse-9b5f24cc43b0939447f2669b57cbe89d",
+  "runId": null,
+  "runStatus": "completed",
+  "coverage": {
+    "status": "complete",
+    "reasons": []
+  },
+  "source": {
+    "component": "zcode-hook",
+    "operationId": "PostToolUse"
+  },
+  "revision": null,
+  "diffHash": null,
+  "rulesVersion": null,
+  "sessionHash": "ff554d2f566a2cc9fd383baf5fdc015ba2b8cd87b888f14ea4c4bfa9f3027d1f",
+  "reportRef": null,
+  "events": [
+    {
+      "eventId": "hook-4a73d0f69ddf1fd247018d787bfb3c50",
+      "findingId": "mimosa-742f430567029f34ac448ad0",
+      "type": "static_fix_verified",
+      "at": "2026-10-29T00:30:57.168Z",
+      "identity": {
+        "projectRelativeFile": "tests/test_uniom_connection.py",
+        "ruleId": "security",
+        "codeEvidenceHash": "967c61e6e11ae7e133dfa302e6cb995c7452ebd99e5a765fa88ec6e27ee734f8",
+        "confidence": "stable"
+      },
+      "scope": "direct",
+      "line": 71,
+      "endLine": 71,
+      "reasonCode": "static_rescan_passed",
+      "reportedToAgent": false,
+      "evidence": {
+        "kind": "static_scan",
+        "boundary": "observed",
+        "producer": "deterministic",
+        "evidenceHash": "967c61e6e11ae7e133dfa302e6cb995c7452ebd99e5a765fa88ec6e27ee734f8"
+      },
+      "sequence": 0
+    }
+  ],
+  "observedFindingIds": [],
+  "verifiedFiles": [],
+  "recordedAt": "2026-10-29T00:30:57.719Z"
+}

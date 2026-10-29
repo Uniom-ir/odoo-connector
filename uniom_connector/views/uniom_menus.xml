@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+     copyright and licensing details. -->
+<odoo>
+    <menuitem id="menu_uniom_root"
+              name="Uniom"
+              web_icon="uniom_connector,static/description/icon.png"
+              sequence="95"
+              groups="uniom_connector.group_uniom_user"/>
+
+    <menuitem id="menu_uniom_messages"
+              name="Messages"
+              parent="menu_uniom_root"
+              action="action_uniom_message"
+              sequence="10"/>
+
+    <menuitem id="menu_uniom_rules"
+              name="Automation Rules"
+              parent="menu_uniom_root"
+              action="action_uniom_rule"
+              groups="uniom_connector.group_uniom_manager"
+              sequence="20"/>
+
+    <menuitem id="menu_uniom_templates"
+              name="Templates"
+              parent="menu_uniom_root"
+              action="action_uniom_template"
+              groups="uniom_connector.group_uniom_manager"
+              sequence="30"/>
+
+    <menuitem id="menu_uniom_connections"
+              name="Connections"
+              parent="menu_uniom_root"
+              action="action_uniom_connection"
+              groups="uniom_connector.group_uniom_manager"
+              sequence="40"/>
+</odoo>

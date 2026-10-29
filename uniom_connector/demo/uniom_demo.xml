@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+     copyright and licensing details. -->
+<odoo>
+    <!-- Demo data: a fake (invalid) API key — enough to explore the UI and
+         take screenshots without touching the real gateway. -->
+    <record id="demo_connection_bale" model="uniom.connection">
+        <field name="name">Bale — Sales Notifications (Demo)</field>
+        <field name="base_url">https://api.uniom.ir</field>
+        <field name="api_key">uniom_000000000000000000000000000000000000000000000000</field>
+        <field name="account_display">Uniom Demo Account (+98 912 000 0000)</field>
+    </record>
+
+    <record id="demo_connection_rubika" model="uniom.connection">
+        <field name="name">Rubika — Shop Channel (Demo)</field>
+        <field name="base_url">https://api.uniomi.ir</field>
+        <field name="api_key">uniom_111111111111111111111111111111111111111111111111</field>
+        <field name="account_display">Rubika Demo Account</field>
+    </record>
+
+    <record id="demo_partner_customer" model="res.partner">
+        <field name="name">سارا محمدی (Demo)</field>
+        <field name="mobile">+989120000001</field>
+        <field name="lang">fa_IR</field>
+    </record>
+
+    <record id="demo_partner_channel" model="res.partner">
+        <field name="name">Uniom Demo Channel</field>
+        <field name="uniom_chat_id">@uniom_demo_channel</field>
+        <field name="is_company" eval="True"/>
+    </record>
+
+    <record id="demo_message_sent" model="uniom.message">
+        <field name="connection_id" ref="demo_connection_bale"/>
+        <field name="direction">out</field>
+        <field name="state">sent</field>
+        <field name="chat_id">+989120000001</field>
+        <field name="partner_id" ref="demo_partner_customer"/>
+        <field name="body">سلام سارا محمدی عزیز، سفارش S00001 شما تأیید شد. مبلغ کل: 2500000.00 IRT</field>
+        <field name="date_sent" eval="(DateTime.now() - timedelta(hours=2)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="uniom_message_id">4821</field>
+    </record>
+
+    <record id="demo_message_failed" model="uniom.message">
+        <field name="connection_id" ref="demo_connection_bale"/>
+        <field name="direction">out</field>
+        <field name="state">error</field>
+        <field name="chat_id">+989120000002</field>
+        <field name="body">فاکتور INV/2026/0001 صادر شد.</field>
+        <field name="error_message">Uniom error 400: Bad Request: chat not found</field>
+        <field name="retry_count">1</field>
+    </record>
+
+    <record id="demo_message_incoming" model="uniom.message">
+        <field name="connection_id" ref="demo_connection_bale"/>
+        <field name="direction">in</field>
+        <field name="state">sent</field>
+        <field name="chat_id">+989120000001</field>
+        <field name="partner_id" ref="demo_partner_customer"/>
+        <field name="body">ممنون، منتظرم 🙏</field>
+        <field name="date_sent" eval="(DateTime.now() - timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+</odoo>

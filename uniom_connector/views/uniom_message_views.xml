@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+     copyright and licensing details. -->
+<odoo>
+    <record id="view_uniom_message_tree" model="ir.ui.view">
+        <field name="name">uniom.message.tree</field>
+        <field name="model">uniom.message</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="direction == 'in'"
+                  decoration-warning="state == 'outgoing'"
+                  decoration-danger="state == 'error'"
+                  decoration-muted="state == 'canceled'">
+                <field name="create_date" widget="datetime"/>
+                <field name="direction" optional="show"/>
+                <field name="chat_id"/>
+                <field name="partner_id" optional="show"/>
+                <field name="record_name" optional="show"/>
+                <field name="body"/>
+                <field name="connection_id"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'sent'"
+                       decoration-warning="state == 'outgoing'"
+                       decoration-danger="state == 'error'"/>
+                <field name="retry_count" optional="hide"/>
+                <field name="edit_count" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_uniom_message_form" model="ir.ui.view">
+        <field name="name">uniom.message.form</field>
+        <field name="model">uniom.message</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send_now" type="object" string="Send / Retry" class="btn-primary" invisible="state not in ('outgoing', 'error')"/>
+                    <button name="action_cancel" type="object" string="Cancel" invisible="state != 'outgoing'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="outgoing,sent"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_record" type="object" string="Open Record" icon="fa-external-link" class="oe_stat_button" invisible="not record_res_id"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="chat_id"/></h1>
+                        <p class="oe_text_muted"><field name="record_name"/></p>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="direction"/>
+                            <field name="connection_id"/>
+                            <field name="partner_id"/>
+                            <field name="rule_id" invisible="not rule_id"/>
+                            <field name="template_id" invisible="not template_id"/>
+                        </group>
+                        <group>
+                            <field name="date_sent" readonly="1"/>
+                            <field name="date_edited" readonly="1"/>
+                            <field name="edit_count" readonly="1"/>
+                            <field name="uniom_message_id" readonly="1"/>
+                            <field name="retry_count" readonly="1"/>
+                            <field name="next_attempt" readonly="1"/>
+                            <field name="report_ref" invisible="not report_ref"/>
+                            <field name="attachment_id" invisible="not attachment_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <field name="body"/>
+                    <group string="Last Error" invisible="not error_message">
+                        <field name="error_message" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_uniom_message_search" model="ir.ui.view">
+        <field name="name">uniom.message.search</field>
+        <field name="model">uniom.message</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="chat_id"/>
+                <field name="body"/>
+                <field name="partner_id"/>
+                <field name="record_name"/>
+                <filter name="filter_incoming" string="Incoming" domain="[('direction', '=', 'in')]"/>
+                <filter name="filter_outgoing" string="Outgoing" domain="[('direction', '=', 'out')]"/>
+                <separator/>
+                <filter name="filter_queued" string="Queued" domain="[('state', '=', 'outgoing')]"/>
+                <filter name="filter_sent" string="Sent" domain="[('state', '=', 'sent')]"/>
+                <filter name="filter_failed" string="Failed" domain="[('state', '=', 'error')]"/>
+                <separator/>
+                <filter name="filter_with_errors" string="With Errors" domain="[('error_message', '!=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_by_direction" string="Direction" context="{'group_by': 'direction'}"/>
+                    <filter name="group_by_connection" string="Connection" context="{'group_by': 'connection_id'}"/>
+                    <filter name="group_by_partner" string="Customer" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_uniom_message" model="ir.actions.act_window">
+        <field name="name">Messages</field>
+        <field name="res_model">uniom.message</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
