@@ -2,62 +2,63 @@
 <!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
      copyright and licensing details. -->
 <odoo>
-    <!-- English fallback templates, one per event. -->
+    <!-- English fallback templates, one per event. Placeholders use Odoo's
+         inline-template syntax: {{ object.field }} -->
     <record id="template_quotation_sent_en" model="uniom.template">
         <field name="name">Quotation Sent (English)</field>
         <field name="model_id" ref="sale.model_sale_order"/>
-        <field name="body">Hello ${object.partner_id.name},
-your quotation ${object.name} is ready.
-Total: ${object.amount_total} ${object.currency_id.name}
+        <field name="body">Hello {{ object.partner_id.name }},
+your quotation {{ object.name }} is ready.
+Total: {{ object.amount_total }} {{ object.currency_id.name }}
 You can review it and confirm at your convenience. Thank you!</field>
     </record>
 
     <record id="template_sale_confirmed_en" model="uniom.template">
         <field name="name">Order Confirmed (English)</field>
         <field name="model_id" ref="sale.model_sale_order"/>
-        <field name="body">Hello ${object.partner_id.name},
-your order ${object.name} has been confirmed.
-Total: ${object.amount_total} ${object.currency_id.name}
-Thank you for choosing ${object.company_id.name}!</field>
+        <field name="body">Hello {{ object.partner_id.name }},
+your order {{ object.name }} has been confirmed.
+Total: {{ object.amount_total }} {{ object.currency_id.name }}
+Thank you for choosing {{ object.company_id.name }}!</field>
     </record>
 
     <record id="template_invoice_posted_en" model="uniom.template">
         <field name="name">Invoice Posted (English)</field>
         <field name="model_id" ref="account.model_account_move"/>
-        <field name="body">Hello ${object.partner_id.name},
-invoice ${object.name} for ${object.amount_total_signed} ${object.currency_id.name} has been issued.
+        <field name="body">Hello {{ object.partner_id.name }},
+invoice {{ object.name }} for {{ object.amount_total_signed }} {{ object.currency_id.name }} has been issued.
 The PDF document is attached. Thank you!</field>
     </record>
 
     <record id="template_payment_received_en" model="uniom.template">
         <field name="name">Payment Received (English)</field>
         <field name="model_id" ref="account.model_account_payment"/>
-        <field name="body">Hello ${object.partner_id.name},
-we received your payment of ${object.amount} ${object.currency_id.name}.
+        <field name="body">Hello {{ object.partner_id.name }},
+we received your payment of {{ object.amount }} {{ object.currency_id.name }}.
 Thank you!</field>
     </record>
 
     <record id="template_picking_done_en" model="uniom.template">
         <field name="name">Delivery Done (English)</field>
         <field name="model_id" ref="stock.model_stock_picking"/>
-        <field name="body">Hello ${object.partner_id.name},
-your order is on its way! Delivery ${object.name} has been validated${', carrier: ' + object.carrier_id.name if object.carrier_id else ''}.
-Thank you for shopping with ${object.company_id.name}!</field>
+        <field name="body">Hello {{ object.partner_id.name }},
+your order is on its way! Delivery {{ object.name }} has been validated{{ ', carrier: ' + object.carrier_id.name if object.carrier_id else '' }}.
+Thank you for shopping with {{ object.company_id.name }}!</field>
     </record>
 
     <record id="template_product_created_en" model="uniom.template">
         <field name="name">Product Published (English)</field>
         <field name="model_id" ref="product.model_product_template"/>
-        <field name="body">New product available: ${object.name}
-Price: ${object.list_price} ${object.company_id.currency_id.name}
-${object.description_sale or ''}</field>
+        <field name="body">New product available: {{ object.name }}
+Price: {{ object.list_price }} {{ object.company_id.currency_id.name }}
+{{ object.description_sale or '' }}</field>
     </record>
 
     <record id="template_price_changed_en" model="uniom.template">
         <field name="name">Price Updated (English)</field>
         <field name="model_id" ref="product.model_product_template"/>
-        <field name="body">Price update — ${object.name}
-New price: ${object.list_price} ${object.company_id.currency_id.name}</field>
+        <field name="body">Price update — {{ object.name }}
+New price: {{ object.list_price }} {{ object.company_id.currency_id.name }}</field>
     </record>
 
     <!-- Persian (fa_IR) variants for the customer-facing events. -->
@@ -65,18 +66,18 @@ New price: ${object.list_price} ${object.company_id.currency_id.name}</field>
         <field name="name">Order Confirmed (Persian)</field>
         <field name="model_id" ref="sale.model_sale_order"/>
         <field name="lang_id" search="[('code', '=', 'fa_IR')]"/>
-        <field name="body">سلام ${object.partner_id.name} عزیز،
-سفارش ${object.name} شما تأیید شد.
-مبلغ کل: ${object.amount_total} ${object.currency_id.name}
-از انتخاب شما سپاسگزاریم — ${object.company_id.name}</field>
+        <field name="body">سلام {{ object.partner_id.name }} عزیز،
+سفارش {{ object.name }} شما تأیید شد.
+مبلغ کل: {{ object.amount_total }} {{ object.currency_id.name }}
+از انتخاب شما سپاسگزاریم — {{ object.company_id.name }}</field>
     </record>
 
     <record id="template_invoice_posted_fa" model="uniom.template">
         <field name="name">Invoice Posted (Persian)</field>
         <field name="model_id" ref="account.model_account_move"/>
         <field name="lang_id" search="[('code', '=', 'fa_IR')]"/>
-        <field name="body">سلام ${object.partner_id.name} عزیز،
-فاکتور ${object.name} به مبلغ ${object.amount_total_signed} ${object.currency_id.name} صادر شد.
+        <field name="body">سلام {{ object.partner_id.name }} عزیز،
+فاکتور {{ object.name }} به مبلغ {{ object.amount_total_signed }} {{ object.currency_id.name }} صادر شد.
 فایل PDF فاکتور پیوست این پیام است. با تشکر!</field>
     </record>
 
@@ -84,17 +85,17 @@ New price: ${object.list_price} ${object.company_id.currency_id.name}</field>
         <field name="name">Delivery Done (Persian)</field>
         <field name="model_id" ref="stock.model_stock_picking"/>
         <field name="lang_id" search="[('code', '=', 'fa_IR')]"/>
-        <field name="body">سلام ${object.partner_id.name} عزیز،
-سفارش شما ارسال شد! حواله ${object.name} ثبت شد${'، حمل‌کننده: ' + object.carrier_id.name if object.carrier_id else ''}.
-خرید شما را از ${object.company_id.name} سپاسگزاریم!</field>
+        <field name="body">سلام {{ object.partner_id.name }} عزیز،
+سفارش شما ارسال شد! حواله {{ object.name }} ثبت شد{{ '، حمل‌کننده: ' + object.carrier_id.name if object.carrier_id else '' }}.
+خرید شما را از {{ object.company_id.name }} سپاسگزاریم!</field>
     </record>
 
     <record id="template_payment_received_fa" model="uniom.template">
         <field name="name">Payment Received (Persian)</field>
         <field name="model_id" ref="account.model_account_payment"/>
         <field name="lang_id" search="[('code', '=', 'fa_IR')]"/>
-        <field name="body">سلام ${object.partner_id.name} عزیز،
-پرداخت شما به مبلغ ${object.amount} ${object.currency_id.name} دریافت شد.
+        <field name="body">سلام {{ object.partner_id.name }} عزیز،
+پرداخت شما به مبلغ {{ object.amount }} {{ object.currency_id.name }} دریافت شد.
 با تشکر!</field>
     </record>
 
@@ -102,8 +103,8 @@ New price: ${object.list_price} ${object.company_id.currency_id.name}</field>
         <field name="name">Price Updated (Persian)</field>
         <field name="model_id" ref="product.model_product_template"/>
         <field name="lang_id" search="[('code', '=', 'fa_IR')]"/>
-        <field name="body">به‌روزرسانی قیمت — ${object.name}
-قیمت جدید: ${object.list_price} ${object.company_id.currency_id.name}</field>
+        <field name="body">به‌روزرسانی قیمت — {{ object.name }}
+قیمت جدید: {{ object.list_price }} {{ object.company_id.currency_id.name }}</field>
     </record>
 
     <!-- Arabic (ar_001) variants. -->
@@ -111,18 +112,18 @@ New price: ${object.list_price} ${object.company_id.currency_id.name}</field>
         <field name="name">Order Confirmed (Arabic)</field>
         <field name="model_id" ref="sale.model_sale_order"/>
         <field name="lang_id" search="[('code', '=', 'ar_001')]"/>
-        <field name="body">مرحبا ${object.partner_id.name}،
-تم تأكيد طلبكم ${object.name}.
-الإجمالي: ${object.amount_total} ${object.currency_id.name}
-شكراً لاختياركم ${object.company_id.name}!</field>
+        <field name="body">مرحبا {{ object.partner_id.name }}،
+تم تأكيد طلبكم {{ object.name }}.
+الإجمالي: {{ object.amount_total }} {{ object.currency_id.name }}
+شكراً لاختياركم {{ object.company_id.name }}!</field>
     </record>
 
     <record id="template_invoice_posted_ar" model="uniom.template">
         <field name="name">Invoice Posted (Arabic)</field>
         <field name="model_id" ref="account.model_account_move"/>
         <field name="lang_id" search="[('code', '=', 'ar_001')]"/>
-        <field name="body">مرحبا ${object.partner_id.name}،
-تم إصدار الفاتورة ${object.name} بمبلغ ${object.amount_total_signed} ${object.currency_id.name}.
+        <field name="body">مرحبا {{ object.partner_id.name }}،
+تم إصدار الفاتورة {{ object.name }} بمبلغ {{ object.amount_total_signed }} {{ object.currency_id.name }}.
 ملف PDF الفاتورة مرفق مع هذه الرسالة. شكراً لكم!</field>
     </record>
 
@@ -130,16 +131,16 @@ New price: ${object.list_price} ${object.company_id.currency_id.name}</field>
         <field name="name">Delivery Done (Arabic)</field>
         <field name="model_id" ref="stock.model_stock_picking"/>
         <field name="lang_id" search="[('code', '=', 'ar_001')]"/>
-        <field name="body">مرحبا ${object.partner_id.name}،
-طلبكم في الطريق! تم تأكيد التسليم ${object.name}${'، الناقل: ' + object.carrier_id.name if object.carrier_id else ''}.
-شكراً لتسوقكم من ${object.company_id.name}!</field>
+        <field name="body">مرحبا {{ object.partner_id.name }}،
+طلبكم في الطريق! تم تأكيد التسليم {{ object.name }}{{ '، الناقل: ' + object.carrier_id.name if object.carrier_id else '' }}.
+شكراً لتسوقكم من {{ object.company_id.name }}!</field>
     </record>
 
     <record id="template_price_changed_ar" model="uniom.template">
         <field name="name">Price Updated (Arabic)</field>
         <field name="model_id" ref="product.model_product_template"/>
         <field name="lang_id" search="[('code', '=', 'ar_001')]"/>
-        <field name="body">تحديث السعر — ${object.name}
-السعر الجديد: ${object.list_price} ${object.company_id.currency_id.name}</field>
+        <field name="body">تحديث السعر — {{ object.name }}
+السعر الجديد: {{ object.list_price }} {{ object.company_id.currency_id.name }}</field>
     </record>
 </odoo>

@@ -13,7 +13,7 @@ import logging
 
 from odoo import _, api, fields, models
 
-from .uniom_tools import UniomAPIError
+from .uniom_tools import MAX_RETRY_DELAY_MINUTES, REPORT_BY_MODEL, UniomAPIError
 
 _logger = logging.getLogger(__name__)
 
@@ -85,8 +85,16 @@ class UniomMessage(models.Model):
     # ------------------------------------------------------------------
     @api.model
     def _selection_record_ref(self):
-        models = self.env["ir.model"].sudo().search([])
-        return [(model.model, model.name) for model in models]
+        # only the models this module writes about — avoids querying all
+        # ir.model records on every fields_get
+        return [
+            ("res.partner", _("Contact")),
+            ("sale.order", _("Sale Order")),
+            ("account.move", _("Invoice")),
+            ("account.payment", _("Payment")),
+            ("stock.picking", _("Transfer")),
+            ("product.template", _("Product")),
+        ]
 
     @api.depends("record_res_model", "record_res_id")
     def _compute_record_ref(self):
@@ -112,46 +120,60 @@ class UniomMessage(models.Model):
         for message in self:
             if message.direction != "out" or message.state not in ("outgoing",):
                 continue
-            connection = message.connection_id.sudo()
-            attachment = message._ensure_document()
             try:
-                if attachment:
-                    result = connection._call(
-                        "sendDocument",
-                        payload={
-                            "chat_id": message.chat_id,
-                            "caption": (message.body or "")[:1024] or None,
-                        },
-                        files={
-                            "document": (
-                                attachment.name or "document",
-                                attachment.raw,
-                                attachment.mimetype or "application/octet-stream",
-                            )
-                        },
-                    )
-                else:
-                    result = connection._call(
-                        "sendMessage",
-                        payload={"chat_id": message.chat_id, "text": message.body or ""},
-                    )
+                message._send_one()
             except UniomAPIError as error:
                 message._handle_failure(error)
-                continue
-            message.write(
-                {
-                    "state": "sent",
-                    "uniom_message_id": (result or {}).get("message_id"),
-                    "date_sent": fields.Datetime.now(),
-                    "error_message": False,
-                    "next_attempt": False,
-                }
+            except Exception as error:  # noqa: BLE001 - one bad message must not block the queue
+                _logger.exception("Uniom: unexpected failure sending message %s", message.id)
+                message.write(
+                    {
+                        "state": "error",
+                        "error_message": _("Unexpected error: %s", error),
+                        "next_attempt": False,
+                    }
+                )
+        return True
+
+    def _send_one(self):
+        self.ensure_one()
+        connection = self.connection_id.sudo()
+        attachment = self._ensure_document()
+        if attachment:
+            result = connection._call(
+                "sendDocument",
+                payload={
+                    "chat_id": self.chat_id,
+                    "caption": (self.body or "")[:1024] or None,
+                },
+                files={
+                    "document": (
+                        attachment.name or "document",
+                        attachment.raw,
+                        attachment.mimetype or "application/octet-stream",
+                    )
+                },
             )
-            message._post_chatter(_("Message sent via Uniom (%s).", connection.name))
+        else:
+            result = connection._call(
+                "sendMessage",
+                payload={"chat_id": self.chat_id, "text": self.body or ""},
+            )
+        self.write(
+            {
+                "state": "sent",
+                "uniom_message_id": (result or {}).get("message_id"),
+                "date_sent": fields.Datetime.now(),
+                "error_message": False,
+                "next_attempt": False,
+            }
+        )
+        self._post_chatter(_("Message sent via Uniom (%s).", self.connection_id.name))
         return True
 
     def _handle_failure(self, error):
         self.ensure_one()
+        error_text = str(error.args[0]) if error.args else str(error)
         if error.error_code == 504:
             # "Dispatched, outcome unknown": the gateway explicitly forbids
             # auto-retry. Record the doubt instead of risking a duplicate.
@@ -159,6 +181,7 @@ class UniomMessage(models.Model):
                 {
                     "state": "sent",
                     "date_sent": fields.Datetime.now(),
+                    "next_attempt": False,
                     "error_message": _(
                         "Delivery outcome unknown (gateway timeout). Not retried "
                         "to avoid duplicates, please verify on the messenger."
@@ -172,13 +195,14 @@ class UniomMessage(models.Model):
                 self.write(
                     {
                         "state": "error",
-                        "error_message": str(error.args[0]) if error.args else str(error),
+                        "next_attempt": False,
+                        "error_message": error_text,
                     }
                 )
-                self._post_chatter(_("Uniom message failed permanently: %s", self.error_message))
+                self._post_chatter(_("Uniom message failed permanently: %s", error_text))
                 return
             if error.retry_after:
-                delay_minutes = max(int(error.retry_after) // 60, 1)
+                delay_minutes = min(max(int(error.retry_after) // 60, 1), MAX_RETRY_DELAY_MINUTES)
             else:
                 delay_minutes = BACKOFF_MINUTES[min(attempts - 1, len(BACKOFF_MINUTES) - 1)]
             self.write(
@@ -190,33 +214,62 @@ class UniomMessage(models.Model):
                     ),
                     "error_message": _("Retry %(n)s/%(max)s scheduled in %(mins)s min: %(err)s",
                                        n=attempts, max=MAX_ATTEMPTS, mins=delay_minutes,
-                                       err=str(error.args[0]) if error.args else str(error)),
+                                       err=error_text),
                 }
             )
             return
         # 4xx (except 429): malformed request, unknown chat, auth or billing
         # problem — retrying the identical request cannot succeed.
         self.write(
-            {"state": "error", "error_message": str(error.args[0]) if error.args else str(error)}
+            {"state": "error", "next_attempt": False, "error_message": error_text}
         )
 
     def _ensure_document(self):
         """Lazily render the linked report into an attachment at send time,
-        so the queued PDF is always the final version of the document."""
+        so the queued PDF is always the final version of the document.
+
+        Security: rendering runs under sudo, so the message creator must be
+        able to read the target record, and only the record's own standard
+        report (allowlisted per model) is ever rendered.
+        """
         self.ensure_one()
         if self.attachment_id:
             return self.attachment_id
         if not (self.report_ref and self.record_res_model and self.record_res_id):
             return self.env["ir.attachment"]
-        report = self.env["ir.actions.report"]._get_report(self.report_ref)
-        if report.report_type != "qweb-pdf":
+        if REPORT_BY_MODEL.get(self.record_res_model) != self.report_ref:
+            _logger.warning(
+                "Uniom: report %s is not the allowed report for %s, skipped",
+                self.report_ref, self.record_res_model,
+            )
+            self.error_message = _("Report %s is not allowed for this document.", self.report_ref)
             return self.env["ir.attachment"]
-        pdf_content, _doc_type = self.env["ir.actions.report"]._render_qweb_pdf(
-            self.report_ref, [self.record_res_id]
-        )
+        model = self.env.get(self.record_res_model)
+        if model is None:
+            return self.env["ir.attachment"]
+        try:
+            model.with_user(self.create_uid).browse(self.record_res_id).check_access("read")
+        except Exception as error:  # noqa: BLE001 - AccessError expected
+            _logger.warning(
+                "Uniom: user %s cannot read %s,%s, document not attached",
+                self.create_uid.id, self.record_res_model, self.record_res_id,
+            )
+            self.error_message = _("Document not attached: %s", error)
+            return self.env["ir.attachment"]
+        try:
+            pdf_content, _doc_type = self.env["ir.actions.report"].sudo()._render_qweb_pdf(
+                self.report_ref, [self.record_res_id]
+            )
+        except Exception as error:  # noqa: BLE001 - report problems must not lose the message
+            _logger.exception(
+                "Uniom: could not render report %s for %s,%s",
+                self.report_ref, self.record_res_model, self.record_res_id,
+            )
+            self.error_message = _("Could not render the PDF report: %s", error)
+            return self.env["ir.attachment"]
         attachment = self.env["ir.attachment"].create(
             {
-                "name": "%s.pdf" % (self.record_name or report.name),
+                "name": "%s.pdf" % (self.record_name or _("document")),
                 "res_model": self._name,
                 "res_id": self.id,
                 "raw": pdf_content,
@@ -271,12 +324,12 @@ class UniomMessage(models.Model):
         return True
 
     def _send_fresh_copy(self, new_body):
-        copy = self.copy(
+        duplicate = self.copy(
             {"body": new_body, "state": "outgoing", "retry_count": 0,
              "edit_count": 0, "uniom_message_id": False, "error_message": False,
              "next_attempt": fields.Datetime.now(), "attachment_id": False}
         )
-        copy._send_message()
+        duplicate._send_message()
         return True
 
     # ------------------------------------------------------------------

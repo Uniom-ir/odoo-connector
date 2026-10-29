@@ -196,6 +196,29 @@ T = {
     "Invoice Posted (Arabic)": ("ثبت فاکتور (عربی)", "ترحيل الفاتورة (العربية)"),
     "Delivery Done (Arabic)": ("انجام تحویل (عربی)", "إتمام التسليم (العربية)"),
     "Price Updated (Arabic)": ("به‌روزرسانی قیمت (عربی)", "تحديث السعر (العربية)"),
+    # ---- record reference selection -------------------------------------
+    "Contact": ("مخاطب", "جهة الاتصال"),
+    "Sale Order": ("سفارش فروش", "أمر البيع"),
+    "Invoice": ("فاکتور", "الفاتورة"),
+    "Payment": ("پرداخت", "الدفعة"),
+    "Transfer": ("حواله انبار", "التحويل"),
+    "Product": ("محصول", "المنتج"),
+    # ---- hardening / safety messages -------------------------------------
+    "Invalid URL: control characters are not allowed.": (
+        "نشانی نامعتبر: نویسه‌های کنترلی مجاز نیستند.",
+        "عنوان غير صالح: رموز التحكم غير مسموحة.",
+    ),
+    "Ambiguous URL %s: the HTTP stack resolves a different host than the validator.": (
+        "نشانی مبهم %s: پشته HTTP میزبانی متفاوت با اعتبارسنج تشخیص می‌دهد.",
+        "عنوان غامض %s: يحدد مكدس HTTP مضيفاً مختلفاً عن المدقق.",
+    ),
+    "Unexpected error: %s": ("خطای غیرمنتظره: %s", "خطأ غير متوقع: %s"),
+    "Report %s is not allowed for this document.": (
+        "گزارش %s برای این سند مجاز نیست.",
+        "التقرير %s غير مسموح لهذا المستند.",
+    ),
+    "Document not attached: %s": ("سند پیوست نشد: %s", "لم يُرفق المستند: %s"),
+    "Could not render the PDF report: %s": ("رندر گزارش PDF ممکن نشد: %s", "تعذّر إنشاء تقرير PDF: %s"),
 }
 
 

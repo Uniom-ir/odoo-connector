@@ -6,11 +6,11 @@
         <field name="name">uniom.template.tree</field>
         <field name="model">uniom.template</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="model_id"/>
                 <field name="lang_id" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -37,9 +37,9 @@
                         </group>
                     </group>
                     <label for="body"/>
-                    <field name="body" placeholder="Hello ${object.partner_id.name},&#10;your order ${object.name} is confirmed.&#10;Total: ${object.amount_total} ${object.currency_id.name}"/>
+                    <field name="body" placeholder="Hello {{ object.partner_id.name }},&#10;your order {{ object.name }} is confirmed.&#10;Total: {{ object.amount_total }} {{ object.currency_id.name }}"/>
                     <p class="text-muted">
-                        Placeholders use the standard Odoo syntax: ${object.field}, ${object.partner_id.name}, ...
+                        Placeholders use the standard Odoo syntax: {{ object.field }}, {{ object.partner_id.name }}, ...
                     </p>
                 </sheet>
             </form>
@@ -49,6 +49,6 @@
     <record id="action_uniom_template" model="ir.actions.act_window">
         <field name="name">Templates</field>
         <field name="res_model">uniom.template</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

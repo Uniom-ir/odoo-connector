@@ -61,7 +61,7 @@ class ResPartner(models.Model):
             "type": "ir.actions.act_window",
             "name": "Uniom Messages",
             "res_model": "uniom.message",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "domain": [("partner_id", "child_of", self.id)],
             "context": {"default_partner_id": self.id},
         }

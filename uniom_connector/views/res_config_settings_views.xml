@@ -7,7 +7,7 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//app[@name='base_setup']" position="inside">
+            <xpath expr="//app[@name='general_settings']" position="inside">
                 <block title="Uniom Messaging Gateway" name="uniom_connector_settings">
                     <setting id="uniom_enable" string="Uniom Notifications"
                              help="Master switch for all automated Uniom messages.">

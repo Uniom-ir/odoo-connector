@@ -1,7 +1,7 @@
 # Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
 # copyright and licensing details.
-"""Message templates rendered with the standard mail engine (``${object...}``
-placeholders, same syntax as mail/sms templates)."""
+"""Message templates rendered with the standard mail engine (``{{ object... }}``
+placeholders, same syntax as Odoo mail/sms templates)."""
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
@@ -27,8 +27,8 @@ class UniomTemplate(models.Model):
         required=True,
         translate=False,
         help="Message text with placeholders, e.g.:\n"
-        "Hello ${object.partner_id.name}, your order ${object.name} is confirmed.\n"
-        "The same syntax as Odoo mail templates is used.",
+        "Hello {{ object.partner_id.name }}, your order {{ object.name }} is confirmed.\n"
+        "Uses Odoo's standard inline-template syntax ({{ }}), like mail and SMS templates.",
     )
     lang_id = fields.Many2one(
         "res.lang",
@@ -37,6 +37,50 @@ class UniomTemplate(models.Model):
         "language. Leave empty for the fallback template.",
     )
     company_id = fields.Many2one("res.company", string="Company")
+
+    # ------------------------------------------------------------------
+    # Language linking
+    # ------------------------------------------------------------------
+    @api.model
+    def _link_language_templates(self):
+        """Attach shipped fa/ar templates to their language records.
+
+        Language records only exist once a language has been activated, so
+        the XML data uses code-based searches that stay empty otherwise;
+        re-running this after languages appear (install hook, upgrades,
+        tests) fixes the links. Idempotent.
+        """
+        lang_pool = self.env["res.lang"].with_context(active_test=False)
+        links = {
+            "fa_IR": [
+                "template_sale_confirmed_fa",
+                "template_invoice_posted_fa",
+                "template_picking_done_fa",
+                "template_payment_received_fa",
+                "template_price_changed_fa",
+            ],
+            "ar_001": [
+                "template_sale_confirmed_ar",
+                "template_invoice_posted_ar",
+                "template_picking_done_ar",
+                "template_price_changed_ar",
+            ],
+        }
+        for code, xmlids in links.items():
+            lang = lang_pool.search([("code", "=", code)], limit=1)
+            if not lang:
+                lang = lang_pool.search(
+                    [("code", "=like", code.split("_")[0] + "_%")], limit=1
+                )
+            if not lang:
+                continue
+            for xmlid in xmlids:
+                template = self.env.ref(
+                    "uniom_connector." + xmlid, raise_if_not_found=False
+                )
+                if template and not template.lang_id:
+                    template.lang_id = lang
+        return True
 
     # ------------------------------------------------------------------
     # Rendering
@@ -58,7 +102,7 @@ class UniomTemplate(models.Model):
             self.body,
             self.model,
             records.ids,
-            engine="jinja",
+            engine="inline_template",
         )
         return rendered
 

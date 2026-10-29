@@ -1,11 +1,16 @@
 # Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
 # copyright and licensing details.
-"""Shared test helpers: a fake Bot API transport and sample payloads."""
+"""Shared test helpers: a fake Bot API transport and sample payloads.
+
+The transport patch also pins DNS resolution to a public address so the
+suite never performs real lookups (the URL validator resolves hosts).
+"""
 
 from contextlib import contextmanager
 from unittest.mock import patch
 
 from odoo.addons.uniom_connector.models import uniom_connection as uniom_connection_module
+from odoo.addons.uniom_connector.models import uniom_tools as uniom_tools_module
 
 FAKE_KEY = "uniom_" + "ab" * 24
 # deliberately not a Uniom key, used to assert the format constraint
@@ -51,8 +56,15 @@ class FakeTransport:
         return item
 
 
+def _fake_resolver(address="93.184.216.34"):
+    def resolver(hostname, *args, **kwargs):
+        return [(2, 1, 6, "", (address, 443))]
+    return resolver
+
+
 @contextmanager
 def patched_transport(script=None):
     transport = FakeTransport(script)
-    with patch.object(uniom_connection_module.requests, "post", transport):
+    with patch.object(uniom_connection_module.requests, "post", transport), \
+            patch.object(uniom_tools_module.socket, "getaddrinfo", _fake_resolver()):
         yield transport

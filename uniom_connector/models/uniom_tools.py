@@ -11,6 +11,21 @@ from urllib.parse import urlparse
 from odoo import _
 from odoo.exceptions import UserError, ValidationError
 
+DEFAULT_BASE_URL = "https://api.uniom.ir"
+
+# model -> standard PDF report worth attaching (the only reports the module
+# will ever render; also the guard against rendering arbitrary reports)
+REPORT_BY_MODEL = {
+    "sale.order": "sale.action_report_saleorder",
+    "account.move": "account.account_invoices",
+    "account.payment": "account.action_report_payment_receipt",
+    "stock.picking": "stock.action_report_delivery",
+}
+
+# never schedule a retry further out than this (minutes), whatever the
+# gateway's retry_after says
+MAX_RETRY_DELAY_MINUTES = 1440
+
 # Uniom accepts several destination spellings (Bot API compatible):
 #   +989123456789   E.164 private chat
 #   09123456789     local Iranian mobile -> canonicalized to +98...
@@ -82,8 +97,16 @@ def _private_ip_detected(hostname):
 def validate_public_http_url(url, resolve_dns=True):
     """Validate a server-side request target. Only http/https is allowed and
     localhost, loopback, private, link-local and reserved targets are refused
-    (SSRF hardening, mirroring the Uniom gateway's own webhook policy)."""
-    parsed = urlparse(url or "")
+    (SSRF hardening, mirroring the Uniom gateway's own webhook policy).
+
+    The URL is additionally parsed the way the HTTP stack (urllib3) parses
+    it: backslashes and control characters make different parsers disagree
+    about the host being dialed, so they are rejected outright.
+    """
+    url = (url or "").strip()
+    if any(char in url for char in "\\\t\r\n\0"):
+        raise ValidationError(_("Invalid URL: control characters are not allowed."))
+    parsed = urlparse(url)
     if parsed.scheme not in ("http", "https"):
         raise ValidationError(
             _("Only http:// and https:// URLs are allowed, got: %s", url or _("empty"))
@@ -91,6 +114,18 @@ def validate_public_http_url(url, resolve_dns=True):
     hostname = parsed.hostname
     if not hostname:
         raise ValidationError(_("The URL %s has no host.", url))
+    # cross-check with the transport's own parser: when it disagrees with
+    # urlparse about the host, the URL is ambiguous and must be refused
+    try:
+        from urllib3.util import parse_url as parse_url_transport
+
+        transport_host = parse_url_transport(url).host
+        if transport_host != hostname:
+            raise ValidationError(
+                _("Ambiguous URL %s: the HTTP stack resolves a different host than the validator.", url)
+            )
+    except ImportError:
+        pass
     if hostname in ("localhost",) or hostname.endswith(".local") or hostname.endswith(".internal"):
         raise ValidationError(
             _("Host %s is not allowed: private or local hosts are refused.", hostname)

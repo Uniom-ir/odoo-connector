@@ -7,8 +7,10 @@ a delivery ships, the customer gets a message on their phone; your channel
 stays in sync with product news and price updates — including **editing the
 price post in place**.
 
-Works with Odoo **17.0 and 18.0** (Community & Enterprise), one branch per
-version, exactly how the Odoo Apps store expects it.
+Works with Odoo **18.0** (Community & Enterprise), published as one branch
+per version exactly how the Odoo Apps store expects it (this repo = the
+`18.0` branch; a 17.0 port only needs `<list>`→`<tree>` and
+`view_mode "list,form"`→`"tree,form"` swaps).
 
 ```
 Sale confirmed ──┐
@@ -40,7 +42,7 @@ numbers are canonicalized automatically (`09123456789` → `+989123456789`).
 | --- | --- |
 | Events | Quotation sent · sale confirmed · invoice posted (PDF attached) · payment received · delivery done · product published · **product price changed (edits the previous channel post)** |
 | Recipients | Customer's phone / explicit chat id, per-contact opt-out, plus manual destinations (`@channel`, phones, numeric ids) |
-| Templates | `${object.field}` placeholders (same engine as Odoo mail templates), per-language templates picked by customer language |
+| Templates | `{{ object.field }}` placeholders (same engine as Odoo mail templates), per-language templates picked by customer language |
 | Queue | Immediate send with retry cron (every 5 min), exponential backoff, `retry_after` respected, 5xx retried, **504 "outcome unknown" never retried** (Uniom API policy), full error log per message |
 | Inbound | Webhook endpoint `/uniom/webhook/<connection>` with secret-token verification, contact matching by phone/chat id, auto-contact creation, messages logged and shown on the chatter |
 | Manual send | **Send via Uniom** button on partners, sale orders, invoices and deliveries (composer with recipient list + optional PDF) |
@@ -73,9 +75,10 @@ No external Python packages beyond `requests` (already shipped with Odoo).
 ## Development & tests
 
 ```bash
-# unit tests inside Odoo (17.0 / 18.0)
+# unit tests inside Odoo 18.0
 odoo-bin -d test --test-enable --stop-after-init \
-    -i uniom_connector --test-tags /uniom_connector --without-demo=all
+    -i uniom_connector --test-tags /uniom_connector --without-demo=all \
+    --load-language en_US,fa_IR,ar_001
 
 # regenerate translation templates
 python3 scripts/gen_i18n.py

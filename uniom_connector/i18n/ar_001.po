@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 18.0/17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 04:06\n"
-"PO-Revision-Date: 2026-10-29 04:06\n"
+"POT-Creation-Date: 2026-10-29 05:04\n"
+"PO-Revision-Date: 2026-10-29 05:04\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom <support@uniom.ir>\n"
 "Language: ar_001\n"
@@ -30,6 +30,11 @@ msgstr "متقدم"
 
 msgid "Also Send To"
 msgstr "إرسال أيضاً إلى"
+
+msgid ""
+"Ambiguous URL %s: the HTTP stack resolves a different host than the "
+"validator."
+msgstr "عنوان غامض %s: يحدد مكدس HTTP مضيفاً مختلفاً عن المدقق."
 
 msgid "Announce new product in channel"
 msgstr "الإعلان عن منتج جديد في القناة"
@@ -73,6 +78,12 @@ msgstr "الاتصال"
 msgid "Connections"
 msgstr "الاتصالات"
 
+msgid "Contact"
+msgstr "جهة الاتصال"
+
+msgid "Could not render the PDF report: %s"
+msgstr "تعذّر إنشاء تقرير PDF: %s"
+
 msgid "Create Contacts from Inbound Messages"
 msgstr "إنشاء جهات اتصال من الرسائل الواردة"
 
@@ -103,6 +114,9 @@ msgstr ""
 
 msgid "Direction"
 msgstr "الاتجاه"
+
+msgid "Document not attached: %s"
+msgstr "لم يُرفق المستند: %s"
 
 msgid "Edit Previous Message"
 msgstr "تعديل الرسالة السابقة"
@@ -143,11 +157,17 @@ msgstr "الرسائل الواردة (Webhook)"
 msgid "Incoming"
 msgstr "وارد"
 
+msgid "Invalid URL: control characters are not allowed."
+msgstr "عنوان غير صالح: رموز التحكم غير مسموحة."
+
 msgid "Invalid destination '%s'. Use +989123456789, @channel or a numeric id."
 msgstr "وجهة غير صالحة «%s». استخدم +989123456789 أو @قناة أو معرّفاً رقمياً."
 
 msgid "Invalid gateway URL"
 msgstr "عنوان البوابة غير صالح"
+
+msgid "Invoice"
+msgstr "الفاتورة"
 
 msgid "Invoice Posted"
 msgstr "ترحيل الفاتورة"
@@ -227,6 +247,9 @@ msgstr "تأكيد الطلب (الفارسية)"
 msgid "Outgoing"
 msgstr "صادر"
 
+msgid "Payment"
+msgstr "الدفعة"
+
 msgid "Payment Received"
 msgstr "استلام الدفعة"
 
@@ -247,6 +270,9 @@ msgstr "تحديث السعر (الإنجليزية)"
 
 msgid "Price Updated (Persian)"
 msgstr "تحديث السعر (الفارسية)"
+
+msgid "Product"
+msgstr "المنتج"
 
 msgid "Product Price Changed"
 msgstr "تغيير سعر المنتج"
@@ -275,8 +301,14 @@ msgstr "تسجيل Webhook"
 msgid "Remove Webhook"
 msgstr "إزالة Webhook"
 
+msgid "Report %s is not allowed for this document."
+msgstr "التقرير %s غير مسموح لهذا المستند."
+
 msgid "Retry %(n)s/%(max)s scheduled in %(mins)s min: %(err)s"
 msgstr "إعادة المحاولة %(n)s/%(max)s بعد %(mins)s دقيقة: %(err)s"
+
+msgid "Sale Order"
+msgstr "أمر البيع"
 
 msgid "Sale Order Confirmed"
 msgstr "تأكيد أمر البيع"
@@ -329,8 +361,14 @@ msgstr ""
 msgid "The connection '%s' has no API key."
 msgstr "الاتصال «%s» لا يحتوي على مفتاح API."
 
+msgid "Transfer"
+msgstr "التحويل"
+
 msgid "Translated Templates"
 msgstr "القوالب المترجمة"
+
+msgid "Unexpected error: %s"
+msgstr "خطأ غير متوقع: %s"
 
 msgid "Uniom Automation Rule"
 msgstr "قاعدة أتمتة Uniom"

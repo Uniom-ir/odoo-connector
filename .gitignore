@@ -16,6 +16,9 @@ venv/
 *.swp
 .DS_Store
 
+# local security-tool state
+.mimosa/
+
 # Test artifacts
 .geanyprj.py
 .coverage

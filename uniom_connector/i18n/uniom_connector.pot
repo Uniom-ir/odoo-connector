@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 18.0/17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 04:06\n"
-"PO-Revision-Date: 2026-10-29 04:06\n"
+"POT-Creation-Date: 2026-10-29 05:04\n"
+"PO-Revision-Date: 2026-10-29 05:04\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,12 @@ msgstr ""
 
 #: models/uniom_models.py:1
 msgid "Also Send To"
+msgstr ""
+
+#: models/uniom_models.py:1
+msgid ""
+"Ambiguous URL %s: the HTTP stack resolves a different host than the "
+"validator."
 msgstr ""
 
 #: models/uniom_models.py:1
@@ -92,6 +98,14 @@ msgid "Connections"
 msgstr ""
 
 #: models/uniom_models.py:1
+msgid "Contact"
+msgstr ""
+
+#: models/uniom_models.py:1
+msgid "Could not render the PDF report: %s"
+msgstr ""
+
+#: models/uniom_models.py:1
 msgid "Create Contacts from Inbound Messages"
 msgstr ""
 
@@ -127,6 +141,10 @@ msgstr ""
 
 #: models/uniom_models.py:1
 msgid "Direction"
+msgstr ""
+
+#: models/uniom_models.py:1
+msgid "Document not attached: %s"
 msgstr ""
 
 #: models/uniom_models.py:1
@@ -182,11 +200,19 @@ msgid "Incoming"
 msgstr ""
 
 #: models/uniom_models.py:1
+msgid "Invalid URL: control characters are not allowed."
+msgstr ""
+
+#: models/uniom_models.py:1
 msgid "Invalid destination '%s'. Use +989123456789, @channel or a numeric id."
 msgstr ""
 
 #: models/uniom_models.py:1
 msgid "Invalid gateway URL"
+msgstr ""
+
+#: models/uniom_models.py:1
+msgid "Invoice"
 msgstr ""
 
 #: models/uniom_models.py:1
@@ -294,6 +320,10 @@ msgid "Outgoing"
 msgstr ""
 
 #: models/uniom_models.py:1
+msgid "Payment"
+msgstr ""
+
+#: models/uniom_models.py:1
 msgid "Payment Received"
 msgstr ""
 
@@ -319,6 +349,10 @@ msgstr ""
 
 #: models/uniom_models.py:1
 msgid "Price Updated (Persian)"
+msgstr ""
+
+#: models/uniom_models.py:1
+msgid "Product"
 msgstr ""
 
 #: models/uniom_models.py:1
@@ -358,7 +392,15 @@ msgid "Remove Webhook"
 msgstr ""
 
 #: models/uniom_models.py:1
+msgid "Report %s is not allowed for this document."
+msgstr ""
+
+#: models/uniom_models.py:1
 msgid "Retry %(n)s/%(max)s scheduled in %(mins)s min: %(err)s"
+msgstr ""
+
+#: models/uniom_models.py:1
+msgid "Sale Order"
 msgstr ""
 
 #: models/uniom_models.py:1
@@ -425,7 +467,15 @@ msgid "The connection '%s' has no API key."
 msgstr ""
 
 #: models/uniom_models.py:1
+msgid "Transfer"
+msgstr ""
+
+#: models/uniom_models.py:1
 msgid "Translated Templates"
+msgstr ""
+
+#: models/uniom_models.py:1
+msgid "Unexpected error: %s"
 msgstr ""
 
 #: models/uniom_models.py:1

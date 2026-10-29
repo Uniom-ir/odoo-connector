@@ -67,6 +67,19 @@ class TestUrlValidation(TransactionCase):
             with self.assertRaises(ValidationError):
                 uniom_tools.validate_public_http_url("https://gateway.example.com")
 
+    def test_rejects_parser_confusion_urls(self):
+        # backslash tricks: urlparse sees api.uniom.ir, urllib3 dials the
+        # host before the backslash — must be refused
+        for url in (
+            "https://169.254.169.254\\@api.uniom.ir/latest/meta-data/",
+            "https://127.0.0.1:8069\\@api.uniom.ir/web",
+            "https://internal.box.local\\@api.uniom.ir/x",
+            "https://api.uniom.ir/ok\tevil",
+            "https://api.uniom.ir/ok\r\nHost: 127.0.0.1",
+        ):
+            with self.assertRaises(ValidationError, msg=url):
+                uniom_tools.validate_public_http_url(url)
+
     def test_accepts_public_host(self):
         with patch.object(
             uniom_tools.socket, "getaddrinfo", _fake_resolver(["185.51.200.10"])

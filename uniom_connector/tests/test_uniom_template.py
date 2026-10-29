@@ -9,7 +9,7 @@ class TestTemplate(TransactionCase):
             {
                 "name": "Partner greeting",
                 "model_id": self.env.ref("base.model_res_partner").id,
-                "body": "Hello ${object.name}, phone ${object.mobile or 'n/a'}",
+                "body": "Hello {{ object.name }}, phone {{ object.mobile or 'n/a' }}",
             }
         )
         partner = self.env["res.partner"].create(
@@ -36,6 +36,8 @@ class TestTemplate(TransactionCase):
         rule = self.env.ref("uniom_connector.rule_sale_order_confirmed", raise_if_not_found=False)
         if not rule:
             self.skipTest("default rule data not loaded")
+        # languages loaded with --load-language appear after post_init_hook
+        self.env["uniom.template"]._link_language_templates()
         fa = self.env["res.lang"].search([("code", "=", "fa_IR")], limit=1)
         if not fa:
             self.skipTest("Persian language not activated in this database")

@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo 18.0/17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 04:06\n"
-"PO-Revision-Date: 2026-10-29 04:06\n"
+"POT-Creation-Date: 2026-10-29 05:04\n"
+"PO-Revision-Date: 2026-10-29 05:04\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom <support@uniom.ir>\n"
 "Language: fa_IR\n"
@@ -31,6 +31,11 @@ msgstr "پیشرفته"
 
 msgid "Also Send To"
 msgstr "ارسال به‌علاوه به"
+
+msgid ""
+"Ambiguous URL %s: the HTTP stack resolves a different host than the "
+"validator."
+msgstr "نشانی مبهم %s: پشته HTTP میزبانی متفاوت با اعتبارسنج تشخیص می‌دهد."
 
 msgid "Announce new product in channel"
 msgstr "اعلام محصول جدید در کانال"
@@ -74,6 +79,12 @@ msgstr "اتصال"
 msgid "Connections"
 msgstr "اتصال‌ها"
 
+msgid "Contact"
+msgstr "مخاطب"
+
+msgid "Could not render the PDF report: %s"
+msgstr "رندر گزارش PDF ممکن نشد: %s"
+
 msgid "Create Contacts from Inbound Messages"
 msgstr "ایجاد مخاطب از پیام‌های ورودی"
 
@@ -104,6 +115,9 @@ msgstr ""
 
 msgid "Direction"
 msgstr "جهت"
+
+msgid "Document not attached: %s"
+msgstr "سند پیوست نشد: %s"
 
 msgid "Edit Previous Message"
 msgstr "ویرایش پیام قبلی"
@@ -144,12 +158,18 @@ msgstr "پیام‌های ورودی (وب‌هوک)"
 msgid "Incoming"
 msgstr "ورودی"
 
+msgid "Invalid URL: control characters are not allowed."
+msgstr "نشانی نامعتبر: نویسه‌های کنترلی مجاز نیستند."
+
 msgid "Invalid destination '%s'. Use +989123456789, @channel or a numeric id."
 msgstr ""
 "مقصد نامعتبر «%s». از +989123456789، @کانال یا شناسه عددی استفاده کنید."
 
 msgid "Invalid gateway URL"
 msgstr "نشانی دروازه نامعتبر"
+
+msgid "Invoice"
+msgstr "فاکتور"
 
 msgid "Invoice Posted"
 msgstr "ثبت فاکتور"
@@ -229,6 +249,9 @@ msgstr "تأیید سفارش (فارسی)"
 msgid "Outgoing"
 msgstr "خروجی"
 
+msgid "Payment"
+msgstr "پرداخت"
+
 msgid "Payment Received"
 msgstr "دریافت پرداخت"
 
@@ -249,6 +272,9 @@ msgstr "به‌روزرسانی قیمت (انگلیسی)"
 
 msgid "Price Updated (Persian)"
 msgstr "به‌روزرسانی قیمت (فارسی)"
+
+msgid "Product"
+msgstr "محصول"
 
 msgid "Product Price Changed"
 msgstr "تغییر قیمت محصول"
@@ -277,8 +303,14 @@ msgstr "ثبت وب‌هوک"
 msgid "Remove Webhook"
 msgstr "حذف وب‌هوک"
 
+msgid "Report %s is not allowed for this document."
+msgstr "گزارش %s برای این سند مجاز نیست."
+
 msgid "Retry %(n)s/%(max)s scheduled in %(mins)s min: %(err)s"
 msgstr "تلاش مجدد %(n)s/%(max)s تا %(mins)s دقیقه دیگر: %(err)s"
+
+msgid "Sale Order"
+msgstr "سفارش فروش"
 
 msgid "Sale Order Confirmed"
 msgstr "تأیید سفارش فروش"
@@ -330,8 +362,14 @@ msgstr ""
 msgid "The connection '%s' has no API key."
 msgstr "اتصال «%s» کلید API ندارد."
 
+msgid "Transfer"
+msgstr "حواله انبار"
+
 msgid "Translated Templates"
 msgstr "قالب‌های ترجمه‌شده"
+
+msgid "Unexpected error: %s"
+msgstr "خطای غیرمنتظره: %s"
 
 msgid "Uniom Automation Rule"
 msgstr "قانون خودکار یونیوم"

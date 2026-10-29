@@ -154,7 +154,7 @@ class UniomRule(models.Model):
         order confirmation or an invoice posting.
         """
         enabled = self.env["ir.config_parameter"].sudo().get_param("uniom_connector.enabled", "True")
-        if str(enabled).lower() == "false" or not records:
+        if str(enabled).strip().lower() in ("false", "0", "no", "off") or not records:
             return False
         try:
             rules = self.search([("trigger", "=", trigger), ("active", "=", True)])
@@ -208,7 +208,7 @@ class UniomRule(models.Model):
         if not self.company_id:
             return records
         return records.filtered(
-            lambda r: getattr(r, "company_id", None) in (False, self.company_id)
+            lambda r: not getattr(r, "company_id", None) or r.company_id == self.company_id
         )
 
     # ------------------------------------------------------------------
@@ -216,8 +216,10 @@ class UniomRule(models.Model):
     # ------------------------------------------------------------------
     def _process_record(self, record, connection):
         self.ensure_one()
-        template = self._get_template_for(record)
-        rendered = template._render_for(record)
+        lang = self._get_lang(record)
+        template = self._get_template_for(record, lang)
+        render_record = record.with_context(lang=lang) if lang else record
+        rendered = template._render_for(render_record)
         body = rendered.get(record.id)
         if not body:
             _logger.info("Uniom rule %s: empty body for %s, skipped", self.name, record)
@@ -261,10 +263,17 @@ class UniomRule(models.Model):
             messages._send_message()
         return True
 
-    def _get_template_for(self, record):
-        self.ensure_one()
+    def _get_lang(self, record):
         partner = self._get_partner(record)
-        lang = (partner.lang if partner else False) or self.env.context.get("lang") or self.env.user.lang
+        return (
+            (partner.lang if partner else False)
+            or self.env.context.get("lang")
+            or self.env.user.lang
+        )
+
+    def _get_template_for(self, record, lang=False):
+        self.ensure_one()
+        lang = lang or self._get_lang(record)
         if lang:
             code = lang.split("_")[0]
             for template in self.template_ids:
@@ -319,6 +328,6 @@ class UniomRule(models.Model):
             "type": "ir.actions.act_window",
             "name": _("Uniom Messages"),
             "res_model": "uniom.message",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "domain": [("rule_id", "=", self.id)],
         }

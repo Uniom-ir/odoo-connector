@@ -6,15 +6,7 @@ orders, invoices and deliveries."""
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
-from ..models.uniom_tools import canonicalize_chat_id
-
-# model -> default report worth attaching
-REPORT_BY_MODEL = {
-    "sale.order": "sale.action_report_saleorder",
-    "account.move": "account.account_invoices",
-    "account.payment": "account.action_report_payment_receipt",
-    "stock.picking": "stock.action_report_delivery",
-}
+from ..models.uniom_tools import REPORT_BY_MODEL, canonicalize_chat_id
 
 
 class UniomSendWizard(models.TransientModel):
@@ -63,7 +55,12 @@ class UniomSendWizard(models.TransientModel):
                 if template
                 else _("Hello, here is an update about %s.", record.display_name)
             )
-        partners = record.partner_id if "partner_id" in record._fields else self.env["res.partner"]
+        if "partner_id" in record._fields and record.partner_id:
+            partners = record.partner_id
+        elif record._name == "res.partner":
+            partners = record
+        else:
+            partners = self.env["res.partner"]
         if partners and not self.recipient_ids:
             self.recipient_ids = [
                 (0, 0, {"partner_id": partner.id, "chat_id": partner._uniom_default_chat_id() or ""})
@@ -76,11 +73,10 @@ class UniomSendWizard(models.TransientModel):
     def action_send(self):
         self.ensure_one()
         messages = self.env["uniom.message"]
-        record = (
-            self.env[self.active_model].browse(self.active_id).exists()
-            if self.active_model and self.active_id
-            else self.env[self.active_model]
-        )
+        if self.active_model and self.active_id:
+            record = self.env[self.active_model].browse(self.active_id).exists()
+        else:
+            record = self.env["res.partner"]
         for recipient in self.recipient_ids:
             chat_id = canonicalize_chat_id(recipient.chat_id)
             if not chat_id:

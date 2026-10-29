@@ -42,7 +42,9 @@ class UniomConnection(models.Model):
     )
     base_url = fields.Char(
         string="Gateway URL",
-        default=DEFAULT_BASE_URL,
+        default=lambda self: self.env["ir.config_parameter"].sudo().get_param(
+            "uniom_connector.default_base_url", DEFAULT_BASE_URL
+        ),
         required=True,
         help="Base URL of the Uniom Bot API. Use https://api.uniom.ir (Iran) "
         "or https://api.uniomi.ir (international mirror).",
@@ -65,6 +67,7 @@ class UniomConnection(models.Model):
         copy=False,
         default=lambda self: secrets.token_hex(16),
         groups="uniom_connector.group_uniom_manager",
+        password="True",
         help="Secret sent back by Uniom in the "
         "X-Telegram-Bot-Api-Secret-Token header. Regenerate to invalidate.",
     )
@@ -114,6 +117,16 @@ class UniomConnection(models.Model):
         base = (self.base_url or DEFAULT_BASE_URL).strip().rstrip("/")
         return "%s/bot%s/%s" % (base, self.api_key, method)
 
+    def _safe_error(self, error):
+        """Transport error text with the API key (embedded in the request
+        URL) removed — this string is logged and stored on messages visible
+        to regular users."""
+        text = str(error)
+        if self.api_key:
+            text = text.replace(self.api_key, "***")
+            text = text.replace("bot" + self.api_key, "bot***")
+        return text
+
     def _call(self, method, payload=None, files=None):
         """POST one Bot API method and return its ``result``.
 
@@ -139,9 +152,13 @@ class UniomConnection(models.Model):
                     url, json=payload or {}, timeout=REQUEST_TIMEOUT, allow_redirects=False
                 )
         except requests.RequestException as error:
-            _logger.warning("Uniom network error on %s: %s", method, error)
+            _logger.warning(
+                "Uniom network error on %s (%s): %s",
+                method, type(error).__name__, self._safe_error(error),
+            )
             raise UniomAPIError(
-                _("Network error while contacting Uniom: %s", error), transient=True
+                _("Network error while contacting Uniom: %s", self._safe_error(error)),
+                transient=True,
             ) from error
         if 300 <= response.status_code < 400:
             # Redirects are never followed on purpose: the validated host
@@ -252,7 +269,9 @@ class UniomConnection(models.Model):
         chat = message.get("chat") or {}
         chat_id = str(chat.get("id") or "")
         sender = message.get("from") or {}
-        text = message.get("text") or message.get("caption") or ""
+        # messengers cap texts around 4096 chars; keep hostile overlong
+        # payloads from flooding the log and the chatter
+        text = (message.get("text") or message.get("caption") or "")[:4096]
         partner = self._find_partner_for_chat(chat_id, sender, chat)
         if not partner:
             return False
