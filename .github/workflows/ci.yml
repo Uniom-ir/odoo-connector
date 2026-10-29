@@ -51,7 +51,7 @@ jobs:
 
       - name: Install Odoo python dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y libpq-dev
+          sudo apt-get update && sudo apt-get install -y libpq-dev libldap2-dev libsasl2-dev
           pip install -r odoo/requirements.txt
 
       - name: Link module into addons path
