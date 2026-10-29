@@ -207,6 +207,23 @@ T = {
         "المحادثة التي تنتمي إليها هذه الرسالة (للأرشيف).",
     ),
     "Open Contact": ("باز کردن مخاطب", "فتح جهة الاتصال"),
+    "Last Message Date": ("تاریخ آخرین پیام", "تاريخ آخر رسالة"),
+    "Last Message Preview": ("پیش‌نمایش آخرین پیام", "معاينة آخر رسالة"),
+    "Message Count": ("تعداد پیام", "عدد الرسائل"),
+    "Chat Session": ("گفتگو", "المحادثة"),
+    "One conversation per connection and chat id.": (
+        "یک گفتگو برای هر اتصال و شناسه چت.",
+        "محادثة واحدة لكل اتصال ومعرف محادثة.",
+    ),
+    "%(sent)s reply(ies) sent, %(failed)s failed — see the message log for the reason; failed replies stay queued in the thread.": (
+        "%(sent)s پاسخ ارسال شد، %(failed)s ناموفق — علت در لاگ پیام‌ها؛ پاسخ‌های ناموفق در گفتگو در صف می‌مانند.",
+        "أُرسلت %(sent)s ردود وفشل %(failed)s — السبب في سجل الرسائل؛ الردود الفاشلة تبقى في قائمة الانتظار ضمن المحادثة.",
+    ),
+    "Create one in your Uniom dashboard: Account → API Keys (uniom_... — one key per messenger account).": (
+        "در داشبورد یونیوم بسازید: حساب ← کلیدهای API (uniom_... — یک کلید برای هر حساب پیام‌رسان).",
+        "أنشئه في لوحة تحكم Uniom: الحساب ← مفاتيح API ‏(uniom_... — مفتاح واحد لكل حساب مراسلة).",
+    ),
+    "Thread": ("گفتگو", "سلسلة الرسائل"),
     "No conversations yet": ("هنوز گفتگویی وجود ندارد", "لا محادثات بعد"),
     "Every incoming and outgoing message opens a thread here — reply straight from Odoo via Uniom. Connect your account to start.": (
         "هر پیام ورودی و خروجی اینجا یک گفتگو باز می‌کند — مستقیم از اودو از طریق یونیوم پاسخ دهید. برای شروع حساب خود را متصل کنید.",

@@ -8,11 +8,12 @@ stays in sync with product news and price updates — including **editing the
 price post in place**.
 
 Works with Odoo **18.0 and 17.0** (Community & Enterprise), one branch per
-version exactly how the Odoo Apps store expects it (this `17.0` branch
-carries the same features as the `18.0` main line). Both branches are
-**verified on real installations**: full test suite green on Odoo 18.0
-and 17.0, demo data and Persian/Arabic translations loaded and checked,
-and the store screenshots captured from the live UI.
+version exactly how the Odoo Apps store expects it (this `18.0` branch is
+the main line; the `17.0` branch carries the same features). Both branches
+are **verified on real installations**: full test suite green
+(`--test-tags /uniom_connector`, 43/43) on Odoo 18.0 and 17.0, demo data
+and Persian/Arabic translations loaded and checked, and the store
+screenshots captured from the live UI.
 
 ```
 Sale confirmed ──┐

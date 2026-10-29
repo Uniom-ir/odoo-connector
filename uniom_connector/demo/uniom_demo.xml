@@ -52,6 +52,13 @@
         <field name="last_message_date" eval="(DateTime.now() - timedelta(hours=5)).strftime('%Y-%m-%d %H:%M:%S')"/>
     </record>
 
+    <record id="demo_chat_prospect" model="uniom.chat">
+        <field name="connection_id" ref="demo_connection_bale"/>
+        <field name="chat_id">+989120000002</field>
+        <field name="last_message_preview">فاکتور INV/2026/0001 صادر شد.</field>
+        <field name="last_message_date" eval="(DateTime.now() - timedelta(hours=9)).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+
     <record id="demo_message_sent" model="uniom.message">
         <field name="connection_id" ref="demo_connection_bale"/>
         <field name="chat_session_id" ref="demo_chat_customer"/>
@@ -67,6 +74,7 @@
 
     <record id="demo_message_failed" model="uniom.message">
         <field name="connection_id" ref="demo_connection_bale"/>
+        <field name="chat_session_id" ref="demo_chat_prospect"/>
         <field name="direction">out</field>
         <field name="state">error</field>
         <field name="chat_id">+989120000002</field>

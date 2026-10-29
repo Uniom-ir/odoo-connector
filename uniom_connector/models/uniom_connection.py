@@ -15,7 +15,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 from .uniom_tools import DEFAULT_BASE_URL  # noqa: F401 (re-exported for other models)
-from .uniom_tools import UniomAPIError, validate_public_http_url
+from .uniom_tools import UniomAPIError, canonicalize_chat_id, validate_public_http_url
 
 _logger = logging.getLogger(__name__)
 
@@ -194,7 +194,7 @@ class UniomConnection(models.Model):
     # ------------------------------------------------------------------
     def action_test_connection(self):
         self.ensure_one()
-        result = self._call("getMe")
+        result = self._call("getMe") or {}
         display = (
             result.get("title")
             or result.get("first_name")
@@ -271,7 +271,9 @@ class UniomConnection(models.Model):
         if not message:
             return False
         chat = message.get("chat") or {}
-        chat_id = str(chat.get("id") or "")
+        # canonicalize so inbound and reply paths converge on one thread key
+        raw_chat_id = str(chat.get("id") or "")
+        chat_id = canonicalize_chat_id(raw_chat_id) or raw_chat_id
         sender = message.get("from") or {}
         # messengers cap texts around 4096 chars; keep hostile overlong
         # payloads from flooding the log and the chatter
@@ -288,6 +290,9 @@ class UniomConnection(models.Model):
                 "partner_id": partner.id,
                 "body": text,
                 "date_sent": fields.Datetime.now(),
+                # anchor inbound records to the connection's company (not the
+                # superuser default) so multi-company users see their threads
+                "company_id": (self.company_id or partner.company_id).id,
                 "record_res_model": "res.partner",
                 "record_res_id": partner.id,
                 "record_name": partner.display_name,
