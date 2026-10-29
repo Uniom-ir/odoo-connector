@@ -7,10 +7,13 @@ a delivery ships, the customer gets a message on their phone; your channel
 stays in sync with product news and price updates — including **editing the
 price post in place**.
 
-Works with Odoo **18.0** (Community & Enterprise), published as one branch
-per version exactly how the Odoo Apps store expects it (this repo = the
-`18.0` branch; a 17.0 port only needs `<list>`→`<tree>` and
-`view_mode "list,form"`→`"tree,form"` swaps).
+Works with Odoo **18.0 and 17.0** (Community & Enterprise), one branch per
+version exactly how the Odoo Apps store expects it (this `18.0` branch is
+the main line; the `17.0` branch carries the same features). Both branches
+are **verified on real installations**: full test suite green
+(`--test-tags /uniom_connector`, 43/43) on Odoo 18.0 and 17.0, demo data
+and Persian/Arabic translations loaded and checked, and the store
+screenshots captured from the live UI.
 
 ```
 Sale confirmed ──┐
