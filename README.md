@@ -7,10 +7,9 @@ a delivery ships, the customer gets a message on their phone; your channel
 stays in sync with product news and price updates — including **editing the
 price post in place**.
 
-Works with Odoo **18.0** (Community & Enterprise), published as one branch
-per version exactly how the Odoo Apps store expects it (this repo = the
-`18.0` branch; a 17.0 port only needs `<list>`→`<tree>` and
-`view_mode "list,form"`→`"tree,form"` swaps).
+Works with Odoo **17.0** (Community & Enterprise) — this is the `17.0`
+branch; the `18.0` branch carries the same features for Odoo 18. Both are
+test-verified on real installations.
 
 ```
 Sale confirmed ──┐
