@@ -86,7 +86,12 @@ class UniomConnection(models.Model):
     @api.constrains("base_url")
     def _check_base_url(self):
         for connection in self:
-            validate_public_http_url(connection.base_url)
+            # Structural validation only (scheme/host syntax, no literal
+            # private IPs): DNS is deliberately NOT resolved here, so
+            # installations behind split-horizon DNS can still configure
+            # their gateway. The full DNS-checked validation happens on
+            # every request in _call().
+            validate_public_http_url(connection.base_url, resolve_dns=False)
 
     @api.constrains("api_key")
     def _check_api_key(self):

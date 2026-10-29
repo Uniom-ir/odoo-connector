@@ -10,19 +10,25 @@ Uniom Messaging Gateway for Odoo
 ================================
 
 Connect Odoo to the Uniom messaging gateway (https://uniom.ir) and notify
-your customers on the messengers they actually use — Bale, Rubika, Eitaa,
-Soroush+ and Telegram — straight from sale orders, invoices, payments,
+your customers on the messengers they actually use -- Bale, Rubika, Eitaa,
+Soroush+ and Telegram -- straight from sale orders, invoices, payments,
 deliveries and product price changes.
 
 Highlights
 ----------
+
 * One API key, full messenger coverage (Telegram Bot API compatible gateway)
-* Event automation: quotation sent, sale confirmed, invoice posted (with PDF),
-  payment received, delivery done, product published, price change with
-  message *editing* in your channel
+
+* Event automation: quotation sent, sale confirmed, invoice posted (with
+  PDF), payment received, delivery done, product published, price change
+  with message *editing* in your channel
+
 * Ready-to-use templates in English, Persian and Arabic (RTL friendly)
+
 * Every message is queued, retried with backoff and fully logged per record
+
 * Webhook endpoint for inbound messages, matched to the customer contact
+
 * Multi-company connections, user/manager groups, works out of the box
     """,
     "author": "Uniom",

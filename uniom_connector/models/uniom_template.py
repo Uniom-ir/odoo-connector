@@ -32,7 +32,7 @@ class UniomTemplate(models.Model):
     )
     lang_id = fields.Many2one(
         "res.lang",
-        string="Language",
+        string="Template Language",
         help="Optional: this template is picked when the customer speaks this "
         "language. Leave empty for the fallback template.",
     )

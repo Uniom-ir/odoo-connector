@@ -1,11 +1,20 @@
 #!/usr/bin/env python3
 # Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
 # copyright and licensing details.
-"""Regenerate i18n/uniom_connector.pot, i18n/fa_IR.po and i18n/ar_101.po.
+"""Regenerate i18n/uniom_connector.pot, i18n/fa_IR.po and i18n/ar_001.po.
 
-Run from the repo root:  python3 scripts/gen_i18n.py
+Preferred flow (structure identical to what Odoo exports):
+  1. install the module in an Odoo db with the languages activated
+  2. Settings > Translations > Export: po, language fa_IR, module
+     uniom_connector  (or via base.language.export wizard)
+  3. python3 scripts/gen_i18n.py /path/to/exported.po
+
+Without a skeleton argument, entries are emitted with synthetic
+"code:"-occurrences only (fallback; UI model_terms entries will be
+missing).
 """
 import datetime
+import sys
 
 import polib
 from pathlib import Path
@@ -15,6 +24,28 @@ MODULE = "uniom_connector"
 HERE = Path(__file__).resolve().parent
 I18N = HERE.parent / MODULE / "i18n"
 I18N.mkdir(exist_ok=True)
+
+# Extra UI strings that only live inside view archs / action help blocks.
+T_EXTRA = {
+    "Customers are notified on their phone number (or Uniom Chat ID) unless they opted out. Extra destinations above receive every message too — one per line.": (
+        "مشتریان در شماره موبایل (یا شناسه چت یونیوم) خود پیام دریافت می‌کنند مگر آنکه انصراف داده باشند. مقصدهای اضافه بالا هم هر پیام را دریافت می‌کنند — هر خط یک مقصد.",
+        "يستلم العملاء الإشعارات على رقم هاتفهم (أو معرف محادثة Uniom) ما لم يلغوا الاشتراك. الوجهات الإضافية أعلاه تستلم كل رسالة أيضاً — وجهة واحدة في كل سطر.",
+    ),
+    "Placeholders use the standard Odoo syntax: {{ object.field }}, {{ object.partner_id.name }}, ...": (
+        "جای‌نگه‌دارها از نگارش استاندارد اودو استفاده می‌کنند: {{ object.field }}، {{ object.partner_id.name }} و ...",
+        "تستخدم العناصر النائبة الصيغة القياسية لأودو: {{ object.field }}، {{ object.partner_id.name }}، ...",
+    ),
+    "Create your first Uniom connection": ("اولین اتصال یونیوم را بسازید", "أنشئ أول اتصال Uniom لك"),
+    "Paste an API key from your Uniom dashboard — one key per messenger account (Bale, Rubika, Eitaa, Soroush+, Telegram).": (
+        "کلید API را از داشبورد یونیوم کپی کنید — یک کلید برای هر حساب پیام‌رسان (بله، روبیکا، ایتا، سروش‌پلاس، تلگرام).",
+        "الصق مفتاح API من لوحة تحكم Uniom — مفتاح واحد لكل حساب مراسلة (بله، روبيكا، إيتا، سروش+، تيليجرام).",
+    ),
+    "Create an automation rule": ("یک قانون خودکار بسازید", "أنشئ قاعدة أتمتة"),
+    "Pick a business event (order confirmed, invoice posted, price changed...), a message template and the destinations — Uniom does the rest.": (
+        "یک رویداد کسب‌وکار (تأیید سفارش، ثبت فاکتور، تغییر قیمت و ...)، یک قالب پیام و مقصدها را انتخاب کنید — بقیه را یونیوم انجام می‌دهد.",
+        "اختر حدثاً تجارياً (تأكيد الطلب، ترحيل الفاتورة، تغيير السعر...)، وقالب رسالة والوجهات — ويتولى Uniom الباقي.",
+    ),
+}
 
 # msgid -> (persian, arabic); None keeps the msgid untranslated.
 T = {
@@ -84,6 +115,75 @@ T = {
     "API Key": ("کلید API", "مفتاح API"),
     "Company": ("شرکت", "الشركة"),
     "Language": ("زبان", "اللغة"),
+    "Template Language": ("زبان قالب", "لغة القالب"),
+    # ---- field labels surfaced by Odoo's automatic export ----------------
+    "Account Details": ("جزئیات حساب", "تفاصيل الحساب"),
+    "Administrator": ("مدیر", "مدير"),
+    "Attachment": ("پیوست", "مرفق"),
+    "Body": ("متن پیام", "نص الرسالة"),
+    "Chat": ("گفتگو", "محادثة"),
+    "Date Edited": ("تاریخ ویرایش", "تاريخ التعديل"),
+    "Date Sent": ("تاریخ ارسال", "تاريخ الإرسال"),
+    "document": ("سند", "مستند"),
+    "Edit Count": ("تعداد ویرایش", "عدد التعديلات"),
+    "Error Message": ("پیام خطا", "رسالة الخطأ"),
+    "Next Attempt": ("تلاش بعدی", "المحاولة التالية"),
+    "Partner": ("همکار", "الشريك"),
+    "Partner Field": ("فیلد همکار", "حقل الشريك"),
+    "Record Name": ("نام رکورد", "اسم السجل"),
+    "Report Ref": ("ارجاع گزارش", "مرجع التقرير"),
+    "Retry Count": ("تعداد تلاش مجدد", "عدد المحاولات"),
+    "Rule": ("قانون", "قاعدة"),
+    "Sequence": ("ترتیب", "التسلسل"),
+    "State": ("وضعیت", "الحالة"),
+    "Template": ("قالب", "قالب"),
+    "Trigger": ("رویداد", "الحدث"),
+    "Uniom Message Count": ("تعداد پیام یونیوم", "عدد رسائل Uniom"),
+    "Uniom: process message queue": ("یونیوم: پردازش صف پیام", "Uniom: معالجة قائمة الرسائل"),
+    "User": ("کاربر", "مستخدم"),
+    "Webhook Registered": ("وب‌هوک ثبت شده", "Webhook مسجل"),
+    "Webhook Secret": ("رمز وب‌هوک", "رمز Webhook"),
+    "Webhook Url": ("نشانی وب‌هوک", "عنوان Webhook"),
+    # ---- shorter field helps ---------------------------------------------
+    "Account identity reported by the gateway (getMe).": (
+        "هویت حساب گزارش‌شده توسط دروازه (getMe).",
+        "هوية الحساب كما أبلغت عنها البوابة (getMe).",
+    ),
+    "Can send Uniom messages and read the message log.": (
+        "ارسال پیام یونیوم و خواندن لاگ پیام‌ها.",
+        "إرسال رسائل Uniom وقراءة سجل الرسائل.",
+    ),
+    "Destination: phone (+98912...), @channel or numeric id.": (
+        "مقصد: شماره موبایل (+98912...)، @کانال یا شناسه عددی.",
+        "الوجهة: هاتف (+98912...) أو @قناة أو معرف رقمي.",
+    ),
+    "Earliest moment the queue cron may retry this message.": (
+        "اولین زمانی که کرون صف می‌تواند این پیام را دوباره ارسال کند.",
+        "أقرب وقت يمكن فيه لكرون قائمة الانتظار إعادة إرسال هذه الرسالة.",
+    ),
+    "Exclude this contact from automated Uniom notifications.": (
+        "این مخاطب از اطلاع‌رسانی خودکار یونیوم حذف شود.",
+        "استبعاد جهة الاتصال هذه من إشعارات Uniom التلقائية.",
+    ),
+    "Leave empty to apply in every company.": (
+        "خالی بگذارید تا در همه شرکت‌ها اعمال شود.",
+        "اتركه فارغاً ليطبق في كل الشركات.",
+    ),
+    "Message id assigned by the messenger, needed to edit later.": (
+        "شناسه پیام که پیام‌رسان تعیین می‌کند؛ برای ویرایش بعدی لازم است.",
+        "معرف الرسالة الذي حدده تطبيق المراسلة، ويلزم للتعديل لاحقاً.",
+    ),
+    "Phone number (+989123456789), @channel or numeric chat id.": (
+        "شماره موبایل (+989123456789)، @کانال یا شناسه چت عددی.",
+        "رقم الهاتف (+989123456789) أو @قناة أو معرف محادثة رقمي.",
+    ),
+    "Send the document's standard PDF report with the message.": (
+        "گزارش PDF استاندارد سند همراه پیام ارسال شود.",
+        "إرسال تقرير PDF القياسي للمستند مع الرسالة.",
+    ),
+    # ---- demo data names ----------------------------------------------------
+    "Bale — Sales Notifications (Demo)": ("بله — اطلاع‌رسانی فروش (نمایشی)", "بله — إشعارات المبيعات (تجريبي)"),
+    "Rubika — Shop Channel (Demo)": ("روبیکا — کانال فروشگاه (نمایشی)", "روبيكا — قناة المتجر (تجريبي)"),
     "Applies to": ("برای", "ينطبق على"),
     "Fallback Template": ("قالب پیش‌فرض", "القالب الافتراضي"),
     "Translated Templates": ("قالب‌های ترجمه‌شده", "القوالب المترجمة"),
@@ -226,50 +326,98 @@ T = {
 }
 
 
-def build_pot():
-    pot = polib.POFile()
-    pot.metadata = {
-        "Project-Id-Version": "Odoo 18.0/17.0",
+def _metadata(code=None, team=None):
+    meta = {
+        "Project-Id-Version": "Odoo Server 18.0",
         "Report-Msgid-Bugs-To": "",
         "POT-Creation-Date": NOW,
         "PO-Revision-Date": NOW,
         "Last-Translator": "Uniom",
-        "Language-Team": "Uniom",
+        "Language-Team": team or "Uniom",
         "MIME-Version": "1.0",
         "Content-Type": "text/plain; charset=UTF-8",
         "Content-Transfer-Encoding": "8bit",
     }
-    for msgid in sorted(T):
-        entry = polib.POEntry(msgid=msgid, msgstr="")
-        # Odoo's translation importer requires a "# module: <name>" comment
-        # on every entry (tools/translate.py_POReader.__iter__)
-        entry.comment = f"module: {MODULE}"
-        entry.occurrences = [("models/uniom_tools.py", "1")]
-        pot.append(entry)
-    return pot
+    if code:
+        meta["Language"] = code
+        meta["Plural-Forms"] = "nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);" if code.startswith("ar") else "nplurals=2; plural=(n > 1);"
+    return meta
 
 
-def build_po(lang, code, team, index):
+def _translate_arch(arch, index):
+    """Translate the UI strings inside a model_terms view/action-help block
+    by longest-match-first replacement (attribute values and text nodes)."""
+    table = dict(T)
+    table.update(T_EXTRA)
+    for key in sorted(table, key=len, reverse=True):
+        if key in arch:
+            arch = arch.replace(key, table[key][index])
+    return arch
+
+
+def _build_from_skeleton(skeleton, index=None, code=None, team=None):
+    """index=None -> POT (all msgstr empty); 0/1 -> fa/ar merge."""
     po = polib.POFile()
-    po.metadata = dict(build_pot().metadata)
-    po.metadata["Language"] = code
-    po.metadata["Language-Team"] = team
-    po.metadata["Plural-Forms"] = (
-        "nplurals=2; plural=(n > 1);" if code.startswith("ar") else "nplurals=2; plural=(n > 1);"
-    )
-    for msgid in sorted(T):
-        entry = polib.POEntry(msgid=msgid, msgstr=T[msgid][index])
+    po.metadata = _metadata(code, team)
+    table = dict(T)
+    table.update(T_EXTRA)
+    count = 0
+    for entry in skeleton:
+        if entry.obsolete:
+            continue
+        msgstr = ""
+        if index is not None:
+            occurrence = entry.occurrences[0][0] if entry.occurrences else ""
+            if occurrence.startswith("model_terms:"):
+                msgstr = _translate_arch(entry.msgid, index)
+            elif entry.msgid in table:
+                msgstr = table[entry.msgid][index]
+            elif entry.msgstr and entry.msgid:
+                msgstr = entry.msgstr  # keep already-translated code entries
+        po.append(
+            polib.POEntry(
+                msgid=entry.msgid,
+                msgstr=msgstr,
+                occurrences=entry.occurrences,
+                comment=entry.comment,
+            )
+        )
+        count += 1
+    return po, count
+
+
+def _build_legacy(index=None, code=None, team=None):
+    po = polib.POFile()
+    po.metadata = _metadata(code, team)
+    table = dict(T)
+    table.update(T_EXTRA)
+    for msgid in sorted(table):
+        entry = polib.POEntry(msgid=msgid, msgstr=table[msgid][index] if index is not None else "")
+        # Odoo's translation importer requires a "# module: <name>" comment
+        # and occurrences in "code:<path>" (or "model:...") form; bare file
+        # paths are rejected as "unknown occurrence" and skipped.
         entry.comment = f"module: {MODULE}"
-        entry.occurrences = [("models/uniom_tools.py", "1")]
+        entry.occurrences = [("code:models/uniom_tools.py", "1")]
         po.append(entry)
     return po
 
 
 def main():
-    build_pot().save(str(I18N / f"{MODULE}.pot"))
-    build_po("persian", "fa_IR", "Uniom <support@uniom.ir>", 0).save(str(I18N / "fa_IR.po"))
-    build_po("arabic", "ar_001", "Uniom <support@uniom.ir>", 1).save(str(I18N / "ar_001.po"))
-    print("i18n files written:", len(T), "entries each")
+    skeleton_path = sys.argv[1] if len(sys.argv) > 1 else None
+    if skeleton_path:
+        skeleton = polib.pofile(skeleton_path)
+        build = lambda **kw: _build_from_skeleton(skeleton, **kw)
+    else:
+        print("WARNING: no Odoo-exported skeleton given; UI model_terms "
+              "translations (views, menus) will be missing — see header.")
+        build = _build_legacy
+    pot, count = build()
+    pot.save(str(I18N / f"{MODULE}.pot"))
+    fa, _n = build(index=0, code="fa_IR", team="Uniom <support@uniom.ir>")
+    fa.save(str(I18N / "fa_IR.po"))
+    ar, _m = build(index=1, code="ar_001", team="Uniom <support@uniom.ir>")
+    ar.save(str(I18N / "ar_001.po"))
+    print("i18n files written:", count, "entries each; translated terms:", len(T) + len(T_EXTRA))
 
 
 if __name__ == "__main__":

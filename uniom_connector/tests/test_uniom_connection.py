@@ -78,6 +78,20 @@ class TestConnection(UniomTestCase):
         with self.assertRaises(ValidationError):
             self._create_connection(base_url="http://localhost:8069")
 
+    def test_create_allows_private_resolving_host_but_call_refuses(self):
+        # split-horizon DNS must not block configuration, only the request
+        from unittest.mock import patch
+
+        connection = self._create_connection()
+        from odoo.addons.uniom_connector.models import uniom_tools
+
+        def private_resolver(hostname, *args, **kwargs):
+            return [(2, 1, 6, "", ("10.1.2.3", 443))]
+
+        with patch.object(uniom_tools.socket, "getaddrinfo", private_resolver):
+            with self.assertRaises(ValidationError):
+                connection._call("getMe")
+
     def test_test_connection_stores_identity(self):
         connection = self._create_connection()
         with patched_transport(

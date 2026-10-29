@@ -1,172 +1,351 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo 18.0/17.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 05:29\n"
-"PO-Revision-Date: 2026-10-29 05:29\n"
+"POT-Creation-Date: 2026-10-29 06:06\n"
+"PO-Revision-Date: 2026-10-29 06:06\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom <support@uniom.ir>\n"
 "Language: ar_001\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_send_wizard.py:0
 msgid " %s failed and were queued or marked failed (see the log)."
 msgstr " فشل %s وأُضيف إلى قائمة الانتظار أو عُلّم كفاشل (راجع السجل)."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_send_wizard.py:0
 msgid "%s message(s) sent."
 msgstr "تم إرسال %s رسالة."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
+msgid "+989123456789 or @channel"
+msgstr "+989123456789 or @channel"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_partner_form_uniom
+msgid ""
+"<span class=\"o_stat_text\">Uniom</span>\n"
+"                        <span class=\"o_stat_text\">Send</span>"
+msgstr ""
+"<span class=\"o_stat_text\">Uniom</span>\n"
+"                        <span class=\"o_stat_text\">إرسال</span>"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
+msgid ""
+"@mychannel\n"
+"+989123456789\n"
+"-1001234567890"
+msgstr ""
+"@mychannel\n"
+"+989123456789\n"
+"-1001234567890"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__api_key
 msgid "API Key"
 msgstr "مفتاح API"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Account #%s"
 msgstr "حساب #%s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__account_details
+msgid "Account Details"
+msgstr "تفاصيل الحساب"
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__account_display
+msgid "Account identity reported by the gateway (getMe)."
+msgstr "هوية الحساب كما أبلغت عنها البوابة (getMe)."
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__active
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__active
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__active_id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__active
+msgid "Active"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__active_model
+msgid "Active Model"
+msgstr ""
+
+#. module: uniom_connector
+#: model:res.groups,name:uniom_connector.group_uniom_manager
+msgid "Administrator"
+msgstr "مدير"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "Advanced"
 msgstr "متقدم"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__manual_chat_ids
 msgid "Also Send To"
 msgstr "إرسال أيضاً إلى"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid ""
 "Ambiguous URL %s: the HTTP stack resolves a different host than the "
 "validator."
 msgstr "عنوان غامض %s: يحدد مكدس HTTP مضيفاً مختلفاً عن المدقق."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.rule,name:uniom_connector.rule_product_created
 msgid "Announce new product in channel"
 msgstr "الإعلان عن منتج جديد في القناة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__model_id
 msgid "Applies to"
 msgstr "ينطبق على"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__domain
 msgid "Apply on"
 msgstr "التطبيق على"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_search
 msgid "Archived"
 msgstr "مؤرشف"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__attach_document
 msgid "Attach PDF"
 msgstr "إرفاق PDF"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__include_document
 msgid "Attach PDF Report"
 msgstr "إرفاق تقرير PDF"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__attachment_id
+msgid "Attachment"
+msgstr "مرفق"
+
+#. module: uniom_connector
+#: model:ir.actions.act_window,name:uniom_connector.action_uniom_rule
+#: model:ir.ui.menu,name:uniom_connector.menu_uniom_rules
 msgid "Automation Rules"
 msgstr "قواعد الأتمتة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.connection,name:uniom_connector.demo_connection_bale
+msgid "Bale — Sales Notifications (Demo)"
+msgstr "بله — إشعارات المبيعات (تجريبي)"
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__base_url
+msgid ""
+"Base URL of the Uniom Bot API. Use https://api.uniom.ir (Iran) or "
+"https://api.uniomi.ir (international mirror)."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__body
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__body
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__body
+msgid "Body"
+msgstr "نص الرسالة"
+
+#. module: uniom_connector
+#: model:res.groups,comment:uniom_connector.group_uniom_user
+msgid "Can send Uniom messages and read the message log."
+msgstr "إرسال رسائل Uniom وقراءة سجل الرسائل."
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_form
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
 msgid "Cancel"
 msgstr "إلغاء"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__state__canceled
 msgid "Canceled"
 msgstr "ملغى"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__chat_id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__chat_id
+msgid "Chat"
+msgstr "محادثة"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__company_id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__company_id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__company_id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__company_id
 msgid "Company"
 msgstr "الشركة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model,name:uniom_connector.model_res_config_settings
+msgid "Config Settings"
+msgstr "تنظیمات پیکربندی"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__account_display
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Connected Account"
 msgstr "الحساب المتصل"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Connected as %(account)s via %(url)s"
 msgstr "تم الاتصال باسم %(account)s عبر %(url)s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__connection_id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__connection_id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__connection_id
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_search
 msgid "Connection"
 msgstr "الاتصال"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.actions.act_window,name:uniom_connector.action_uniom_connection
+#: model:ir.ui.menu,name:uniom_connector.menu_uniom_connections
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Connections"
 msgstr "الاتصالات"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+#: model:ir.model,name:uniom_connector.model_res_partner
 msgid "Contact"
 msgstr "جهة الاتصال"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Could not render the PDF report: %s"
 msgstr "تعذّر إنشاء تقرير PDF: %s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
+msgid "Create API-key connections and register the inbound webhook."
+msgstr "Create API-key connections and register the inbound webhook."
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__inbound_create_partner
 msgid "Create Contacts from Inbound Messages"
 msgstr "إنشاء جهات اتصال من الرسائل الواردة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_rule
+msgid "Create an automation rule"
+msgstr "أنشئ قاعدة أتمتة"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_template.py:0
 msgid "Create at least one record of %s first."
 msgstr "أنشئ أولاً سجلاً واحداً على الأقل من %s."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_connection
+msgid "Create your first Uniom connection"
+msgstr "أنشئ أول اتصال Uniom لك"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__create_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__create_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__create_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__create_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__create_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__create_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__create_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__create_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__create_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__create_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Customer"
 msgstr "العميل"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
+msgid ""
+"Customers are notified on their phone number (or Uniom Chat ID) unless they "
+"opted out. Extra destinations above receive every message too — one per "
+"line."
+msgstr ""
+"يستلم العملاء الإشعارات على رقم هاتفهم (أو معرف محادثة Uniom) ما لم يلغوا "
+"الاشتراك. الوجهات الإضافية أعلاه تستلم كل رسالة أيضاً — وجهة واحدة في كل "
+"سطر."
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__date_edited
+msgid "Date Edited"
+msgstr "تاريخ التعديل"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__date_sent
+msgid "Date Sent"
+msgstr "تاريخ الإرسال"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
+msgid "Default Uniom Bot API URL used by new connections."
+msgstr "Default Uniom Bot API URL used by new connections."
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
 msgid "Delivery Done"
 msgstr "إتمام التسليم"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_picking_done_ar
 msgid "Delivery Done (Arabic)"
 msgstr "إتمام التسليم (العربية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_picking_done_en
 msgid "Delivery Done (English)"
 msgstr "إتمام التسليم (الإنجليزية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_picking_done_fa
 msgid "Delivery Done (Persian)"
 msgstr "إتمام التسليم (الفارسية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid ""
 "Delivery outcome unknown (gateway timeout). Not retried to avoid duplicates,"
 " please verify on the messenger."
@@ -175,409 +354,827 @@ msgstr ""
 "للتكرار؛ يرجى التحقق في تطبيق المراسلة."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__chat_id
+msgid "Destination: phone (+98912...), @channel or numeric id."
+msgstr "الوجهة: هاتف (+98912...) أو @قناة أو معرف رقمي."
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__direction
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Direction"
 msgstr "الاتجاه"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__display_label
+msgid "Display Label"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Document not attached: %s"
 msgstr "لم يُرفق المستند: %s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__next_attempt
+msgid "Earliest moment the queue cron may retry this message."
+msgstr "أقرب وقت يمكن فيه لكرون قائمة الانتظار إعادة إرسال هذه الرسالة."
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__edit_count
+msgid "Edit Count"
+msgstr "عدد التعديلات"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__edit_previous
 msgid "Edit Previous Message"
 msgstr "تعديل الرسالة السابقة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__error_message
+msgid "Error Message"
+msgstr "رسالة الخطأ"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_search
 msgid "Event"
 msgstr "الحدث"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_res_partner__uniom_opt_out
+#: model:ir.model.fields,help:uniom_connector.field_res_users__uniom_opt_out
+msgid "Exclude this contact from automated Uniom notifications."
+msgstr "استبعاد جهة الاتصال هذه من إشعارات Uniom التلقائية."
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_rule__manual_chat_ids
+msgid ""
+"Extra destinations, one per line: @channel, +989123456789, 09123456789 or "
+"numeric chat id. Useful to keep your own channel informed about new orders."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__state__error
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Failed"
 msgstr "فشل"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__template_id
 msgid "Fallback Template"
 msgstr "القالب الافتراضي"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Gateway"
 msgstr "البوابة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__base_url
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Gateway URL"
 msgstr "عنوان البوابة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_search
 msgid "Group By"
 msgstr "تجميع حسب"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_template_form
+msgid ""
+"Hello {{ object.partner_id.name }},\n"
+"your order {{ object.name }} is confirmed.\n"
+"Total: {{ object.amount_total }} {{ object.currency_id.name }}"
+msgstr ""
+"Hello {{ object.partner_id.name }},\n"
+"your order {{ object.name }} is confirmed.\n"
+"Total: {{ object.amount_total }} {{ object.currency_id.name }}"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_send_wizard.py:0
 msgid "Hello, here is an update about %s."
 msgstr "مرحباً، إليك تحديثاً بشأن %s."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "Host %s is not allowed: private or local hosts are refused."
 msgstr "المضيف %s غير مسموح: تُرفض المضيفات المحلية والخاصة."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "Host %s resolves to a private or reserved address and is refused."
 msgstr "المضيف %s يشير إلى عنوان خاص أو محجوز وقد رُفض."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__id
+msgid "ID"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "IP address %s is not allowed: only public addresses are accepted."
 msgstr "عنوان IP ‏%s غير مسموح: تُقبل العناوين العامة فقط."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Inbound Messages (Webhook)"
 msgstr "الرسائل الواردة (Webhook)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__direction__in
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Incoming"
 msgstr "وارد"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_uniom_rule__edit_previous
+msgid ""
+"Instead of sending a new message, edit the one this rule sent earlier for "
+"the same record (ideal for price updates in a channel)."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
+msgid "Internal notes..."
+msgstr "Internal notes..."
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "Invalid URL %s: rejected by the HTTP stack (%s)."
 msgstr "عنوان غير صالح %s: رفضه مكدس HTTP ‏(%s)."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "Invalid URL: control characters are not allowed."
 msgstr "عنوان غير صالح: رموز التحكم غير مسموحة."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_send_wizard.py:0
 msgid "Invalid destination '%s'. Use +989123456789, @channel or a numeric id."
 msgstr "وجهة غير صالحة «%s». استخدم +989123456789 أو @قناة أو معرّفاً رقمياً."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Invalid gateway URL"
 msgstr "عنوان البوابة غير صالح"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Invoice"
 msgstr "الفاتورة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
 msgid "Invoice Posted"
 msgstr "ترحيل الفاتورة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_invoice_posted_ar
 msgid "Invoice Posted (Arabic)"
 msgstr "ترحيل الفاتورة (العربية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_invoice_posted_en
 msgid "Invoice Posted (English)"
 msgstr "ترحيل الفاتورة (الإنجليزية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_invoice_posted_fa
 msgid "Invoice Posted (Persian)"
 msgstr "ترحيل الفاتورة (الفارسية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model,name:uniom_connector.model_account_move
+msgid "Journal Entry"
+msgstr "داده روزنامه"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__lang
 msgid "Language"
 msgstr "اللغة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_form
 msgid "Last Error"
 msgstr "آخر خطأ"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__write_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__write_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__write_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__write_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__write_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__write_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__write_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__write_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__write_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__write_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_rule__company_id
+msgid "Leave empty to apply in every company."
+msgstr "اتركه فارغاً ليطبق في كل الشركات."
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__company_id
+msgid "Leave empty to make this connection available in every company."
+msgstr ""
+
+#. module: uniom_connector
+#: model:res.groups,comment:uniom_connector.group_uniom_manager
+msgid "Manages connections, API keys, automation rules and templates."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
+msgid "Master switch for all automated Uniom messages."
+msgstr "Master switch for all automated Uniom messages."
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "Message"
 msgstr "الرسالة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__uniom_message_id
+msgid "Message id assigned by the messenger, needed to edit later."
+msgstr "معرف الرسالة الذي حدده تطبيق المراسلة، ويلزم للتعديل لاحقاً."
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Message sent via Uniom (%s)."
 msgstr "تم إرسال الرسالة عبر Uniom ‏(%s)."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_uniom_template__body
+msgid ""
+"Message text with placeholders, e.g.:\n"
+"Hello {{ object.partner_id.name }}, your order {{ object.name }} is confirmed.\n"
+"Uses Odoo's standard inline-template syntax ({{ }}), like mail and SMS templates."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.actions.act_window,name:uniom_connector.action_uniom_message
+#: model:ir.ui.menu,name:uniom_connector.menu_uniom_messages
 msgid "Messages"
 msgstr "الرسائل"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_res_partner__uniom_chat_id
+#: model:ir.model.fields,help:uniom_connector.field_res_users__uniom_chat_id
+msgid ""
+"Messenger destination for this contact: phone (+989123456789), @username or "
+"numeric chat id. Leave empty to use the mobile/phone number."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__model
+msgid "Model"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__name
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__name
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__name
+msgid "Name"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Network error while contacting Uniom: %s"
 msgstr "خطأ في الشبكة أثناء الاتصال بـ Uniom: %s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "New Secret"
 msgstr "رمز جديد"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__next_attempt
+msgid "Next Attempt"
+msgstr "المحاولة التالية"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_res_partner__uniom_opt_out
+#: model:ir.model.fields,field_description:uniom_connector.field_res_users__uniom_opt_out
 msgid "No Uniom Messages"
 msgstr "بدون رسائل Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
 msgid "No record of type %(model)s exists yet to test this rule."
 msgstr "لا يوجد بعد سجل من نوع %(model)s لاختبار هذه القاعدة."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__notes
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Notes"
 msgstr "ملاحظات"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.rule,name:uniom_connector.rule_picking_done
 msgid "Notify customer: delivery done"
 msgstr "إشعار العميل: إتمام التسليم"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.rule,name:uniom_connector.rule_invoice_posted
 msgid "Notify customer: invoice posted (with PDF)"
 msgstr "إشعار العميل: ترحيل الفاتورة (مع PDF)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.rule,name:uniom_connector.rule_sale_order_confirmed
 msgid "Notify customer: order confirmed"
 msgstr "إشعار العميل: تأكيد أمر البيع"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.rule,name:uniom_connector.rule_payment_received
 msgid "Notify customer: payment received"
 msgstr "إشعار العميل: استلام الدفعة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.rule,name:uniom_connector.rule_quotation_sent
 msgid "Notify customer: quotation sent"
 msgstr "إشعار العميل: إرسال عرض السعر"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "Only http:// and https:// URLs are allowed, got: %s"
 msgstr "يُسمح فقط بعناوين http:// و https://؛ تم استلام: %s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Open Connections"
 msgstr "فتح الاتصالات"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_form
 msgid "Open Record"
 msgstr "فتح السجل"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_uniom_rule__domain
+msgid ""
+"Optional Odoo domain restricting which records trigger this rule, e.g. "
+"[('amount_total', '>', 1000000)]"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_rule__template_ids
+msgid ""
+"Optional per-language templates: picked when they match the customer's "
+"language, otherwise the fallback template is used."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_template__lang
+msgid ""
+"Optional translation language (ISO code) to select when sending out an "
+"email. If not set, the english version will be used. This should usually be "
+"a placeholder expression that provides the appropriate language, e.g. {{ "
+"object.partner_id.lang }}."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_template__lang_id
+msgid ""
+"Optional: this template is picked when the customer speaks this language. "
+"Leave empty for the fallback template."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_rule__connection_id
+msgid ""
+"Optional: use a specific Uniom connection (messenger). Empty = first active "
+"connection of the company."
+msgstr ""
+
+#. module: uniom_connector
+#: model:uniom.template,name:uniom_connector.template_sale_confirmed_ar
 msgid "Order Confirmed (Arabic)"
 msgstr "تأكيد الطلب (العربية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_sale_confirmed_en
 msgid "Order Confirmed (English)"
 msgstr "تأكيد الطلب (الإنجليزية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_sale_confirmed_fa
 msgid "Order Confirmed (Persian)"
 msgstr "تأكيد الطلب (الفارسية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__direction__out
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Outgoing"
 msgstr "صادر"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__partner_id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__partner_id
+msgid "Partner"
+msgstr "الشريك"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__partner_field
+msgid "Partner Field"
+msgstr "حقل الشريك"
+
+#. module: uniom_connector
+#: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_connection
+msgid ""
+"Paste an API key from your Uniom dashboard — one key per messenger account "
+"(Bale, Rubika, Eitaa, Soroush+, Telegram)."
+msgstr ""
+"الصق مفتاح API من لوحة تحكم Uniom — مفتاح واحد لكل حساب مراسلة (بله، روبيكا،"
+" إيتا، سروش+، تيليجرام)."
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Payment"
 msgstr "الدفعة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
 msgid "Payment Received"
 msgstr "استلام الدفعة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_payment_received_en
 msgid "Payment Received (English)"
 msgstr "استلام الدفعة (الإنجليزية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_payment_received_fa
 msgid "Payment Received (Persian)"
 msgstr "استلام الدفعة (الفارسية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model,name:uniom_connector.model_account_payment
+msgid "Payments"
+msgstr "پرداخت‌ها"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
+msgid "Per-language templates (fa, ar, ...)"
+msgstr "Per-language templates (fa, ar, ...)"
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_send_recipient__chat_id
+msgid "Phone number (+989123456789), @channel or numeric chat id."
+msgstr "رقم الهاتف (+989123456789) أو @قناة أو معرف محادثة رقمي."
+
+#. module: uniom_connector
+#: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_rule
+msgid ""
+"Pick a business event (order confirmed, invoice posted, price changed...), a"
+" message template and the destinations — Uniom does the rest."
+msgstr ""
+"اختر حدثاً تجارياً (تأكيد الطلب، ترحيل الفاتورة، تغيير السعر...)، وقالب "
+"رسالة والوجهات — ويتولى Uniom الباقي."
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_template_form
+msgid ""
+"Placeholders use the standard Odoo syntax: {{ object.field }}, {{ "
+"object.partner_id.name }}, ..."
+msgstr ""
+"تستخدم العناصر النائبة الصيغة القياسية لأودو: {{ object.field }}، {{ "
+"object.partner_id.name }}، ..."
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_template_form
 msgid "Preview"
 msgstr "معاينة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_price_changed_ar
 msgid "Price Updated (Arabic)"
 msgstr "تحديث السعر (العربية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_price_changed_en
 msgid "Price Updated (English)"
 msgstr "تحديث السعر (الإنجليزية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_price_changed_fa
 msgid "Price Updated (Persian)"
 msgstr "تحديث السعر (الفارسية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+#: model:ir.model,name:uniom_connector.model_product_template
 msgid "Product"
 msgstr "المنتج"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
 msgid "Product Price Changed"
 msgstr "تغيير سعر المنتج"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
 msgid "Product Published"
 msgstr "نشر المنتج"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_product_created_en
 msgid "Product Published (English)"
 msgstr "نشر المنتج (الإنجليزية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__state__outgoing
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Queued"
 msgstr "في الانتظار"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
 msgid "Quotation Sent"
 msgstr "إرسال عرض السعر"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.template,name:uniom_connector.template_quotation_sent_en
 msgid "Quotation Sent (English)"
 msgstr "إرسال عرض السعر (الإنجليزية)"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__recipient_ids
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "Recipients"
 msgstr "المستلمون"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__record_name
+msgid "Record Name"
+msgstr "اسم السجل"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__record_ref
+msgid "Record Ref"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__record_res_id
+msgid "Record Res"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__record_res_model
+msgid "Record Res Model"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Register Webhook"
 msgstr "تسجيل Webhook"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_uniom_rule__partner_field
+msgid ""
+"Relational field holding the customer to notify (partner_id for orders and "
+"invoices)."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Remove Webhook"
 msgstr "إزالة Webhook"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__render_model
+msgid "Rendering Model"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Report %s is not allowed for this document."
 msgstr "التقرير %s غير مسموح لهذا المستند."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__report_ref
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__report_ref
+msgid "Report Ref"
+msgstr "مرجع التقرير"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Retry %(n)s/%(max)s scheduled in %(mins)s min: %(err)s"
 msgstr "إعادة المحاولة %(n)s/%(max)s بعد %(mins)s دقيقة: %(err)s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__retry_count
+msgid "Retry Count"
+msgstr "عدد المحاولات"
+
+#. module: uniom_connector
+#: model:uniom.connection,name:uniom_connector.demo_connection_rubika
+msgid "Rubika — Shop Channel (Demo)"
+msgstr "روبيكا — قناة المتجر (تجريبي)"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__rule_id
+msgid "Rule"
+msgstr "قاعدة"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Sale Order"
 msgstr "أمر البيع"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
 msgid "Sale Order Confirmed"
 msgstr "تأكيد أمر البيع"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model,name:uniom_connector.model_sale_order
+msgid "Sales Order"
+msgstr "سفارش فروش"
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__webhook_secret
+msgid ""
+"Secret sent back by Uniom in the X-Telegram-Bot-Api-Secret-Token header. "
+"Regenerate to invalidate."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
 msgid "Send"
 msgstr "إرسال"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_form
 msgid "Send / Retry"
 msgstr "إرسال / إعادة المحاولة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__send_immediately
 msgid "Send Immediately"
 msgstr "إرسال فوري"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_uniom_send_wizard__attach_document
+msgid "Send the document's standard PDF report with the message."
+msgstr "إرسال تقرير PDF القياسي للمستند مع الرسالة."
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_rule__send_immediately
+msgid ""
+"Send the moment the event happens. Unchecked: only queue for the periodic "
+"cron. Failures are always re-queued either way."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_rule__include_document
+msgid "Send the record's standard PDF report as a document with the message."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model,name:uniom_connector.model_uniom_send_wizard
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_move_form_uniom
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_order_form_uniom
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_picking_form_uniom
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
 msgid "Send via Uniom"
 msgstr "إرسال عبر Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__state__sent
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Sent"
 msgstr "تم الإرسال"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__sequence
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__sequence
+msgid "Sequence"
+msgstr "التسلسل"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Set the 'web.base.url' system parameter to your Odoo base URL first."
 msgstr "عيّن أولاً معامل النظام web.base.url على العنوان الأساسي لأودو."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__state
+msgid "State"
+msgstr "الحالة"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Status"
 msgstr "الحالة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_uniom_rule__report_ref
+msgid ""
+"Technical reference of the QWeb report to attach (auto-filled from the "
+"event, editable)."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__report_ref
+msgid ""
+"Technical reference of the QWeb report to attach as a document, e.g. "
+"account.account_invoices."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__template_id
+msgid "Template"
+msgstr "قالب"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_template.py:0
 msgid ""
 "Template '%(template)s' applies to %(model)s but got a %(other)s record."
 msgstr ""
 "القالب «%(template)s» مخصص لـ %(model)s لكنه استقبل سجلاً من %(other)s."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__lang_id
+msgid "Template Language"
+msgstr "لغة القالب"
+
+#. module: uniom_connector
+#: model:ir.actions.act_window,name:uniom_connector.action_uniom_template
+#: model:ir.ui.menu,name:uniom_connector.menu_uniom_templates
 msgid "Templates"
 msgstr "القوالب"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Test Connection"
 msgstr "اختبار الاتصال"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "Test with Last Record"
 msgstr "اختبار مع آخر سجل"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "The URL %s has no host."
 msgstr "العنوان %s بلا مضيف."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid ""
 "The Uniom API key must start with '%(prefix)s' — copy it exactly as shown in"
 " your Uniom dashboard."
@@ -586,141 +1183,261 @@ msgstr ""
 "تحكم Uniom."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "The connection '%s' has no API key."
 msgstr "الاتصال «%s» لا يحتوي على مفتاح API."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__api_key
+msgid ""
+"The uniom_... key issued in your Uniom dashboard (Account → API Keys). Bound"
+" to one messenger account per key."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+#: model:ir.model,name:uniom_connector.model_stock_picking
 msgid "Transfer"
 msgstr "التحويل"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__template_ids
 msgid "Translated Templates"
 msgstr "القوالب المترجمة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__trigger
+msgid "Trigger"
+msgstr "الحدث"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__trigger_model
+msgid "Trigger Model"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Unexpected error: %s"
 msgstr "خطأ غير متوقع: %s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+#: code:addons/uniom_connector/wizards/uniom_send_wizard.py:0
+#: model:ir.module.category,name:uniom_connector.module_category_uniom
+#: model:ir.ui.menu,name:uniom_connector.menu_uniom_root
+msgid "Uniom"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model,name:uniom_connector.model_uniom_rule
 msgid "Uniom Automation Rule"
 msgstr "قاعدة أتمتة Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_res_partner__uniom_chat_id
+#: model:ir.model.fields,field_description:uniom_connector.field_res_users__uniom_chat_id
 msgid "Uniom Chat ID"
 msgstr "معرف محادثة Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model,name:uniom_connector.model_uniom_connection
 msgid "Uniom Connection"
 msgstr "اتصال Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_res_config_settings__uniom_default_base_url
 msgid "Uniom Gateway URL"
 msgstr "عنوان بوابة Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model,name:uniom_connector.model_uniom_message
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__uniom_message_id
 msgid "Uniom Message"
 msgstr "رسالة Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_res_partner__uniom_message_count
+#: model:ir.model.fields,field_description:uniom_connector.field_res_users__uniom_message_count
+msgid "Uniom Message Count"
+msgstr "عدد رسائل Uniom"
+
+#. module: uniom_connector
+#: model:ir.model,name:uniom_connector.model_uniom_template
 msgid "Uniom Message Template"
 msgstr "قالب رسالة Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+#: model:ir.model.fields,field_description:uniom_connector.field_res_partner__uniom_message_ids
+#: model:ir.model.fields,field_description:uniom_connector.field_res_users__uniom_message_ids
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_partner_form_uniom
 msgid "Uniom Messages"
 msgstr "رسائل Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_partner_form_uniom
 msgid "Uniom Messaging"
 msgstr "مراسلات Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Uniom Messaging Gateway"
 msgstr "بوابة مراسلات Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Uniom Notifications"
 msgstr "إشعارات Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_res_config_settings__uniom_enabled
 msgid "Uniom Notifications Enabled"
 msgstr "إشعارات Uniom مفعّلة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model,name:uniom_connector.model_uniom_send_recipient
 msgid "Uniom Send Wizard Recipient"
 msgstr "مستلم معالج إرسال Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Uniom answered with a redirect (HTTP %s) which is refused."
 msgstr "ردّ Uniom بإعادة توجيه (HTTP %s) وقد رُفضت."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Uniom answered with invalid JSON (HTTP %s)."
 msgstr "ردّ Uniom بـ JSON غير صالح (HTTP %s)."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Uniom contact %s"
 msgstr "جهة اتصال Uniom ‏%s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Uniom error %(code)s: %(description)s"
 msgstr "خطأ Uniom ‏%(code)s: %(description)s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Uniom message failed permanently: %s"
 msgstr "فشلت رسالة Uniom نهائياً: %s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Uniom message to %s"
 msgstr "رسالة Uniom إلى %s"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_template.py:0
 msgid "Uniom template preview"
 msgstr "معاينة قالب Uniom"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.actions.server,name:uniom_connector.ir_cron_uniom_process_queue_ir_actions_server
+msgid "Uniom: process message queue"
+msgstr "Uniom: معالجة قائمة الرسائل"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Unknown error"
 msgstr "خطأ غير معروف"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:uniom.rule,name:uniom_connector.rule_product_price_changed
 msgid "Update price post in channel"
 msgstr "تحديث منشور السعر في القناة"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:res.groups,name:uniom_connector.group_uniom_user
+msgid "User"
+msgstr "مستخدم"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__webhook_registered
+msgid "Webhook Registered"
+msgstr "Webhook مسجل"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__webhook_secret
+msgid "Webhook Secret"
+msgstr "رمز Webhook"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__webhook_url
+msgid "Webhook Url"
+msgstr "عنوان Webhook"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Webhook registered."
 msgstr "تم تسجيل Webhook."
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__inbound_create_partner
+msgid ""
+"When an incoming message cannot be matched to an existing contact, create "
+"one automatically."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "With Errors"
 msgstr "مع أخطاء"
 
 #. module: uniom_connector
-#: models/uniom_tools.py:1
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
+msgid "Write your message..."
+msgstr "Write your message..."
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
+msgid "[('amount_total', '>', 1000000)]"
+msgstr "[('amount_total', '>', 1000000)]"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "document"
+msgstr "مستند"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
+msgid "e.g. Bale — Sales Notifications"
+msgstr "e.g. Bale — Sales Notifications"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
+msgid "e.g. Notify customer when order is confirmed"
+msgstr "e.g. Notify customer when order is confirmed"
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_template_form
+msgid "e.g. Order Confirmed (English)"
+msgstr "e.g. تأكيد الطلب (الإنجليزية)"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "empty"
 msgstr "فارغ"
