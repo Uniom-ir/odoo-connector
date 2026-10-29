@@ -6,11 +6,11 @@
         <field name="name">uniom.template.tree</field>
         <field name="model">uniom.template</field>
         <field name="arch" type="xml">
-            <list>
+            <tree>
                 <field name="name"/>
                 <field name="model_id"/>
                 <field name="lang_id" optional="show"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -49,6 +49,6 @@
     <record id="action_uniom_template" model="ir.actions.act_window">
         <field name="name">Templates</field>
         <field name="res_model">uniom.template</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
     </record>
 </odoo>

@@ -6,7 +6,7 @@
         <field name="name">uniom.message.tree</field>
         <field name="model">uniom.message</field>
         <field name="arch" type="xml">
-            <list decoration-info="direction == 'in'"
+            <tree decoration-info="direction == 'in'"
                   decoration-warning="state == 'outgoing'"
                   decoration-danger="state == 'error'"
                   decoration-muted="state == 'canceled'">
@@ -24,7 +24,7 @@
                 <field name="retry_count" optional="hide"/>
                 <field name="edit_count" optional="hide"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -107,6 +107,6 @@
     <record id="action_uniom_message" model="ir.actions.act_window">
         <field name="name">Messages</field>
         <field name="res_model">uniom.message</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">tree,form</field>
     </record>
 </odoo>

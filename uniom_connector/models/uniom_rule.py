@@ -328,6 +328,6 @@ class UniomRule(models.Model):
             "type": "ir.actions.act_window",
             "name": _("Uniom Messages"),
             "res_model": "uniom.message",
-            "view_mode": "list,form",
+            "view_mode": "tree,form",
             "domain": [("rule_id", "=", self.id)],
         }
