@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+     copyright and licensing details. -->
+<templates xml:space="preserve">
+
+<t t-name="uniom_connector.ChatDashboard">
+    <div class="o_uniom_chat d-flex">
+        <aside class="o_uniom_sidebar d-flex flex-column">
+            <div class="o_uniom_sidebar_head d-flex align-items-center justify-content-between">
+                <h6 class="m-0">Conversations</h6>
+                <button class="btn btn-sm o_uniom_manage" t-on-click="openManage" title="Manage">
+                    <i class="fa fa-cog" role="img" aria-label="Manage"/>
+                </button>
+            </div>
+            <div class="o_uniom_search">
+                <input type="text" placeholder="Search conversations..." t-on-input="onSearchInput"/>
+            </div>
+            <div class="o_uniom_chat_list flex-grow-1">
+                <t t-foreach="filteredChats" t-as="chat" t-key="chat.id">
+                    <div class="o_uniom_chat_item d-flex"
+                         t-att-class="{ o_active: chat.id === state.activeId }"
+                         t-on-click="() => this.openChat(chat.id)">
+                        <t t-if="chat.avatarUrl">
+                            <img class="o_uniom_avatar" t-att-src="chat.avatarUrl" t-att-alt="chat.display_name"/>
+                        </t>
+                        <t t-else="">
+                            <i class="fa fa-user-circle o_uniom_avatar_fallback" role="img" t-att-alt="chat.display_name"/>
+                        </t>
+                        <div class="flex-grow-1 o_uniom_chat_meta">
+                            <div class="o_uniom_chat_name" t-esc="chat.display_name"/>
+                            <div class="o_uniom_chat_preview" t-esc="chat.last_message_preview or chat.chat_id"/>
+                        </div>
+                        <span class="badge o_uniom_chat_count" t-esc="chat.message_count"/>
+                    </div>
+                </t>
+                <div t-if="!filteredChats.length" class="p-3 text-muted">No conversations yet.</div>
+            </div>
+        </aside>
+
+        <main class="o_uniom_main d-flex flex-column flex-grow-1">
+            <t t-if="state.activeChat">
+                <header class="o_uniom_thread_head">
+                    <div class="fw-bold" t-esc="state.activeChat.display_name"/>
+                    <small class="text-muted" t-esc="state.activeChat.chat_id"/>
+                </header>
+                <div class="o_uniom_thread flex-grow-1" t-ref="thread">
+                    <t t-foreach="state.messages" t-as="msg" t-key="msg.id">
+                        <div t-att-class="'o_uniom_bubble_row ' + (msg.direction === 'in' ? 'in' : 'out')">
+                            <div t-att-class="'o_uniom_bubble ' + (msg.direction === 'in' ? 'in' : 'out')">
+                                <div class="o_uniom_bubble_body" t-esc="msg.body"/>
+                                <div class="o_uniom_bubble_meta">
+                                    <span t-esc="formatTs(msg.date_sent or msg.create_date)"/>
+                                    <t t-if="msg.direction === 'out'">
+                                        <i t-if="msg.state === 'sent' and !msg.error_message" class="fa fa-check text-success" title="Sent"/>
+                                        <i t-elif="msg.state === 'outgoing'" class="fa fa-clock-o text-muted" title="Queued"/>
+                                        <i t-elif="msg.state === 'error'" class="fa fa-warning text-danger" t-att-title="msg.error_message or 'Failed'"/>
+                                        <i t-elif="msg.state === 'canceled'" class="fa fa-ban text-muted" title="Canceled"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+                <footer class="o_uniom_composer d-flex">
+                    <textarea class="flex-grow-1" rows="1" t-ref="composer"
+                              t-on-keydown="onComposerKeydown" placeholder="Type a message"/>
+                    <button class="btn btn-primary" t-on-click="sendReply">Send</button>
+                </footer>
+            </t>
+            <t t-else="">
+                <div class="o_uniom_placeholder flex-grow-1 d-flex align-items-center justify-content-center text-muted">
+                    Select a conversation to start chatting
+                </div>
+            </t>
+        </main>
+    </div>
+</t>
+
+</templates>

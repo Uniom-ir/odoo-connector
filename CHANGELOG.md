@@ -1,5 +1,16 @@
 # Changelog
 
+## 18.0.1.2.0 (2026-10-30)
+
+* **Messenger dashboard**: the Conversations menu now opens a WhatsApp-Web-style
+  two-pane client action (OWL) — conversation list with avatars, previews and
+  counters on one side; chat **bubbles** (incoming left, outgoing right) with
+  per-message state icons and a bottom composer (Enter to send) on the other.
+  Auto-refreshes every 8 s; fully mirrored under RTL.
+* The kanban/form views remain available behind the dashboard's Manage button.
+* New `action_send_dashboard_reply` on uniom.chat (reply pipeline shared with
+  the form reply box); tests extended (53 total).
+
 ## 18.0.1.1.1 (2026-10-30)
 
 * Fix: conversations kanban crashed on render (kanban template name and the

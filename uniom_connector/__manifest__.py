@@ -38,7 +38,7 @@ Highlights
     "author": "Uniom",
     "website": "https://uniom.ir",
     "category": "Discuss",
-    "version": "17.0.1.1.1",
+    "version": "17.0.1.2.0",
     "license": "LGPL-3",
     "development_status": "Production/Stable",
     "depends": [
@@ -50,6 +50,13 @@ Highlights
     ],
     "external_dependencies": {
         "python": ["requests"],
+    },
+    "assets": {
+        "web.assets_backend": [
+            "uniom_connector/static/src/uniom_chat_dashboard.xml",
+            "uniom_connector/static/src/uniom_chat_dashboard.js",
+            "uniom_connector/static/src/uniom_chat_dashboard.scss",
+        ],
     },
     "data": [
         "security/uniom_security.xml",
