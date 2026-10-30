@@ -1,5 +1,14 @@
 # Changelog
 
+## 18.0.1.2.1 (2026-10-30)
+
+* Demo: the prospect conversation now keeps its intended 9-hour-old timestamp
+  (the failed demo message had no date, so it sorted first as "now").
+* Store screenshots of the messenger dashboard captured live with DOM
+  render assertions; superseded kanban/form conversation shots removed.
+* Translations regenerated from a fresh Odoo export (281 terms; all
+  dashboard strings translated in fa/ar).
+
 ## 18.0.1.2.0 (2026-10-30)
 
 * **Messenger dashboard**: the Conversations menu now opens a WhatsApp-Web-style

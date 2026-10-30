@@ -23,9 +23,9 @@ Delivery done ───┤        (retry + backoff)      Bot API        / @chann
 Price changed ───┘                                        (editMessageText)
 ```
 
-![Uniom Conversations](uniom_connector/static/description/uniom_conversations_screenshot.png)
+![Uniom Chat Dashboard](uniom_connector/static/description/uniom_chat_dashboard_screenshot.png)
 
-![Reply from the thread](uniom_connector/static/description/uniom_conversation_form_screenshot.png)
+![Chat bubbles and composer](uniom_connector/static/description/uniom_chat_thread_screenshot.png)
 
 ![Connect Uniom Account](uniom_connector/static/description/uniom_connect_wizard_screenshot.png)
 
