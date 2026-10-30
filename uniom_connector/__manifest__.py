@@ -38,7 +38,7 @@ Highlights
     "author": "Uniom",
     "website": "https://uniom.ir",
     "category": "Discuss",
-    "version": "17.0.1.2.0",
+    "version": "17.0.1.2.1",
     "license": "LGPL-3",
     "development_status": "Production/Stable",
     "depends": [
@@ -82,8 +82,8 @@ Highlights
         "demo/uniom_demo.xml",
     ],
     "images": [
-        "static/description/uniom_conversations_screenshot.png",
-        "static/description/uniom_conversation_form_screenshot.png",
+        "static/description/uniom_chat_dashboard_screenshot.png",
+        "static/description/uniom_chat_thread_screenshot.png",
         "static/description/uniom_connect_wizard_screenshot.png",
         "static/description/uniom_messages_screenshot.png",
         "static/description/uniom_messages_rtl_screenshot.png",

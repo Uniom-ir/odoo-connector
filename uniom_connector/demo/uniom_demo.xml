@@ -76,6 +76,7 @@
         <field name="connection_id" ref="demo_connection_bale"/>
         <field name="chat_session_id" ref="demo_chat_prospect"/>
         <field name="direction">out</field>
+        <field name="date_sent" eval="(DateTime.now() - timedelta(hours=9)).strftime('%Y-%m-%d %H:%M:%S')"/>
         <field name="state">error</field>
         <field name="chat_id">+989120000002</field>
         <field name="body">فاکتور INV/2026/0001 صادر شد.</field>

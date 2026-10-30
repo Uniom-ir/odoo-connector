@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-30 01:32\n"
-"PO-Revision-Date: 2026-10-30 01:32\n"
+"POT-Creation-Date: 2026-10-30 21:16\n"
+"PO-Revision-Date: 2026-10-30 21:16\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom <support@uniom.ir>\n"
 "Language: fa_IR\n"
@@ -209,6 +209,8 @@ msgid "Cancel"
 msgstr "انصراف"
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__state__canceled
 msgid "Canceled"
 msgstr "لغو شد"
@@ -306,7 +308,10 @@ msgid "Conversation this message belongs to (kept for history)."
 msgstr "گفتگویی که این پیام به آن تعلق دارد (برای تاریخچه)."
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
 #: model:ir.actions.act_window,name:uniom_connector.action_uniom_chat
+#: model:ir.actions.client,name:uniom_connector.action_uniom_chat_dashboard
 #: model:ir.ui.menu,name:uniom_connector.menu_uniom_conversations
 msgid "Conversations"
 msgstr "گفتگوها"
@@ -767,9 +772,15 @@ msgid "Leave empty to make this connection available in every company."
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+msgid "Manage"
+msgstr "مدیریت"
+
+#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Manage API-key connections and register the inbound webhook."
-msgstr "Manage API-key connections and register the inbound webhook."
+msgstr "مدیریت API-key connections and register the inbound webhook."
 
 #. module: uniom_connector
 #: model:res.groups,comment:uniom_connector.group_uniom_manager
@@ -862,6 +873,12 @@ msgstr "بدون پیام یونیوم"
 #: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_chat
 msgid "No conversations yet"
 msgstr "هنوز گفتگویی وجود ندارد"
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+msgid "No conversations yet."
+msgstr "هنوز گفتگویی وجود ندارد."
 
 #. module: uniom_connector
 #. odoo-python
@@ -1105,6 +1122,8 @@ msgid "Product Published (English)"
 msgstr "انتشار محصول (انگلیسی)"
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__state__outgoing
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Queued"
@@ -1225,6 +1244,12 @@ msgid "Sales Order"
 msgstr "سفارش فروش"
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+msgid "Search conversations..."
+msgstr "جستجوی گفتگوها..."
+
+#. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_connection__webhook_secret
 msgid ""
 "Secret sent back by Uniom in the X-Telegram-Bot-Api-Secret-Token header. "
@@ -1232,6 +1257,14 @@ msgid ""
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+msgid "Select a conversation to start chatting"
+msgstr "برای شروع گفتگو، یک گفتگو را انتخاب کنید"
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
 msgid "Send"
 msgstr "ارسال"
@@ -1278,6 +1311,8 @@ msgid "Send via Uniom"
 msgstr "ارسال با یونیوم"
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__state__sent
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Sent"
@@ -1414,6 +1449,12 @@ msgstr "رویداد"
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__trigger_model
 msgid "Trigger Model"
 msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+msgid "Type a message"
+msgstr "پیامی بنویسید"
 
 #. module: uniom_connector
 #. odoo-python
