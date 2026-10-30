@@ -103,8 +103,43 @@ class UniomChat(models.Model):
         )
 
     # ------------------------------------------------------------------
-    # Reply from the thread view
+    # Reply from the thread view / chat dashboard
     # ------------------------------------------------------------------
+    def _queue_outbound(self, body):
+        """Queue one outbound message through this conversation and attempt
+        immediate delivery. Returns the uniom.message record."""
+        self.ensure_one()
+        chat_id = canonicalize_chat_id(self.chat_id)
+        if not chat_id:
+            raise UserError(
+                _("This conversation has an invalid destination: %s", self.chat_id)
+            )
+        message = self.env["uniom.message"].create(
+            {
+                "connection_id": self.connection_id.id,
+                "chat_session_id": self.id,
+                "direction": "out",
+                "state": "outgoing",
+                "chat_id": chat_id,
+                "partner_id": self.partner_id.id,
+                "body": body,
+                "record_res_model": "res.partner",
+                "record_res_id": self.partner_id.id,
+                "record_name": self.partner_id.name,
+            }
+        )
+        message._send_message()
+        return message
+
+    def action_send_dashboard_reply(self, body):
+        """Send one reply from the OWL chat dashboard (client action)."""
+        self.ensure_one()
+        body = (body or "").strip()
+        if not body:
+            raise UserError(_("Write a reply first."))
+        message = self._queue_outbound(body)
+        return message.read(["state", "error_message"])[0]
+
     def action_send_reply(self):
         # validate every draft first: a mid-loop error must not roll back
         # replies the gateway already received
@@ -117,22 +152,7 @@ class UniomChat(models.Model):
                 )
         sent = failed = 0
         for chat in self:
-            body = (chat.reply_body or "").strip()
-            message = self.env["uniom.message"].create(
-                {
-                    "connection_id": chat.connection_id.id,
-                    "chat_session_id": chat.id,
-                    "direction": "out",
-                    "state": "outgoing",
-                    "chat_id": canonicalize_chat_id(chat.chat_id),
-                    "partner_id": chat.partner_id.id,
-                    "body": body,
-                    "record_res_model": "res.partner",
-                    "record_res_id": chat.partner_id.id,
-                    "record_name": chat.partner_id.name,
-                }
-            )
-            message._send_message()
+            message = chat._queue_outbound((chat.reply_body or "").strip())
             if message.state == "sent" and not message.error_message:
                 sent += 1
                 chat.reply_body = False

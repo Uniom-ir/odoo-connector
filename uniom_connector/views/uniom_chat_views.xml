@@ -116,4 +116,10 @@
             <p>Every incoming and outgoing message opens a thread here — reply straight from Odoo via Uniom. Connect your account to start.</p>
         </field>
     </record>
+
+    <!-- Messenger-style dashboard (the default Conversations experience) -->
+    <record id="action_uniom_chat_dashboard" model="ir.actions.client">
+        <field name="name">Conversations</field>
+        <field name="tag">uniom.chat_dashboard</field>
+    </record>
 </odoo>

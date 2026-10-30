@@ -93,3 +93,19 @@ class TestConversations(UniomTestCase):
         chat = self.env["uniom.chat"].search([("chat_id", "=", "+989120000001")])
         with self.assertRaises(UserError):
             chat.action_send_reply()
+
+    def test_dashboard_reply_sends_and_reports(self):
+        self._outbound()
+        chat = self.env["uniom.chat"].search([("chat_id", "=", "+989120000001")])
+        with patched_transport([FakeResponse(ok_response({"message_id": 88}))]) as transport:
+            result = chat.action_send_dashboard_reply("سلام از داشبورد")
+        self.assertEqual(result["state"], "sent")
+        self.assertEqual(transport.calls[0]["json"]["text"], "سلام از داشبورد")
+        self.assertEqual(chat.message_count, 2)
+        self.assertEqual(chat.last_message_preview, "سلام از داشبورد")
+
+    def test_dashboard_reply_empty_raises(self):
+        self._outbound()
+        chat = self.env["uniom.chat"].search([("chat_id", "=", "+989120000001")])
+        with self.assertRaises(UserError):
+            chat.action_send_dashboard_reply("   ")
