@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 15:45\n"
-"PO-Revision-Date: 2026-11-15 15:45\n"
+"POT-Creation-Date: 2026-11-15 16:32\n"
+"PO-Revision-Date: 2026-11-15 16:32\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom\n"
 "MIME-Version: 1.0\n"
@@ -2511,12 +2511,6 @@ msgid "Supergroup"
 msgstr ""
 
 #. module: uniom_connector
-#. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
-msgid "Sync"
-msgstr ""
-
-#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Sync Conversations"
 msgstr ""
@@ -2729,12 +2723,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_chat.py:0
 msgid "This conversation has an invalid destination: %s"
-msgstr ""
-
-#. module: uniom_connector
-#. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
-msgid "This conversation is not linked to a contact yet."
 msgstr ""
 
 #. module: uniom_connector
@@ -3497,6 +3485,30 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "Only outgoing messages can be deleted."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_dead_update
+msgid "Poll Dead Update"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_dead_update
+msgid ""
+"Raw payload of the last skipped poison update (JSON), kept for support "
+"replay after the retry bound gave up on it."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.actions.server,name:uniom_connector.ir_cron_uniom_sync_states_ir_actions_server
+msgid "Uniom: sync message states"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
-msgid "Update %s failed %s times and was skipped; check the logs."
+msgid ""
+"Update %s failed %s times and was skipped; payload kept on the connection."
 msgstr ""

@@ -822,8 +822,14 @@ class UniomLinkWizard(models.TransientModel):
     def action_create_key(self):
         """Create an API key for the linked credential and store it in Odoo."""
         self.ensure_one()
+        # serialize concurrent RPCs (double click, automatic retry): the
+        # gateway key mint below is not covered by Odoo's rollback, so a
+        # second request must see the first one's connection, not mint again
+        self.env.cr.execute(
+            "SELECT id FROM uniom_link_wizard WHERE id = %s FOR UPDATE", [self.id]
+        )
+        self.invalidate_recordset(["created_connection_id"])
         if self.created_connection_id:
-            # a double click or a retried RPC must not mint a second key
             return self._reopen_wizard()
         if not self.link_credential_id:
             raise UserError(_("Link a messenger account first."))

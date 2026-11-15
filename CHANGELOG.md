@@ -1,31 +1,32 @@
 # Changelog
 
-## 20.0.1.0.0 (2026-11-15)
+## 18.0.2.0.2 (2026-11-15)
 
-Odoo 20 port of 18.0.2.0.1 — same features, ported to the 20.0 ORM, mail
-and security stacks:
+Merge-review fixes (backend + frontend teams):
 
-* **Security**: `ir.model.access` and `ir.rule` were merged upstream into
-  `ir.access`; the module now ships `security/ir.access.csv` (per-group
-  permissions plus the multi-company rules as group-less restrictions) and
-  the groups moved to Odoo 20's `res.groups.privilege`. `_sql_constraints`
-  became `models.Constraint` (the old spelling is ignored, not run, on 20).
-* **ORM**: `odoo.osv.expression` is gone — `display_name` search now rides
-  on `_rec_names_search`; `ir.config_parameter.get_param`/`set_param` were
-  replaced by the typed `get_str`/`get_bool`/`set_*` API; binary fields take
-  `BinaryValue` (`BinaryBytes`) instead of base64/bytes; `res.users.group_ids`
-  replaces `groups_id` (demo data).
-* **Mail / Discuss**: the discuss app moved into `mail` and the client
-  action tag is `mail.action_discuss` (thread passed as
-  `discuss.channel_<id>`); channel create, member commands, `message_post`,
-  `mail.mt_comment`, `bus._sendone` and `_render_qweb_pdf` re-verified.
-* **CI**: Odoo 20.0 matrix leg (Python 3.12, PostgreSQL 16) gated on the same
-  `--test-tags /uniom_connector` suite; the screenshots workflow now boots
-  20.0. Translations regenerated for 20.0 (584/584 terms per language).
-* Folded 18.0.2.0.1: polling can no longer wedge on a poison update (offset
-  hold bounded at 5 retries, then the update is skipped with an error log),
-  and wizard follow-up steps run inside a savepoint so a DB error surfaces as
-  a best-effort note instead of aborting the wizard transaction.
+* Read/delivery ticks now work: new 5-minute cron refreshes states for
+  recent outbound messages via getMessageStates (was wired to nothing).
+* Messenger delete is outbound-only: inbound rows carry gateway ids too,
+  so both delete paths now guard on direction.
+* Skipped poison updates keep a dead-letter payload on the connection
+  for support replay; chatter posts are best-effort guarded.
+* History backfill no longer flips directions when the own id is unknown.
+* Link-wizard key minting is row-locked against double-click/retried RPC.
+* Deep links use the Odoo router (locked key + ROUTE_CHANGE) instead of
+  the hash, so chatter links open the right conversation on /odoo/ URLs.
+* Wizard/settings translations fixed: whole-term model_terms (42 terms),
+  word-boundary substring fallback — no more "نظرسنجیing" corruption.
+* Removed dead scroll-pin flag and unused labels; declared the
+  decoration dependency in the connections list.
+* Suite: 105 tests green; Persian/Arabic at 586/586.
+
+## 18.0.2.0.1 (2026-11-15)
+
+* Polling can no longer wedge on a poison update: the offset hold is now
+  bounded (5 retries, then the update is skipped with an error log).
+* Wizard follow-up steps run inside a savepoint, so a DB error surfaces
+  as a best-effort note instead of aborting the wizard transaction.
+* Suite: 102 tests green; Persian/Arabic at 584/584.
 
 ## 18.0.2.0.0 (2026-11-15)
 

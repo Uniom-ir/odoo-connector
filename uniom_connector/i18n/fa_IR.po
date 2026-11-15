@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 15:45\n"
-"PO-Revision-Date: 2026-11-15 15:45\n"
+"POT-Creation-Date: 2026-11-15 16:32\n"
+"PO-Revision-Date: 2026-11-15 16:32\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom <support@uniom.ir>\n"
 "Language: fa_IR\n"
@@ -101,8 +101,8 @@ msgid ""
 "A new Uniom API key is created for the linked account\n"
 "                        and saved on a connection in Odoo."
 msgstr ""
-"A new یونیوم API key is created for the linked account\n"
-"                        and saved on a connection in Odoo."
+"یک کلید API جدید یونیوم برای حساب پیوندشده ساخته می‌شود و روی یک اتصال در "
+"اودو ذخیره می‌شود."
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__api_key
@@ -285,7 +285,7 @@ msgstr "نشانی آواتار"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Back"
-msgstr "Back"
+msgstr "بازگشت"
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -396,14 +396,13 @@ msgid ""
 "                        it. Uniom sends the verification code through that\n"
 "                        messenger."
 msgstr ""
-"Choose the messenger and the phone number registered on\n"
-"                        it. یونیوم sends the verification code through that\n"
-"                        messenger."
+"پیام‌رسان و شماره تلفن ثبت‌شده روی آن را انتخاب کنید. یونیوم کد تأیید را از "
+"طریق همان پیام‌رسان می‌فرستد."
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Close"
-msgstr "Close"
+msgstr "بستن"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__company_id
@@ -542,7 +541,7 @@ msgstr "رندر گزارش PDF ممکن نشد: %s"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Create Connection"
-msgstr "Create اتصال"
+msgstr "ساخت اتصال"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__inbound_create_partner
@@ -556,9 +555,8 @@ msgid ""
 "                        and paste it below — one key per messenger account\n"
 "                        (Bale, Rubika, Eitaa, Soroush+, Telegram)."
 msgstr ""
-"Create an API key in your یونیوم dashboard (Account → کلید APIs)\n"
-"                        and paste it below — one key per messenger account\n"
-"                        (بله, روبیکا, ایتا, سروش‌پلاس, تلگرام)."
+"در داشبورد یونیوم یک کلید API بسازید (حساب ← کلیدهای API) و پایین بچسبانید —"
+" یک کلید برای هر حساب پیام‌رسان (بله، روبیکا، ایتا، سروش‌پلاس، تلگرام)."
 
 #. module: uniom_connector
 #: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_rule
@@ -583,7 +581,7 @@ msgstr ""
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Create the API key"
-msgstr "Create the API key"
+msgstr "ساخت کلید API"
 
 #. module: uniom_connector
 #: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_connection
@@ -666,7 +664,7 @@ msgstr "تاریخ ارسال"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Default Uniom Bot API URL used by new connections."
-msgstr "Default یونیوم Bot API URL used by new connections."
+msgstr "نشانی پیش‌فرض Bot API یونیوم که اتصال‌های جدید استفاده می‌کنند."
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -850,7 +848,7 @@ msgstr "کد تأیید ۴ تا ۸ رقمی را وارد کنید."
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Enter the Uniom code"
-msgstr "Enter the یونیوم code"
+msgstr "کد یونیوم را وارد کنید"
 
 #. module: uniom_connector
 #. odoo-python
@@ -864,13 +862,13 @@ msgid ""
 "Enter the code Uniom sent to your phone. You can request\n"
 "                        a new code if it did not arrive."
 msgstr ""
-"Enter the code یونیوم sent to your phone. You can request\n"
-"                        a new code if it did not arrive."
+"کدی که یونیوم به گوشی شما فرستاد را وارد کنید. اگر نرسید می‌توانید کد جدید "
+"بخواهید."
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Enter the code you received in the messenger."
-msgstr "Enter the code you received in the messenger."
+msgstr "کدی که در پیام‌رسان دریافت کردید را وارد کنید."
 
 #. module: uniom_connector
 #. odoo-python
@@ -1081,7 +1079,7 @@ msgstr ""
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Internal notes..."
-msgstr "Internal notes..."
+msgstr "یادداشت‌های داخلی..."
 
 #. module: uniom_connector
 #. odoo-python
@@ -1168,7 +1166,7 @@ msgstr "داده روزنامه"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Kind"
-msgstr "Kind"
+msgstr "نوع"
 
 #. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_message__message_kind
@@ -1329,7 +1327,7 @@ msgstr "گزینه‌های احراز پیوند"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Link Bot"
-msgstr "Link Bot"
+msgstr "پیوند ربات"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_credential_id
@@ -1389,12 +1387,12 @@ msgstr "نشست پیوند"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
 msgid "Link a contact..."
-msgstr "Link a مخاطب..."
+msgstr "پیوند مخاطب..."
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Link a messenger account"
-msgstr "Link a messenger account"
+msgstr "پیوند حساب پیام‌رسان"
 
 #. module: uniom_connector
 #. odoo-python
@@ -1411,7 +1409,7 @@ msgstr "پیوند مخاطب"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Link with a bot token"
-msgstr "Link with a bot token"
+msgstr "پیوند با توکن ربات"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
@@ -1456,7 +1454,7 @@ msgstr "روش‌های ورودی که دروازه برای این پیام‌
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Manage API-key connections and register the inbound webhook."
-msgstr "مدیریت API-key connections and register the inbound webhook."
+msgstr "مدیریت اتصال‌های کلید API و ثبت وب‌هوک ورودی."
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -1477,12 +1475,12 @@ msgstr "علامت خوانده‌شده"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Master switch for all automated Uniom messages."
-msgstr "Master switch for all automated یونیوم messages."
+msgstr "کلید اصلی همه پیام‌های خودکار یونیوم."
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Media"
-msgstr "Media"
+msgstr "رسانه"
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -1576,7 +1574,7 @@ msgstr "نام کاربری پیام‌رسان"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Messenger account linked"
-msgstr "پیام‌رسان account linked"
+msgstr "حساب پیام‌رسان پیوند شد"
 
 #. module: uniom_connector
 #. odoo-python
@@ -1788,7 +1786,7 @@ msgstr "فقط پیام‌های متنی خروجی قابل ویرایش‌ا�
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Open Connection"
-msgstr "Open اتصال"
+msgstr "باز کردن اتصال"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
@@ -1944,9 +1942,8 @@ msgid ""
 "                        The token is sent once to Uniom and is never stored in\n"
 "                        Odoo."
 msgstr ""
-"توکن صادرشده توسط بات‌فادر پیام‌رسان را بچسبانید.\n"
-"                        The token is sent once to یونیوم and is never stored in\n"
-"                        Odoo."
+"توکن صادرشده توسط بات‌فادر پیام‌رسان را بچسبانید. توکن فقط یک بار به یونیوم "
+"فرستاده می‌شود و هرگز در اودو ذخیره نمی‌شود."
 
 #. module: uniom_connector
 #. odoo-python
@@ -1978,7 +1975,7 @@ msgstr "پرداخت‌ها"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "Per-language templates (fa, ar, ...)"
-msgstr "Per-language templates (fa, ar, ...)"
+msgstr "قالب‌های هر زبان (fa، ar و ...)"
 
 #. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_send_recipient__chat_id
@@ -2278,7 +2275,7 @@ msgstr "ارجاع گزارش"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Resend Code"
-msgstr "Resend Code"
+msgstr "ارسال مجدد کد"
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -2308,8 +2305,8 @@ msgid ""
 "Right (WhatsApp style) or left for your outgoing bubbles; incoming takes the"
 " other side."
 msgstr ""
-"راست (WhatsApp style) or left for your outgoing bubbles; incoming takes the "
-"other side."
+"راست (به سبک واتساپ) یا چپ برای حباب‌های خروجی شما؛ ورودی سمت دیگر را "
+"می‌گیرد."
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -2350,7 +2347,7 @@ msgstr "سفارش فروش"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Scan this code with the messenger app, then press Verify."
-msgstr "Scan this code with the messenger app, then press Verify."
+msgstr "این کد را با اپ پیام‌رسان اسکن کنید، بعد تأیید را بزنید."
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -2410,7 +2407,7 @@ msgstr "ارسال / تلاش مجدد"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Send Code"
-msgstr "ارسال Code"
+msgstr "ارسال کد"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__send_immediately
@@ -2509,7 +2506,7 @@ msgstr "اول وارد شوید تا پیام‌رسان‌های موجود ب
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Sign in to Uniom"
-msgstr "Sign in to یونیوم"
+msgstr "ورود به یونیوم"
 
 #. module: uniom_connector
 #. odoo-python
@@ -2547,7 +2544,7 @@ msgstr "سروش‌پلاس"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Start Linking"
-msgstr "Start Linking"
+msgstr "شروع پیوند"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
@@ -2605,12 +2602,6 @@ msgstr "توقف دریافت دوره‌ای"
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_chat__chat_type__supergroup
 msgid "Supergroup"
 msgstr "سوپرگروه"
-
-#. module: uniom_connector
-#. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
-msgid "Sync"
-msgstr "همگام‌سازی"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
@@ -2704,8 +2695,8 @@ msgid ""
 "The API key is stored on the connection below. Open it\n"
 "                        to send a test message or manage webhook/polling."
 msgstr ""
-"The API key is stored on the connection below. Open it\n"
-"                        to send a test message or manage webhook/نظرسنجیing."
+"کلید API روی اتصال پایین ذخیره شده. آن را باز کنید تا پیام آزمایشی بفرستید "
+"یا وب‌هوک/دریافت دوره‌ای را مدیریت کنید."
 
 #. module: uniom_connector
 #. odoo-python
@@ -2840,12 +2831,6 @@ msgid "This conversation has an invalid destination: %s"
 msgstr "مقصد این گفتگو نامعتبر است: %s"
 
 #. module: uniom_connector
-#. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
-msgid "This conversation is not linked to a contact yet."
-msgstr "این گفتگو هنوز به مخاطبی پیوند نشده است."
-
-#. module: uniom_connector
 #: model:ir.model.constraint,message:uniom_connector.constraint_uniom_message_connection_update_uniq
 msgid "This gateway update was already stored for this connection."
 msgstr "این به‌روزرسانی دروازه قبلاً برای این اتصال ذخیره شده است."
@@ -2874,8 +2859,8 @@ msgid ""
 "This messenger account has two-step verification\n"
 "                        enabled. Enter its password to finish linking."
 msgstr ""
-"This messenger account has two-step verification\n"
-"                        enabled. Enter its password to finish linking."
+"این حساب پیام‌رسان تأیید دومرحله‌ای فعال دارد. برای تکمیل پیوند، گذرواژه‌اش "
+"را وارد کنید."
 
 #. module: uniom_connector
 #. odoo-python
@@ -2949,12 +2934,12 @@ msgstr "رمز دومرحله‌ای"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Two-step password"
-msgstr "Two-step password"
+msgstr "گذرواژه دومرحله‌ای"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_search
 msgid "Type"
-msgstr "Type"
+msgstr "نوع"
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -3285,7 +3270,7 @@ msgstr "در حال بارگذاری..."
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Use a Bot Token"
-msgstr "Use a توکن ربات"
+msgstr "استفاده از توکن ربات"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
@@ -3294,9 +3279,8 @@ msgid ""
 "                        one-time code, then let you choose the messenger account\n"
 "                        to link."
 msgstr ""
-"Use the phone number of your یونیوم account. We send a\n"
-"                        one-time code, then let you choose the messenger account\n"
-"                        to link."
+"از شماره تلفن حساب یونیوم خود استفاده کنید. ما یک کد یک‌بارمصرف می‌فرستیم، "
+"بعد می‌گذاریم حساب پیام‌رسانی که می‌خواهید پیوند کنید را انتخاب کنید."
 
 #. module: uniom_connector
 #: model:res.groups,name:uniom_connector.group_uniom_user
@@ -3327,17 +3311,17 @@ msgstr "حالت تأیید"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Verify"
-msgstr "Verify"
+msgstr "تأیید"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Verify Password"
-msgstr "Verify Password"
+msgstr "تأیید گذرواژه"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
 msgid "Verify the messenger account"
-msgstr "Verify the messenger account"
+msgstr "تأیید حساب پیام‌رسان"
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -3523,7 +3507,7 @@ msgstr "اول متن ویرایش‌شده را بنویسید."
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
 msgid "Write your message..."
-msgstr "Write your message..."
+msgstr "پیام خود را بنویسید..."
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -3566,12 +3550,12 @@ msgstr "سند"
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "e.g. Bale — Sales Notifications"
-msgstr "e.g. بله — Sales Notifications"
+msgstr "مثلاً بله — اطلاع‌رسانی فروش"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "e.g. Notify customer when order is confirmed"
-msgstr "e.g. Notify customer when order is confirmed"
+msgstr "مثلاً اطلاع به مشتری هنگام تأیید سفارش"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_template_form
@@ -3638,6 +3622,33 @@ msgstr "به‌روزرسانی ناموفق نظرسنجی"
 
 #. module: uniom_connector
 #. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "Only outgoing messages can be deleted."
+msgstr "فقط پیام‌های خروجی قابل حذف‌اند."
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_dead_update
+msgid "Poll Dead Update"
+msgstr "به‌روزرسانی مسموم نظرسنجی"
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_dead_update
+msgid ""
+"Raw payload of the last skipped poison update (JSON), kept for support "
+"replay after the retry bound gave up on it."
+msgstr ""
+"محموله خام آخرین به‌روزرسانی مسموم ردشده (JSON)، نگه داشته شده برای بازپخش "
+"پشتیبانی بعد از اینکه سقف تلاش تسلیمش شد."
+
+#. module: uniom_connector
+#: model:ir.actions.server,name:uniom_connector.ir_cron_uniom_sync_states_ir_actions_server
+msgid "Uniom: sync message states"
+msgstr "یونیوم: همگام‌سازی وضعیت پیام‌ها"
+
+#. module: uniom_connector
+#. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
-msgid "Update %s failed %s times and was skipped; check the logs."
-msgstr "به‌روزرسانی %s بعد از %s بار ناموفق رد شد؛ لاگ‌ها را بررسی کنید."
+msgid ""
+"Update %s failed %s times and was skipped; payload kept on the connection."
+msgstr ""
+"به‌روزرسانی %s بعد از %s بار ناموفق رد شد؛ محموله روی اتصال نگه داشته شد."

@@ -30,5 +30,14 @@
             <field name="interval_type">hours</field>
             <field name="active" eval="True"/>
         </record>
+        <record id="ir_cron_uniom_sync_states" model="ir.cron">
+            <field name="name">Uniom: sync message states</field>
+            <field name="model_id" ref="model_uniom_message"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_sync_states()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="active" eval="True"/>
+        </record>
     </data>
 </odoo>

@@ -196,6 +196,12 @@ class UniomConnection(models.Model):
         help="Consecutive polls the same update id failed; past the bound "
         "the poison update is skipped so polling never wedges.",
     )
+    poll_dead_update = fields.Text(
+        readonly=True,
+        copy=False,
+        help="Raw payload of the last skipped poison update (JSON), kept "
+        "for support replay after the retry bound gave up on it.",
+    )
     last_webhook_at = fields.Datetime(readonly=True, copy=False)
     webhook_pending_count = fields.Integer(readonly=True, copy=False)
     webhook_last_error = fields.Char(readonly=True, copy=False)
@@ -875,14 +881,21 @@ class UniomConnection(models.Model):
             )
 
         if message_record.direction == "in" and hasattr(partner, "message_post"):
-            partner.message_post(
-                body=self._inbound_chatter_body(
-                    body, kind, message_record.chat_session_id
-                ),
-                author_id=partner.id,
-                message_type="comment",
-                subtype_xmlid="mail.mt_comment",
-            )
+            try:
+                partner.message_post(
+                    body=self._inbound_chatter_body(
+                        body, kind, message_record.chat_session_id
+                    ),
+                    author_id=partner.id,
+                    message_type="comment",
+                    subtype_xmlid="mail.mt_comment",
+                )
+            except Exception:  # noqa: BLE001 - chatter must never lose the message
+                _logger.warning(
+                    "Uniom: could not post chatter for message %s",
+                    message_record.id,
+                    exc_info=True,
+                )
         return True
 
     def _update_key(self, update):
@@ -1249,7 +1262,16 @@ class UniomConnection(models.Model):
                 if streak > MAX_POLL_FAILED_STREAK:
                     # permanently poison: holding the offset would wedge
                     # polling (the gateway page limit hides newer updates),
-                    # so skip it loudly instead of retrying forever
+                    # so skip it loudly instead of retrying forever. The raw
+                    # payload is kept as a dead letter for support replay.
+                    dead = next(
+                        (
+                            u for u in updates
+                            if isinstance(u, dict)
+                            and str(u.get("update_id")) == first_failed
+                        ),
+                        None,
+                    )
                     _logger.error(
                         "Uniom: dropping poison update %s after %s failed polls",
                         first_failed, streak,
@@ -1257,10 +1279,17 @@ class UniomConnection(models.Model):
                     values["poll_offset"] = str(max_update_id + 1)
                     values["last_poll_error"] = _(
                         "Update %s failed %s times and was skipped; "
-                        "check the logs.", first_failed, streak,
+                        "payload kept on the connection.", first_failed, streak,
                     )
                     values["poll_failed_update_id"] = False
                     values["poll_failed_streak"] = 0
+                    values["poll_dead_update"] = json.dumps(
+                        {
+                            "skipped_at": fields.Datetime.now().isoformat(),
+                            "update": dead,
+                        },
+                        default=str,
+                    )[:10000]
                 else:
                     # a transient failure (DB/deadlock, chatter error) must
                     # not lose the message: redeliver from the first failed

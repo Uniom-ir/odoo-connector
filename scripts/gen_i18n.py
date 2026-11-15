@@ -14,6 +14,7 @@ Without a skeleton argument, entries are emitted with synthetic
 missing).
 """
 import datetime
+import re
 import sys
 
 import polib
@@ -960,6 +961,55 @@ T = {
     "Poll Failed Streak": ("رشته ناکامی نظرسنجی", "سلسلة فشل الاستطلاع"),
     "Poll Failed Update": ("به‌روزرسانی ناموفق نظرسنجی", "تحديث الاستطلاع الفاشل"),
     "Update %s failed %s times and was skipped; check the logs.": ("به‌روزرسانی %s بعد از %s بار ناموفق رد شد؛ لاگ‌ها را بررسی کنید.", "تُخطّي التحديث %s بعد %s محاولات فاشلة؛ راجع السجلات."),
+    # poll dead-letter strings
+    "Update %s failed %s times and was skipped; payload kept on the connection.": ("به‌روزرسانی %s بعد از %s بار ناموفق رد شد؛ محموله روی اتصال نگه داشته شد.", "تُخطّي التحديث %s بعد %s محاولات فاشلة؛ الحمولة محفوظة على الاتصال."),
+    "Raw payload of the last skipped poison update (JSON), kept for support replay after the retry bound gave up on it.": ("محموله خام آخرین به‌روزرسانی مسموم ردشده (JSON)، نگه داشته شده برای بازپخش پشتیبانی بعد از اینکه سقف تلاش تسلیمش شد.", "الحمولة الخام لآخر تحديث مسموم تم تخطيه (JSON)، محفوظة لإعادة التشغيل بعد استنفاد حد المحاولات."),
+    "Poll Dead Update": ("به‌روزرسانی مسموم نظرسنجی", "تحديث الاستطلاع المسموم"),
+    "Only outgoing messages can be deleted.": ("فقط پیام‌های خروجی قابل حذف‌اند.", "يمكن حذف الرسائل الصادرة فقط."),
+    "Uniom: sync message states": ("یونیوم: همگام‌سازی وضعیت پیام‌ها", "Uniom: مزامنة حالات الرسائل"),
+    # whole view terms (model_terms are matched verbatim; never substring)
+    "A new Uniom API key is created for the linked account\n                        and saved on a connection in Odoo.": ("یک کلید API جدید یونیوم برای حساب پیوندشده ساخته می‌شود و روی یک اتصال در اودو ذخیره می‌شود.", "يُنشأ مفتاح API جديد في Uniom للحساب المرتبط ويُحفظ على اتصال في Odoo."),
+    "Back": ("بازگشت", "رجوع"),
+    "Choose the messenger and the phone number registered on\n                        it. Uniom sends the verification code through that\n                        messenger.": ("پیام‌رسان و شماره تلفن ثبت‌شده روی آن را انتخاب کنید. یونیوم کد تأیید را از طریق همان پیام‌رسان می‌فرستد.", "اختر المراسلة ورقم الهاتف المسجل عليها. ترسل Uniom رمز التحقق عبر تلك المراسلة."),
+    "Close": ("بستن", "إغلاق"),
+    "Create an API key in your Uniom dashboard (Account → API Keys)\n                        and paste it below — one key per messenger account\n                        (Bale, Rubika, Eitaa, Soroush+, Telegram).": ("در داشبورد یونیوم یک کلید API بسازید (حساب ← کلیدهای API) و پایین بچسبانید — یک کلید برای هر حساب پیام‌رسان (بله، روبیکا، ایتا، سروش‌پلاس، تلگرام).", "أنشئ مفتاح API في لوحة Uniom (الحساب ← مفاتيح API) والصقه أدناه — مفتاح واحد لكل حساب مراسلة (بله، روبیکا، إیتا، سروش‌پلاس، تلگرام)."),
+    "Create the API key": ("ساخت کلید API", "إنشاء مفتاح API"),
+    "Create Connection": ("ساخت اتصال", "إنشاء الاتصال"),
+    "Default Uniom Bot API URL used by new connections.": ("نشانی پیش‌فرض Bot API یونیوم که اتصال‌های جدید استفاده می‌کنند.", "عنوان Bot API الافتراضي في Uniom الذي تستخدمه الاتصالات الجديدة."),
+    "Enter the Uniom code": ("کد یونیوم را وارد کنید", "أدخل رمز Uniom"),
+    "Enter the code Uniom sent to your phone. You can request\n                        a new code if it did not arrive.": ("کدی که یونیوم به گوشی شما فرستاد را وارد کنید. اگر نرسید می‌توانید کد جدید بخواهید.", "أدخل الرمز الذي أرسلته Uniom إلى هاتفك. يمكنك طلب رمز جديد إذا لم يصل."),
+    "Enter the code you received in the messenger.": ("کدی که در پیام‌رسان دریافت کردید را وارد کنید.", "أدخل الرمز الذي استلمته في المراسلة."),
+    "Internal notes...": ("یادداشت‌های داخلی...", "ملاحظات داخلية..."),
+    "Kind": ("نوع", "النوع"),
+    "Link Bot": ("پیوند ربات", "ربط البوت"),
+    "Link a contact...": ("پیوند مخاطب...", "اربط جهة اتصال..."),
+    "Link a messenger account": ("پیوند حساب پیام‌رسان", "ربط حساب مراسلة"),
+    "Link with a bot token": ("پیوند با توکن ربات", "الربط برمز بوت"),
+    "Manage API-key connections and register the inbound webhook.": ("مدیریت اتصال‌های کلید API و ثبت وب‌هوک ورودی.", "إدارة اتصالات مفاتيح API وتسجيل webhook الوارد."),
+    "Master switch for all automated Uniom messages.": ("کلید اصلی همه پیام‌های خودکار یونیوم.", "المفتاح الرئيسي لجميع رسائل Uniom التلقائية."),
+    "Media": ("رسانه", "الوسائط"),
+    "Messenger account linked": ("حساب پیام‌رسان پیوند شد", "تم ربط حساب المراسلة"),
+    "Open Connection": ("باز کردن اتصال", "فتح الاتصال"),
+    "Paste the token issued by the messenger's bot father.\n                        The token is sent once to Uniom and is never stored in\n                        Odoo.": ("توکن صادرشده توسط بات‌فادر پیام‌رسان را بچسبانید. توکن فقط یک بار به یونیوم فرستاده می‌شود و هرگز در اودو ذخیره نمی‌شود.", "الصق الرمز الصادر عن bot father الخاص بالمراسلة. يُرسل الرمز مرة واحدة إلى Uniom ولا يُخزن في Odoo أبداً."),
+    "Per-language templates (fa, ar, ...)": ("قالب‌های هر زبان (fa، ar و ...)", "قوالب لكل لغة (fa، ar، ...)"),
+    "Resend Code": ("ارسال مجدد کد", "إعادة إرسال الرمز"),
+    "Right (WhatsApp style) or left for your outgoing bubbles; incoming takes the other side.": ("راست (به سبک واتساپ) یا چپ برای حباب‌های خروجی شما؛ ورودی سمت دیگر را می‌گیرد.", "اليمين (بأسلوب WhatsApp) أو اليسار لفقاعاتك الصادرة؛ والواردة تأخذ الجهة الأخرى."),
+    "Scan this code with the messenger app, then press Verify.": ("این کد را با اپ پیام‌رسان اسکن کنید، بعد تأیید را بزنید.", "امسح هذا الرمز بتطبيق المراسلة، ثم اضغط تحقق."),
+    "Send Code": ("ارسال کد", "إرسال الرمز"),
+    "Sign in to Uniom": ("ورود به یونیوم", "تسجيل الدخول إلى Uniom"),
+    "Start Linking": ("شروع پیوند", "بدء الربط"),
+    "The API key is stored on the connection below. Open it\n                        to send a test message or manage webhook/polling.": ("کلید API روی اتصال پایین ذخیره شده. آن را باز کنید تا پیام آزمایشی بفرستید یا وب‌هوک/دریافت دوره‌ای را مدیریت کنید.", "مفتاح API مخزن على الاتصال أدناه. افتحه لإرسال رسالة اختبار أو لإدارة webhook/الاستطلاع."),
+    "This messenger account has two-step verification\n                        enabled. Enter its password to finish linking.": ("این حساب پیام‌رسان تأیید دومرحله‌ای فعال دارد. برای تکمیل پیوند، گذرواژه‌اش را وارد کنید.", "حساب المراسلة هذا لديه تحقق بخطوتين. أدخل كلمة مروره لإتمام الربط."),
+    "Two-step password": ("گذرواژه دومرحله‌ای", "كلمة مرور الخطوتين"),
+    "Type": ("نوع", "النوع"),
+    "Use a Bot Token": ("استفاده از توکن ربات", "استخدام رمز بوت"),
+    "Use the phone number of your Uniom account. We send a\n                        one-time code, then let you choose the messenger account\n                        to link.": ("از شماره تلفن حساب یونیوم خود استفاده کنید. ما یک کد یک‌بارمصرف می‌فرستیم، بعد می‌گذاریم حساب پیام‌رسانی که می‌خواهید پیوند کنید را انتخاب کنید.", "استخدم رقم هاتف حساب Uniom الخاص بك. نرسل رمزاً لمرة واحدة، ثم ندعك تختار حساب المراسلة المراد ربطه."),
+    "Verify": ("تأیید", "تحقق"),
+    "Verify Password": ("تأیید گذرواژه", "التحقق من كلمة المرور"),
+    "Verify the messenger account": ("تأیید حساب پیام‌رسان", "التحقق من حساب المراسلة"),
+    "Write your message...": ("پیام خود را بنویسید...", "اكتب رسالتك..."),
+    "e.g. Bale — Sales Notifications": ("مثلاً بله — اطلاع‌رسانی فروش", "مثال: Bale — إشعارات المبيعات"),
+    "e.g. Notify customer when order is confirmed": ("مثلاً اطلاع به مشتری هنگام تأیید سفارش", "مثال: إشعار العميل عند تأكيد الطلب"),
 }
 
 
@@ -982,13 +1032,19 @@ def _metadata(code=None, team=None):
 
 
 def _translate_arch(arch, index):
-    """Translate the UI strings inside a model_terms view/action-help block
-    by longest-match-first replacement (attribute values and text nodes)."""
+    """Translate the UI strings inside a model_terms view/action-help block.
+
+    Whole-term match first; the substring fallback requires word
+    boundaries so short keys never corrupt longer words ("poll" inside
+    "polling" produced "نظرسنجیing").
+    """
     table = dict(T)
     table.update(T_EXTRA)
+    if arch in table:
+        return table[arch][index]
     for key in sorted(table, key=len, reverse=True):
-        if key in arch:
-            arch = arch.replace(key, table[key][index])
+        pattern = r"(?<!\w)" + re.escape(key) + r"(?!\w)"
+        arch = re.sub(pattern, lambda _m, v=table[key][index]: v, arch)
     return arch
 
 
