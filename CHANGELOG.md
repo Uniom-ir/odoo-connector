@@ -1,5 +1,32 @@
 # Changelog
 
+## 20.0.1.0.0 (2026-11-15)
+
+Odoo 20 port of 18.0.2.0.1 — same features, ported to the 20.0 ORM, mail
+and security stacks:
+
+* **Security**: `ir.model.access` and `ir.rule` were merged upstream into
+  `ir.access`; the module now ships `security/ir.access.csv` (per-group
+  permissions plus the multi-company rules as group-less restrictions) and
+  the groups moved to Odoo 20's `res.groups.privilege`. `_sql_constraints`
+  became `models.Constraint` (the old spelling is ignored, not run, on 20).
+* **ORM**: `odoo.osv.expression` is gone — `display_name` search now rides
+  on `_rec_names_search`; `ir.config_parameter.get_param`/`set_param` were
+  replaced by the typed `get_str`/`get_bool`/`set_*` API; binary fields take
+  `BinaryValue` (`BinaryBytes`) instead of base64/bytes; `res.users.group_ids`
+  replaces `groups_id` (demo data).
+* **Mail / Discuss**: the discuss app moved into `mail` and the client
+  action tag is `mail.action_discuss` (thread passed as
+  `discuss.channel_<id>`); channel create, member commands, `message_post`,
+  `mail.mt_comment`, `bus._sendone` and `_render_qweb_pdf` re-verified.
+* **CI**: Odoo 20.0 matrix leg (Python 3.12, PostgreSQL 16) gated on the same
+  `--test-tags /uniom_connector` suite; the screenshots workflow now boots
+  20.0. Translations regenerated for 20.0 (584/584 terms per language).
+* Folded 18.0.2.0.1: polling can no longer wedge on a poison update (offset
+  hold bounded at 5 retries, then the update is skipped with an error log),
+  and wizard follow-up steps run inside a savepoint so a DB error surfaces as
+  a best-effort note instead of aborting the wizard transaction.
+
 ## 18.0.2.0.0 (2026-11-15)
 
 Messenger rework — the chat surface is now a real client, live-validated

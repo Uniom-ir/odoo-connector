@@ -11,7 +11,7 @@ class ResPartner(models.Model):
     uniom_chat_id = fields.Char(
         string="Uniom Chat ID",
         help="Messenger destination for this contact: phone (+989123456789), "
-        "@username or numeric chat id. Leave empty to use the mobile/phone "
+        "@username or numeric chat id. Leave empty to use the phone "
         "number.",
         copy=False,
     )
@@ -43,13 +43,9 @@ class ResPartner(models.Model):
 
     def _uniom_default_chat_id(self):
         """Best messenger destination for this partner (explicit chat id,
-        else canonicalized mobile, else phone)."""
+        else the canonicalized phone number)."""
         self.ensure_one()
-        return (
-            self.uniom_chat_id
-            or canonicalize_chat_id(self.mobile)
-            or canonicalize_chat_id(self.phone)
-        )
+        return self.uniom_chat_id or canonicalize_chat_id(self.phone)
 
     def action_uniom_send(self):
         self.ensure_one()

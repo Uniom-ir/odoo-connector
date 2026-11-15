@@ -43,7 +43,7 @@ Highlights
     "author": "Uniom",
     "website": "https://uniom.ir",
     "category": "Discuss",
-    "version": "18.0.2.0.0",
+    "version": "20.0.1.0.0",
     "license": "LGPL-3",
     "development_status": "Production/Stable",
     "depends": [
@@ -68,7 +68,7 @@ Highlights
     },
     "data": [
         "security/uniom_security.xml",
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
         "data/ir_cron_data.xml",
         "data/uniom_template_data.xml",
         "data/uniom_rule_data.xml",

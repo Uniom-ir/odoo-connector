@@ -10,7 +10,7 @@ from psycopg2 import IntegrityError
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-from odoo.osv import expression
+from odoo.tools.binary import BinaryBytes
 
 from .uniom_connection import _datetime_from_timestamp, _parse_iso_datetime
 from .uniom_tools import canonicalize_chat_id
@@ -22,13 +22,11 @@ class UniomChat(models.Model):
     _name = "uniom.chat"
     _description = "Uniom Conversation"
     _order = "last_message_date desc nulls last, id desc"
-    _sql_constraints = [
-        (
-            "connection_chat_uniq",
-            "unique(connection_id, chat_id)",
-            "One conversation per connection and chat id.",
-        )
-    ]
+    _rec_names_search = ("partner_id.name", "messenger_title", "chat_id")
+    _connection_chat_uniq = models.Constraint(
+        "unique(connection_id, chat_id)",
+        "One conversation per connection and chat id.",
+    )
 
     connection_id = fields.Many2one(
         "uniom.connection", required=True, index=True, ondelete="restrict"
@@ -105,18 +103,9 @@ class UniomChat(models.Model):
         for chat in self:
             chat.display_name = chat.partner_id.name or chat.messenger_title or chat.chat_id
 
-    @api.model
-    def _search_display_name(self, operator, value):
-        # the JSON-RPC dashboard searches display_name server-side: the
-        # logical name is composed of three columns, so mirror that order
-        domains = [
-            [("partner_id.name", operator, value)],
-            [("messenger_title", operator, value)],
-            [("chat_id", operator, value)],
-        ]
-        if operator in expression.NEGATIVE_TERM_OPERATORS:
-            return expression.AND(domains)
-        return expression.OR(domains)
+    # searching display_name uses the inherited _search_display_name, which
+    # ORs the fields below for positive operators and ANDs them for negative
+    # ones (see _rec_names_search on the class).
 
     @api.depends("messenger_photo", "messenger_photo_url", "partner_id", "partner_id.image_1920")
     def _compute_avatar_url(self):
@@ -255,14 +244,14 @@ class UniomChat(models.Model):
     def get_outgoing_side(self):
         """Dashboard bubble side for the current user's conversations.
 
-        ``ir.config_parameter.get_param`` needs settings rights, which
-        Uniom users don't have — so the dashboard calls this instead.
+        ``ir.config_parameter`` reads need settings rights, which Uniom
+        users don't have — so the dashboard calls this instead.
         Returns "left" or "right" (default "right").
         """
         side = (
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("uniom_connector.outgoing_side", "right")
+            .get_str("uniom_connector.outgoing_side", "right")
         )
         return "left" if side == "left" else "right"
 
@@ -357,10 +346,12 @@ class UniomChat(models.Model):
         """Open the mirrored Discuss thread (creating it on first use)."""
         self.ensure_one()
         channel = self._ensure_discuss_channel()
+        # the discuss client action (tag "mail.action_discuss" since 18.0)
+        # restores a thread from active_id formatted as "model_id"
         return {
             "type": "ir.actions.client",
-            "tag": "discuss",
-            "params": {"channel_id": channel.id},
+            "tag": "mail.action_discuss",
+            "params": {"active_id": "discuss.channel_%s" % channel.id},
         }
 
     def _ensure_discuss_channel(self):
@@ -434,7 +425,11 @@ class UniomChat(models.Model):
         return self._platform_icon_bytes()
 
     def _platform_icon_bytes(self):
-        """Raw bytes of the bundled platform brand icon, or False."""
+        """BinaryValue of the bundled platform brand icon, or False.
+
+        Binary fields no longer accept base64 bytes nor bare bytes on write
+        (Odoo 20): callers get a ``BinaryBytes`` ready for image_128.
+        """
         self.ensure_one()
         platform = self.platform or ""
         files = {
@@ -448,7 +443,6 @@ class UniomChat(models.Model):
         if not filename:
             return False
         try:
-            import base64
             import os
 
             path = os.path.join(
@@ -459,7 +453,7 @@ class UniomChat(models.Model):
                 filename,
             )
             with open(path, "rb") as handle:
-                return base64.b64encode(handle.read())
+                return BinaryBytes(handle.read())
         except OSError:
             return False
 
@@ -623,11 +617,9 @@ class UniomChat(models.Model):
             _logger.info("Uniom: photo download failed for chat %s", self.id, exc_info=True)
             return True
         if content:
-            import base64
-
             self.write(
                 {
-                    "messenger_photo": base64.b64encode(content),
+                    "messenger_photo": BinaryBytes(content),
                     "messenger_photo_updated_at": fields.Datetime.now(),
                 }
             )

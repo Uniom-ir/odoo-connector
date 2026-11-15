@@ -153,8 +153,10 @@ class UniomRule(models.Model):
         Never raises into the caller: a messaging failure must not block an
         order confirmation or an invoice posting.
         """
-        enabled = self.env["ir.config_parameter"].sudo().get_param("uniom_connector.enabled", "True")
-        if str(enabled).strip().lower() in ("false", "0", "no", "off") or not records:
+        enabled = (
+            self.env["ir.config_parameter"].sudo().get_bool("uniom_connector.enabled", True)
+        )
+        if not enabled or not records:
             return False
         try:
             rules = self.search([("trigger", "=", trigger), ("active", "=", True)])
@@ -296,7 +298,7 @@ class UniomRule(models.Model):
         partner = self._get_partner(record)
         if partner and not partner.uniom_opt_out:
             chat_id = partner.uniom_chat_id or canonicalize_chat_id(
-                partner.mobile or partner.phone
+                partner.phone
             )
             if chat_id:
                 recipients.append((chat_id, partner))

@@ -7,44 +7,30 @@
         <field name="sequence">25</field>
     </record>
 
+    <!-- Odoo 20 groups are grouped by a res.groups.privilege (the old
+         res.groups.category_id was replaced by privilege_id). -->
+    <record id="res_groups_privilege_uniom" model="res.groups.privilege">
+        <field name="name">Uniom</field>
+        <field name="sequence">25</field>
+        <field name="category_id" ref="module_category_uniom"/>
+    </record>
+
     <record id="group_uniom_user" model="res.groups">
         <field name="name">User</field>
-        <field name="category_id" ref="module_category_uniom"/>
+        <field name="sequence">10</field>
+        <field name="privilege_id" ref="res_groups_privilege_uniom"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         <field name="comment">Can send Uniom messages and read the message log.</field>
     </record>
 
     <record id="group_uniom_manager" model="res.groups">
         <field name="name">Administrator</field>
-        <field name="category_id" ref="module_category_uniom"/>
+        <field name="sequence">20</field>
+        <field name="privilege_id" ref="res_groups_privilege_uniom"/>
         <field name="implied_ids" eval="[(4, ref('group_uniom_user'))]"/>
         <field name="comment">Manages connections, API keys, automation rules and templates.</field>
     </record>
 
-    <!-- Multi-company rules: users only see data of their current companies. -->
-    <record id="uniom_connection_company_rule" model="ir.rule">
-        <field name="name">Uniom connection: multi-company</field>
-        <field name="model_id" ref="model_uniom_connection"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
-    </record>
-    <record id="uniom_message_company_rule" model="ir.rule">
-        <field name="name">Uniom message: multi-company</field>
-        <field name="model_id" ref="model_uniom_message"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
-    </record>
-    <record id="uniom_rule_company_rule" model="ir.rule">
-        <field name="name">Uniom rule: multi-company</field>
-        <field name="model_id" ref="model_uniom_rule"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
-    </record>
-    <record id="uniom_chat_company_rule" model="ir.rule">
-        <field name="name">Uniom chat: multi-company</field>
-        <field name="model_id" ref="model_uniom_chat"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
-    </record>
-    <record id="uniom_template_company_rule" model="ir.rule">
-        <field name="name">Uniom template: multi-company</field>
-        <field name="model_id" ref="model_uniom_template"/>
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
-    </record>
+    <!-- Model permissions and multi-company rules live in ir.access.csv
+         (Odoo 20 merged ir.model.access and ir.rule into ir.access). -->
 </odoo>

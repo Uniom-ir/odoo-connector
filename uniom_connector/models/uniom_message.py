@@ -27,13 +27,10 @@ class UniomMessage(models.Model):
     _description = "Uniom Message"
     _order = "id desc"
     _rec_name = "display_label"
-    _sql_constraints = [
-        (
-            "connection_update_uniq",
-            "unique(connection_id, uniom_update_id)",
-            "This gateway update was already stored for this connection.",
-        )
-    ]
+    _connection_update_uniq = models.Constraint(
+        "unique(connection_id, uniom_update_id)",
+        "This gateway update was already stored for this connection.",
+    )
 
     display_label = fields.Char(compute="_compute_display_label")
     connection_id = fields.Many2one(
@@ -448,8 +445,8 @@ class UniomMessage(models.Model):
         if model is None:
             return self.env["ir.attachment"]
         try:
-            # check_access covers ir.model.access AND ir.rule (verified in
-            # odoo/models.py::_check_access) — the sudo render below is safe
+            # check_access covers permissions and record restrictions
+            # (ir.access since Odoo 20) — the sudo render below is safe
             model.with_user(self.create_uid).browse(self.record_res_id).check_access("read")
         except Exception as error:  # noqa: BLE001 - AccessError expected
             _logger.warning(

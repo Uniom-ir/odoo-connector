@@ -954,6 +954,12 @@ T = {
     "Webhook registration failed (%s); polling could not be started either (%s).": ("ثبت وب‌هوک ناموفق بود (%s)؛ نظرسنجی دوره‌ای هم شروع نشد (%s).", "فشل تسجيل webhook (%s)؛ وتعذّر بدء الاستطلاع أيضاً (%s)."),
     "Write the edited text first.": ("اول متن ویرایش‌شده را بنویسید.", "اكتب النص المعدّل أولاً."),
     "edited": ("ویرایش‌شده", "معدّلة"),
+    # poll poison-bound strings
+    "Consecutive polls the same update id failed; past the bound the poison update is skipped so polling never wedges.": ("نظرسنجی‌های پیاپی که همان شناسه به‌روزرسانی ناموفق بود؛ پس از سقف، به‌روزرسانی مسموم رد می‌شود تا نظرسنجی گیر نکند.", "مرات الاستطلاع المتتالية التي فشل فيها نفس معرف التحديث؛ بعد الحد يُتخطى التحديث المسموم حتى لا يتعطل الاستطلاع."),
+    "First update id that failed processing; the offset is held here for retry until it succeeds or exceeds the retry bound.": ("شناسه اولین به‌روزرسانی که پردازشش ناموفق بود؛ آفست برای تلاش مجدد اینجا نگه داشته می‌شود تا موفق شود یا از سقف بگذرد.", "معرف أول تحديث فشلت معالجته؛ تُحفظ الإزاحة هنا لإعادة المحاولة حتى ينجح أو يتجاوز الحد."),
+    "Poll Failed Streak": ("رشته ناکامی نظرسنجی", "سلسلة فشل الاستطلاع"),
+    "Poll Failed Update": ("به‌روزرسانی ناموفق نظرسنجی", "تحديث الاستطلاع الفاشل"),
+    "Update %s failed %s times and was skipped; check the logs.": ("به‌روزرسانی %s بعد از %s بار ناموفق رد شد؛ لاگ‌ها را بررسی کنید.", "تُخطّي التحديث %s بعد %s محاولات فاشلة؛ راجع السجلات."),
 }
 
 

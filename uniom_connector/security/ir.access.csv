@@ -1,0 +1,20 @@
+id,name,model_id,group_id/id,operation,domain
+access_uniom_connection_manager,uniom.connection.manager,uniom.connection,uniom_connector.group_uniom_manager,crud,
+access_uniom_connection_user,uniom.connection.user,uniom.connection,uniom_connector.group_uniom_user,r,
+access_uniom_message_manager,uniom.message.manager,uniom.message,uniom_connector.group_uniom_manager,crud,
+access_uniom_message_user,uniom.message.user,uniom.message,uniom_connector.group_uniom_user,cru,
+access_uniom_chat_manager,uniom.chat.manager,uniom.chat,uniom_connector.group_uniom_manager,crud,
+access_uniom_chat_user,uniom.chat.user,uniom.chat,uniom_connector.group_uniom_user,cru,
+access_uniom_template_manager,uniom.template.manager,uniom.template,uniom_connector.group_uniom_manager,crud,
+access_uniom_template_user,uniom.template.user,uniom.template,uniom_connector.group_uniom_user,r,
+access_uniom_rule_manager,uniom.rule.manager,uniom.rule,uniom_connector.group_uniom_manager,crud,
+access_uniom_rule_user,uniom.rule.user,uniom.rule,uniom_connector.group_uniom_user,r,
+access_uniom_send_wizard_user,uniom.send.wizard.user,uniom.send.wizard,uniom_connector.group_uniom_user,crud,
+access_uniom_send_recipient_user,uniom.send.recipient.user,uniom.send.recipient,uniom_connector.group_uniom_user,crud,
+access_uniom_setup_wizard_user,uniom.setup.wizard.user,uniom.setup.wizard,uniom_connector.group_uniom_manager,crud,
+access_uniom_link_wizard_manager,uniom.link.wizard.manager,uniom.link.wizard,uniom_connector.group_uniom_manager,crud,
+uniom_connection_company_rule,Uniom connection: multi-company,uniom.connection,,crud,"['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]"
+uniom_message_company_rule,Uniom message: multi-company,uniom.message,,crud,"['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]"
+uniom_rule_company_rule,Uniom rule: multi-company,uniom.rule,,crud,"['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]"
+uniom_chat_company_rule,Uniom chat: multi-company,uniom.chat,,crud,"['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]"
+uniom_template_company_rule,Uniom template: multi-company,uniom.template,,crud,"['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]"

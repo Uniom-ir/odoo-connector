@@ -35,6 +35,9 @@ POLL_LIMIT = 50
 # a 409 means a webhook is still registered on the gateway: stop hammering
 # it and let the user finish the cutover.
 POLL_CONFLICT_BACKOFF_MINUTES = 10
+# a failing update holds the poll offset for retry; past this many
+# consecutive failures it is skipped loudly so polling never wedges.
+MAX_POLL_FAILED_STREAK = 5
 # inbound files are streamed into ir.attachment; refuse anything above 20 MiB.
 MAX_MEDIA_BYTES = 20 * 1024 * 1024
 # update keys that carry a Message object, in the order they are looked up.
@@ -95,7 +98,7 @@ class UniomConnection(models.Model):
     )
     base_url = fields.Char(
         string="Gateway URL",
-        default=lambda self: self.env["ir.config_parameter"].sudo().get_param(
+        default=lambda self: self.env["ir.config_parameter"].sudo().get_str(
             "uniom_connector.default_base_url", DEFAULT_BASE_URL
         ),
         required=True,
@@ -181,6 +184,17 @@ class UniomConnection(models.Model):
         copy=False,
         help="Polling is paused until this moment (e.g. while a webhook is "
         "still registered on the gateway).",
+    )
+    poll_failed_update_id = fields.Char(
+        readonly=True,
+        copy=False,
+        help="First update id that failed processing; the offset is held "
+        "here for retry until it succeeds or exceeds the retry bound.",
+    )
+    poll_failed_streak = fields.Integer(
+        readonly=True, copy=False, default=0,
+        help="Consecutive polls the same update id failed; past the bound "
+        "the poison update is skipped so polling never wedges.",
     )
     last_webhook_at = fields.Datetime(readonly=True, copy=False)
     webhook_pending_count = fields.Integer(readonly=True, copy=False)
@@ -481,7 +495,7 @@ class UniomConnection(models.Model):
         """Register this Odoo instance as the webhook target with Uniom."""
         for connection in self:
             base = (
-                self.env["ir.config_parameter"].sudo().get_param("web.base.url", "").rstrip("/")
+                self.env["ir.config_parameter"].sudo().get_str("web.base.url", "").rstrip("/")
             )
             if not base:
                 raise UserError(
@@ -661,7 +675,7 @@ class UniomConnection(models.Model):
                 return explicit
             if chat_id.startswith("+"):
                 phone_like = partner.search(
-                    ["|", ("mobile", "=", chat_id), ("phone", "=", chat_id)], limit=1
+                    [("phone", "=", chat_id)], limit=1
                 )
                 if phone_like:
                     return phone_like
@@ -729,7 +743,11 @@ class UniomConnection(models.Model):
         """
         self.ensure_one()
         try:
-            result = getattr(self, method)(*args, **kwargs)
+            # isolate DB errors: without a savepoint a failed write aborts
+            # the whole transaction and the wizard's next write dies with
+            # InFailedSqlTransaction instead of a best-effort note
+            with self.env.cr.savepoint():
+                result = getattr(self, method)(*args, **kwargs)
         except UserError as error:
             return str(error.args[0]) if error.args else str(error)
         except Exception:  # noqa: BLE001 - wizard steps must never traceback
@@ -1134,7 +1152,7 @@ class UniomConnection(models.Model):
 
     def _inbound_chatter_body(self, body, kind, chat):
         base_url = (
-            self.env["ir.config_parameter"].sudo().get_param("web.base.url", "").rstrip("/")
+            self.env["ir.config_parameter"].sudo().get_str("web.base.url", "").rstrip("/")
         )
         deep_link = (
             "%s/web#action=uniom_connector.action_uniom_chat_dashboard&uniom_chat_id=%s"
@@ -1221,16 +1239,41 @@ class UniomConnection(models.Model):
         }
         if max_update_id is not None:
             if failed_ids:
-                # a transient failure (DB/deadlock, chatter error) must not
-                # lose the message: redeliver from the first failed update;
-                # successes later in the page dedupe by update id on replay
-                values["poll_offset"] = str(min(failed_ids))
-                values["last_poll_error"] = _(
-                    "%s update(s) failed processing and will be retried.", len(failed_ids)
-                )
+                first_failed = str(min(failed_ids))
+                if first_failed == (self.poll_failed_update_id or ""):
+                    streak = (self.poll_failed_streak or 0) + 1
+                else:
+                    streak = 1
+                values["poll_failed_update_id"] = first_failed
+                values["poll_failed_streak"] = streak
+                if streak > MAX_POLL_FAILED_STREAK:
+                    # permanently poison: holding the offset would wedge
+                    # polling (the gateway page limit hides newer updates),
+                    # so skip it loudly instead of retrying forever
+                    _logger.error(
+                        "Uniom: dropping poison update %s after %s failed polls",
+                        first_failed, streak,
+                    )
+                    values["poll_offset"] = str(max_update_id + 1)
+                    values["last_poll_error"] = _(
+                        "Update %s failed %s times and was skipped; "
+                        "check the logs.", first_failed, streak,
+                    )
+                    values["poll_failed_update_id"] = False
+                    values["poll_failed_streak"] = 0
+                else:
+                    # a transient failure (DB/deadlock, chatter error) must
+                    # not lose the message: redeliver from the first failed
+                    # update; successes later in the page dedupe by update id
+                    values["poll_offset"] = first_failed
+                    values["last_poll_error"] = _(
+                        "%s update(s) failed processing and will be retried.", len(failed_ids)
+                    )
             else:
                 # acknowledging the page: the gateway drops everything below this
                 values["poll_offset"] = str(max_update_id + 1)
+                values["poll_failed_update_id"] = False
+                values["poll_failed_streak"] = 0
         self.write(values)
         return len(updates)
 
@@ -1317,7 +1360,7 @@ class UniomConnection(models.Model):
                 return explicit
             if chat_id.startswith("+"):
                 phone_like = partner.search(
-                    ["|", ("mobile", "=", chat_id), ("phone", "=", chat_id)], limit=1
+                    [("phone", "=", chat_id)], limit=1
                 )
                 if phone_like:
                     return phone_like
@@ -1330,7 +1373,7 @@ class UniomConnection(models.Model):
         ) or sender.get("username") or chat.get("title") or _("Uniom contact %s", chat_id)
         values = {"name": name}
         if chat_id and chat_id.startswith("+"):
-            values["mobile"] = chat_id
+            values["phone"] = chat_id
         else:
             values["uniom_chat_id"] = chat_id
         return partner.create(values)

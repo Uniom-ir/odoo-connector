@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        odoo: ["17.0", "18.0"]
+        odoo: ["17.0", "18.0", "20.0"]
     services:
       postgres:
         image: postgres:16
@@ -46,7 +46,9 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          # Odoo 20 requires Python >= 3.12; 17/18 stay on the interpreter
+          # their requirements were validated against.
+          python-version: ${{ matrix.odoo == '20.0' && '3.12' || '3.11' }}
           cache: pip
 
       - name: Install Odoo python dependencies

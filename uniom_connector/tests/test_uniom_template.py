@@ -9,11 +9,11 @@ class TestTemplate(UniomTestCase):
             {
                 "name": "Partner greeting",
                 "model_id": self.env.ref("base.model_res_partner").id,
-                "body": "Hello {{ object.name }}, phone {{ object.mobile or 'n/a' }}",
+                "body": "Hello {{ object.name }}, phone {{ object.phone or 'n/a' }}",
             }
         )
         partner = self.env["res.partner"].create(
-            {"name": "Sara Test", "mobile": "+989120000009"}
+            {"name": "Sara Test", "phone": "+989120000009"}
         )
         rendered = template._render_for(partner)
         self.assertEqual(rendered[partner.id], "Hello Sara Test, phone +989120000009")

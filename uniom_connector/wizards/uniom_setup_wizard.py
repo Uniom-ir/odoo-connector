@@ -29,7 +29,7 @@ class UniomSetupWizard(models.TransientModel):
     )
     base_url = fields.Char(
         string="Gateway URL",
-        default=lambda self: self.env["ir.config_parameter"].sudo().get_param(
+        default=lambda self: self.env["ir.config_parameter"].sudo().get_str(
             "uniom_connector.default_base_url", DEFAULT_BASE_URL
         ),
         required=True,
@@ -67,7 +67,7 @@ class UniomSetupWizard(models.TransientModel):
             base = (
                 self.env["ir.config_parameter"]
                 .sudo()
-                .get_param("web.base.url", "")
+                .get_str("web.base.url", "")
                 .rstrip("/")
             )
             try:

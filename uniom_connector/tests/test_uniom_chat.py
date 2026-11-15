@@ -14,7 +14,7 @@ class TestConversations(UniomTestCase):
             {"name": "Chat Test", "base_url": BASE_URL, "api_key": FAKE_KEY}
         )
         self.partner = self.env["res.partner"].create(
-            {"name": "Sara Chat", "mobile": "+989120000001"}
+            {"name": "Sara Chat", "phone": "+989120000001"}
         )
 
     def _outbound(self, body="order confirmed"):
@@ -109,3 +109,23 @@ class TestConversations(UniomTestCase):
         chat = self.env["uniom.chat"].search([("chat_id", "=", "+989120000001")])
         with self.assertRaises(UserError):
             chat.action_send_dashboard_reply("   ")
+
+    def test_display_name_search_uses_thread_identity(self):
+        # the dashboard searches display_name server-side: the logical name
+        # is composed of the contact, the messenger title and the chat id, so
+        # the search override must match any of them (_rec_names_search)
+        self._outbound()
+        chat = self.env["uniom.chat"].search([("chat_id", "=", "+989120000001")])
+        chat.messenger_title = "Sara Shop"
+        found = self.env["uniom.chat"].search([("display_name", "ilike", "Sara S")])
+        self.assertIn(chat, found)
+        by_chat_id = self.env["uniom.chat"].search(
+            [("display_name", "ilike", "+989120000001")]
+        )
+        self.assertIn(chat, by_chat_id)
+        # negative operators AND the three terms: a chat matching only one of
+        # them must be kept
+        excluded = self.env["uniom.chat"].search(
+            [("display_name", "not ilike", "Sara S")]
+        )
+        self.assertNotIn(chat, excluded)

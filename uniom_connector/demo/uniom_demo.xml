@@ -7,7 +7,7 @@
          Uniom group so the app is visible on demo databases (runbot,
          screenshots, trial instances). -->
     <record id="base.user_admin" model="res.users">
-        <field name="groups_id" eval="[(4, ref('group_uniom_manager'))]"/>
+        <field name="group_ids" eval="[(4, ref('group_uniom_manager'))]"/>
     </record>
 
     <record id="demo_connection_bale" model="uniom.connection">
@@ -26,7 +26,7 @@
 
     <record id="demo_partner_customer" model="res.partner">
         <field name="name">سارا محمدی (Demo)</field>
-        <field name="mobile">+989120000001</field>
+        <field name="phone">+989120000001</field>
         <field name="lang">fa_IR</field>
     </record>
 

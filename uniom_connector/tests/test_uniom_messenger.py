@@ -157,7 +157,7 @@ class TestPolling(UniomTestCase):
         self.assertFalse(transport.calls[0]["json"]["drop_pending_updates"])
 
     def test_register_webhook_keeps_pending_updates(self):
-        self.env["ir.config_parameter"].sudo().set_param(
+        self.env["ir.config_parameter"].sudo().set_str(
             "web.base.url", "https://odoo.example.com")
         with patched_transport(
             [FakeResponse(ok_response(True))]) as transport:
@@ -252,7 +252,7 @@ class TestPresenceAndDialogs(UniomTestCase):
             {"name": "Presence Test", "base_url": BASE_URL, "api_key": FAKE_KEY}
         )
         partner = self.env["res.partner"].create(
-            {"name": "Peer", "mobile": "+989120000001"})
+            {"name": "Peer", "phone": "+989120000001"})
         self.chat = self.env["uniom.chat"].create(
             {"connection_id": self.connection.id, "chat_id": "+989120000001",
              "partner_id": partner.id, "chat_type": "private"})
@@ -430,8 +430,13 @@ class TestDashboardAttachment(UniomTestCase):
     def test_other_user_attachment_rejected(self):
         other_user = self.env["res.users"].create(
             {"name": "Other", "login": "other_attach_user"})
-        attachment = self._upload()
-        attachment.sudo().write({"create_uid": other_user.id})
+        # create_uid is a protected security field on ir.attachment in Odoo 20:
+        # it can no longer be reassigned, the attachment must be *created* by
+        # the other user instead
+        # unlinked (res_model False) — a linked attachment would be refused
+        # at create time because the other user cannot write the chat
+        attachment = self.env["ir.attachment"].with_user(other_user).create(
+            {"name": "note.txt", "raw": b"hello", "mimetype": "text/plain"})
         with patched_transport():
             with self.assertRaises(UserError):
                 self.chat.action_send_dashboard_attachment(attachment.id)
