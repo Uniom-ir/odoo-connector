@@ -76,12 +76,15 @@ jobs:
       - name: Assert no test failures
         if: always()
         run: |
-          # unittest failure headers are logged as "FAIL: ..." / "ERROR: ..."
-          if grep -E "(FAIL|ERROR): " odoo-test.log; then
+          # authoritative: the result line (naive FAIL|ERROR grep trips on
+          # intentional-error negative tests). Requires at least 1 test so
+          # a silently skipped module still fails the build.
+          if grep -E 'odoo\.tests\.result: 0 failed, 0 error\(s\) of [1-9][0-9]* tests' odoo-test.log; then
+            echo "Suite green."
+          else
             echo "::error::Test failures detected (see log above)"
             exit 1
           fi
-          echo "No test failure markers found."
 
       - name: Show test summary on failure
         if: failure()
