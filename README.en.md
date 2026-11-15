@@ -43,7 +43,7 @@ Price changed ─────┘                                            (edi
 ## Zero Setup
 
 After install you get **Conversations** (the messenger UI), seven
-ready-made automation rules (five enabled), templates in **English,
+ready-made automation rules (three enabled), templates in **English,
 Persian and Arabic**, and the message log. The only remaining step is
 connecting:
 
@@ -66,7 +66,7 @@ numbers are canonicalized automatically (`09123456789` ←
 
 | Area | What you get |
 | --- | --- |
-| Conversations | WhatsApp-style two-pane messenger: unread badges, last-seen status, per-messenger icons (Bale/Rubika/Eitaa/Soroush+/Telegram), media bubbles (photo/file/voice/location/poll), day dividers, history loading, optimistic sends with retry/cancel, live bus updates with polling fallback, own-bubble side configurable in Settings |
+| Conversations | WhatsApp-style two-pane messenger: unread badges, last-seen status, per-messenger icons (Bale/Rubika/Eitaa/Soroush+/Telegram), media bubbles (photo/video/file/voice/location/poll), day dividers, history loading, optimistic sends with retry/cancel, live bus updates with polling fallback, own-bubble side configurable in Settings |
 | Setup | **Link Messenger Account** wizard — Uniom phone+code sign-in then messenger phone+code/two-step/bot-token linking (the panel flow, inside Odoo); or **Connect Uniom Account** by pasting an API key. Both: messenger + inbound mode (webhook/polling), gateway-verified account, conversations seeded from getDialogs |
 | Events | Quotation sent · sale confirmed · invoice posted (with PDF attached) · payment received · delivery done · product published · **product price change (edits the earlier channel post)** |
 | Recipients | Customer mobile / explicit chat id, per-contact opt-out, plus manual destinations (`@channel`, mobiles, numeric ids) |
