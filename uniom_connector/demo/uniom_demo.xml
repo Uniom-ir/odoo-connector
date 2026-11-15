@@ -26,7 +26,7 @@
 
     <record id="demo_partner_customer" model="res.partner">
         <field name="name">سارا محمدی (Demo)</field>
-        <field name="mobile">+989120000001</field>
+        <field name="phone">+989120000001</field>
         <field name="lang">fa_IR</field>
     </record>
 

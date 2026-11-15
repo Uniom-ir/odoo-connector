@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 16:32\n"
-"PO-Revision-Date: 2026-11-15 16:32\n"
+"POT-Creation-Date: 2026-11-15 22:43\n"
+"PO-Revision-Date: 2026-11-15 22:43\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom <support@uniom.ir>\n"
 "Language: fa_IR\n"
@@ -297,11 +297,6 @@ msgid "Bale"
 msgstr "بله"
 
 #. module: uniom_connector
-#: model:uniom.connection,name:uniom_connector.demo_connection_bale
-msgid "Bale — Sales Notifications (Demo)"
-msgstr "بله — اطلاع‌رسانی فروش (نمایشی)"
-
-#. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_connection__base_url
 msgid ""
 "Base URL of the Uniom Bot API. Use https://api.uniom.ir (Iran) or "
@@ -414,11 +409,6 @@ msgid "Company"
 msgstr "شرکت"
 
 #. module: uniom_connector
-#: model:ir.model,name:uniom_connector.model_res_config_settings
-msgid "Config Settings"
-msgstr "تنظیمات پیکربندی"
-
-#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_setup_wizard_form
 msgid "Connect"
 msgstr "اتصال"
@@ -484,6 +474,15 @@ msgstr "اتصال"
 #: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Connections"
 msgstr "اتصال‌ها"
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_failed_streak
+msgid ""
+"Consecutive polls the same update id failed; past the bound the poison "
+"update is skipped so polling never wedges."
+msgstr ""
+"نظرسنجی‌های پیاپی که همان شناسه به‌روزرسانی ناموفق بود؛ پس از سقف، "
+"به‌روزرسانی مسموم رد می‌شود تا نظرسنجی گیر نکند."
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -738,16 +737,19 @@ msgid "Discuss Channel"
 msgstr "کانال گفتگو"
 
 #. module: uniom_connector
-#: model:ir.model,name:uniom_connector.model_discuss_channel
-msgid "Discussion Channel"
-msgstr "کانال گفتگو"
-
-#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__display_label
 msgid "Display Label"
 msgstr "برچسب نمایشی"
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_account_move__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_account_payment__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_discuss_channel__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_product_template__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_res_partner__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_sale_order__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_stock_picking__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__display_name
@@ -942,6 +944,15 @@ msgid "File is larger than the %(mb)s MB limit."
 msgstr "فایل از سقف %(mb)s مگابایت بزرگ‌تر است."
 
 #. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_failed_update_id
+msgid ""
+"First update id that failed processing; the offset is held here for retry "
+"until it succeeds or exceeds the retry bound."
+msgstr ""
+"شناسه اولین به‌روزرسانی که پردازشش ناموفق بود؛ آفست برای تلاش مجدد اینجا نگه"
+" داشته می‌شود تا موفق شود یا از سقف بگذرد."
+
+#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Gateway"
 msgstr "دروازه"
@@ -971,13 +982,6 @@ msgstr "برای کلید API نامی بگذارید."
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_chat__chat_type__group
 msgid "Group"
 msgstr "گروه"
-
-#. module: uniom_connector
-#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_search
-#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
-#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_search
-msgid "Group By"
-msgstr "گروه‌بندی بر اساس"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_template_form
@@ -1018,6 +1022,14 @@ msgstr ""
 "استفاده شود."
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_account_move__id
+#: model:ir.model.fields,field_description:uniom_connector.field_account_payment__id
+#: model:ir.model.fields,field_description:uniom_connector.field_discuss_channel__id
+#: model:ir.model.fields,field_description:uniom_connector.field_product_template__id
+#: model:ir.model.fields,field_description:uniom_connector.field_res_config_settings__id
+#: model:ir.model.fields,field_description:uniom_connector.field_res_partner__id
+#: model:ir.model.fields,field_description:uniom_connector.field_sale_order__id
+#: model:ir.model.fields,field_description:uniom_connector.field_stock_picking__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__id
@@ -1157,11 +1169,6 @@ msgid ""
 msgstr ""
 "فهرست JSON از {type, name, description} برای پیام‌رسان انتخاب‌شده، از GET "
 "/platforms — محرک کارت‌های انتخابی."
-
-#. module: uniom_connector
-#: model:ir.model,name:uniom_connector.model_account_move
-msgid "Journal Entry"
-msgstr "داده روزنامه"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
@@ -1504,7 +1511,9 @@ msgstr "نوع پیام"
 msgid ""
 "Message id assigned by the messenger, needed to edit later. Stored as text: "
 "gateway ids exceed the 32-bit integer range."
-msgstr "شناسه پیام که پیام‌رسان تعیین می‌کند؛ برای ویرایش بعدی لازم است."
+msgstr ""
+"شناسه پیام تخصیص‌یافته توسط پیام‌رسان، لازم برای ویرایش بعدی. به‌صورت متن "
+"ذخیره می‌شود: شناسه‌های دروازه از بازه عدد صحیح ۳۲ بیتی بیشترند."
 
 #. module: uniom_connector
 #. odoo-javascript
@@ -1596,10 +1605,10 @@ msgstr ""
 #: model:ir.model.fields,help:uniom_connector.field_res_users__uniom_chat_id
 msgid ""
 "Messenger destination for this contact: phone (+989123456789), @username or "
-"numeric chat id. Leave empty to use the mobile/phone number."
+"numeric chat id. Leave empty to use the phone number."
 msgstr ""
-"مقصد پیام‌رسان این مخاطب: تلفن (+989123456789)، @username یا شناسه عددی. "
-"خالی بگذارید تا از شماره موبایل/تلفن استفاده شود."
+"مقصد پیام‌رسان این مخاطب: تلفن (+989123456789)، @نام‌کاربری یا شناسه عددی "
+"چت. خالی بگذارید تا از شماره تلفن استفاده شود."
 
 #. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_chat__platform
@@ -1780,6 +1789,12 @@ msgstr "فقط نشانی‌های http:// و https:// مجاز هستند؛ د�
 #. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "Only outgoing messages can be deleted."
+msgstr "فقط پیام‌های خروجی قابل حذف‌اند."
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Only outgoing text messages can be edited."
 msgstr "فقط پیام‌های متنی خروجی قابل ویرایش‌اند."
 
@@ -1842,13 +1857,13 @@ msgstr ""
 #: model:ir.model.fields,help:uniom_connector.field_uniom_template__lang
 msgid ""
 "Optional translation language (ISO code) to select when sending out an "
-"email. If not set, the english version will be used. This should usually be "
-"a placeholder expression that provides the appropriate language, e.g. {{ "
-"object.partner_id.lang }}."
+"email. If not set, the main partner's language will be used. This should "
+"usually be a placeholder expression that provides the appropriate language, "
+"e.g. {{ object.partner_id.lang }}."
 msgstr ""
-"زبان ترجمه اختیاری (کد ISO) برای انتخاب هنگام ارسال ایمیل. اگر تنظیم نشود از"
-" نسخه انگلیسی استفاده می‌شود. معمولاً باید یک عبارت جای‌نگه‌دار باشد که زبان"
-" مناسب را بدهد، مثلاً {{ object.partner_id.lang }}."
+"زبان ترجمه اختیاری (کد ISO) که هنگام ارسال ایمیل انتخاب می‌شود. اگر تنظیم "
+"نشود، از زبان مخاطب اصلی استفاده می‌شود. معمولاً باید یک عبارت جای‌نگه‌دار "
+"باشد که زبان مناسب را بدهد، مثلاً {{ object.partner_id.lang }}."
 
 #. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_template__lang_id
@@ -1968,11 +1983,6 @@ msgid "Payment Received (Persian)"
 msgstr "دریافت پرداخت (فارسی)"
 
 #. module: uniom_connector
-#: model:ir.model,name:uniom_connector.model_account_payment
-msgid "Payments"
-msgstr "پرداخت‌ها"
-
-#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "Per-language templates (fa, ar, ...)"
 msgstr "قالب‌های هر زبان (fa، ar و ...)"
@@ -2036,6 +2046,21 @@ msgstr "به‌روزرسانی‌های مجاز دریافت"
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_backoff_until
 msgid "Poll Backoff Until"
 msgstr "توقف دریافت تا"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_dead_update
+msgid "Poll Dead Update"
+msgstr "به‌روزرسانی مسموم نظرسنجی"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_failed_streak
+msgid "Poll Failed Streak"
+msgstr "رشته ناکامی نظرسنجی"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_failed_update_id
+msgid "Poll Failed Update"
+msgstr "به‌روزرسانی ناموفق نظرسنجی"
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_offset
@@ -2182,6 +2207,15 @@ msgid "Quotation Sent (English)"
 msgstr "ارسال پیش‌فاکتور (انگلیسی)"
 
 #. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_dead_update
+msgid ""
+"Raw payload of the last skipped poison update (JSON), kept for support "
+"replay after the retry bound gave up on it."
+msgstr ""
+"محموله خام آخرین به‌روزرسانی مسموم ردشده (JSON)، نگه داشته شده برای بازپخش "
+"پشتیبانی بعد از اینکه سقف تلاش تسلیمش شد."
+
+#. module: uniom_connector
 #. odoo-javascript
 #: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__seen_state__read
@@ -2318,11 +2352,6 @@ msgid "Rubika"
 msgstr "روبیکا"
 
 #. module: uniom_connector
-#: model:uniom.connection,name:uniom_connector.demo_connection_rubika
-msgid "Rubika — Shop Channel (Demo)"
-msgstr "روبیکا — کانال فروشگاه (نمایشی)"
-
-#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__rule_id
 msgid "Rule"
 msgstr "قانون"
@@ -2338,11 +2367,6 @@ msgstr "سفارش فروش"
 #: code:addons/uniom_connector/models/uniom_rule.py:0
 msgid "Sale Order Confirmed"
 msgstr "تأیید سفارش فروش"
-
-#. module: uniom_connector
-#: model:ir.model,name:uniom_connector.model_sale_order
-msgid "Sales Order"
-msgstr "سفارش فروش"
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
@@ -2961,7 +2985,6 @@ msgstr "خطای غیرمنتظره: %s"
 #: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
 #: code:addons/uniom_connector/wizards/uniom_send_wizard.py:0
-#: model:ir.module.category,name:uniom_connector.module_category_uniom
 #: model:ir.ui.menu,name:uniom_connector.menu_uniom_root
 msgid "Uniom"
 msgstr "یونیوم"
@@ -3215,6 +3238,11 @@ msgid "Uniom: sync chat presence"
 msgstr "یونیوم: همگام‌سازی حضور گفتگو"
 
 #. module: uniom_connector
+#: model:ir.actions.server,name:uniom_connector.ir_cron_uniom_sync_states_ir_actions_server
+msgid "Uniom: sync message states"
+msgstr "یونیوم: همگام‌سازی وضعیت پیام‌ها"
+
+#. module: uniom_connector
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_chat__chat_type__unknown
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__seen_state__unknown
 msgid "Unknown"
@@ -3249,6 +3277,14 @@ msgstr "پشتیبانی‌نشده"
 #: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Unsupported message"
 msgstr "پیام پشتیبانی‌نشده"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid ""
+"Update %s failed %s times and was skipped; payload kept on the connection."
+msgstr ""
+"به‌روزرسانی %s بعد از %s بار ناموفق رد شد؛ محموله روی اتصال نگه داشته شد."
 
 #. module: uniom_connector
 #: model:uniom.rule,name:uniom_connector.rule_product_price_changed
@@ -3537,6 +3573,18 @@ msgstr "[('amount_total', '>', 1000000)]"
 
 #. module: uniom_connector
 #. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "account.move"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "account.payment"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "contact"
 msgstr "مخاطب"
@@ -3582,9 +3630,69 @@ msgstr "فایل"
 
 #. module: uniom_connector
 #. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "invoice_posted"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "payment_received"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "picking_done"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "poll"
 msgstr "نظرسنجی"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "product.template"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "product_created"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "product_price_changed"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "rule_id"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "sale.order"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "sale_order_confirmed"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "stock.picking"
+msgstr ""
 
 #. module: uniom_connector
 #. odoo-python
@@ -3593,62 +3701,11 @@ msgid "unknown error"
 msgstr "خطای ناشناخته"
 
 #. module: uniom_connector
-#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_failed_streak
-msgid ""
-"Consecutive polls the same update id failed; past the bound the poison "
-"update is skipped so polling never wedges."
-msgstr ""
-"نظرسنجی‌های پیاپی که همان شناسه به‌روزرسانی ناموفق بود؛ پس از سقف، "
-"به‌روزرسانی مسموم رد می‌شود تا نظرسنجی گیر نکند."
+#: model:uniom.connection,name:uniom_connector.demo_connection_bale
+msgid "Bale — Sales Notifications (Demo)"
+msgstr "بله — اطلاع‌رسانی فروش (نمایشی)"
 
 #. module: uniom_connector
-#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_failed_update_id
-msgid ""
-"First update id that failed processing; the offset is held here for retry "
-"until it succeeds or exceeds the retry bound."
-msgstr ""
-"شناسه اولین به‌روزرسانی که پردازشش ناموفق بود؛ آفست برای تلاش مجدد اینجا نگه"
-" داشته می‌شود تا موفق شود یا از سقف بگذرد."
-
-#. module: uniom_connector
-#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_failed_streak
-msgid "Poll Failed Streak"
-msgstr "رشته ناکامی نظرسنجی"
-
-#. module: uniom_connector
-#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_failed_update_id
-msgid "Poll Failed Update"
-msgstr "به‌روزرسانی ناموفق نظرسنجی"
-
-#. module: uniom_connector
-#. odoo-python
-#: code:addons/uniom_connector/models/uniom_message.py:0
-msgid "Only outgoing messages can be deleted."
-msgstr "فقط پیام‌های خروجی قابل حذف‌اند."
-
-#. module: uniom_connector
-#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_dead_update
-msgid "Poll Dead Update"
-msgstr "به‌روزرسانی مسموم نظرسنجی"
-
-#. module: uniom_connector
-#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_dead_update
-msgid ""
-"Raw payload of the last skipped poison update (JSON), kept for support "
-"replay after the retry bound gave up on it."
-msgstr ""
-"محموله خام آخرین به‌روزرسانی مسموم ردشده (JSON)، نگه داشته شده برای بازپخش "
-"پشتیبانی بعد از اینکه سقف تلاش تسلیمش شد."
-
-#. module: uniom_connector
-#: model:ir.actions.server,name:uniom_connector.ir_cron_uniom_sync_states_ir_actions_server
-msgid "Uniom: sync message states"
-msgstr "یونیوم: همگام‌سازی وضعیت پیام‌ها"
-
-#. module: uniom_connector
-#. odoo-python
-#: code:addons/uniom_connector/models/uniom_connection.py:0
-msgid ""
-"Update %s failed %s times and was skipped; payload kept on the connection."
-msgstr ""
-"به‌روزرسانی %s بعد از %s بار ناموفق رد شد؛ محموله روی اتصال نگه داشته شد."
+#: model:uniom.connection,name:uniom_connector.demo_connection_rubika
+msgid "Rubika — Shop Channel (Demo)"
+msgstr "روبیکا — کانال فروشگاه (نمایشی)"

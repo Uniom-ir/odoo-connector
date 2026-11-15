@@ -10,7 +10,7 @@ from psycopg2 import IntegrityError
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-from odoo.osv import expression
+from odoo.fields import Domain
 
 from .uniom_connection import _datetime_from_timestamp, _parse_iso_datetime
 from .uniom_tools import canonicalize_chat_id
@@ -22,13 +22,10 @@ class UniomChat(models.Model):
     _name = "uniom.chat"
     _description = "Uniom Conversation"
     _order = "last_message_date desc nulls last, id desc"
-    _sql_constraints = [
-        (
-            "connection_chat_uniq",
-            "unique(connection_id, chat_id)",
-            "One conversation per connection and chat id.",
-        )
-    ]
+    _connection_chat_uniq = models.Constraint(
+        "unique(connection_id, chat_id)",
+        "One conversation per connection and chat id.",
+    )
 
     connection_id = fields.Many2one(
         "uniom.connection", required=True, index=True, ondelete="restrict"
@@ -114,9 +111,9 @@ class UniomChat(models.Model):
             [("messenger_title", operator, value)],
             [("chat_id", operator, value)],
         ]
-        if operator in expression.NEGATIVE_TERM_OPERATORS:
-            return expression.AND(domains)
-        return expression.OR(domains)
+        if operator in Domain.NEGATIVE_OPERATORS:
+            return list(Domain.AND(domains))
+        return list(Domain.OR(domains))
 
     @api.depends("messenger_photo", "messenger_photo_url", "partner_id", "partner_id.image_1920")
     def _compute_avatar_url(self):

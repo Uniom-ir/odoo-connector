@@ -27,13 +27,10 @@ class UniomMessage(models.Model):
     _description = "Uniom Message"
     _order = "id desc"
     _rec_name = "display_label"
-    _sql_constraints = [
-        (
-            "connection_update_uniq",
-            "unique(connection_id, uniom_update_id)",
-            "This gateway update was already stored for this connection.",
-        )
-    ]
+    _connection_update_uniq = models.Constraint(
+        "unique(connection_id, uniom_update_id)",
+        "This gateway update was already stored for this connection.",
+    )
 
     display_label = fields.Char(compute="_compute_display_label")
     connection_id = fields.Many2one(

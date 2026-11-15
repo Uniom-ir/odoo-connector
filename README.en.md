@@ -9,11 +9,11 @@ is issued, a payment lands or a delivery ships, the customer gets a
 message on their phone; your channel stays in sync with product news and
 price updates — including **editing the price post in place**.
 
-Works with Odoo **18.0** (Community & Enterprise); the `17.0` branch
-stays on the previous release until this rewrite is backported. The
-`18.0` branch is **verified on a real installation**: full test suite
-green (`--test-tags /uniom_connector`, 105/105 with `fa_IR` loaded),
-complete Persian/Arabic translations (586/586 terms per language), live
+Works with Odoo **19.0** (Community & Enterprise); same features on the
+`18.0` branch, `17.0` stays on the previous release. The `19.0` branch is
+**verified on a real installation**: full test suite green
+(`--test-tags /uniom_connector`, 106/106 with `fa_IR` loaded), complete
+Persian/Arabic translations (580/580 user-facing terms per language), live
 validation against api.uniom.ir
 (send/receive/polling/media/presence/history/Discuss/linking) and store
 screenshots captured from the live UI.
@@ -104,7 +104,7 @@ No Python package beyond `requests` is needed (shipped with Odoo).
 ## Development & Tests
 
 ```bash
-# unit tests inside Odoo 18.0
+# unit tests inside Odoo 19.0
 odoo-bin -d test --test-enable --stop-after-init \
     -i uniom_connector --test-tags /uniom_connector --without-demo=all \
     --load-language en_US,fa_IR,ar_001

@@ -680,9 +680,7 @@ class UniomConnection(models.Model):
             if explicit:
                 return explicit
             if chat_id.startswith("+"):
-                phone_like = partner.search(
-                    ["|", ("mobile", "=", chat_id), ("phone", "=", chat_id)], limit=1
-                )
+                phone_like = partner.search([("phone", "=", chat_id)], limit=1)
                 if phone_like:
                     return phone_like
         if username:
@@ -1388,9 +1386,7 @@ class UniomConnection(models.Model):
             if explicit:
                 return explicit
             if chat_id.startswith("+"):
-                phone_like = partner.search(
-                    ["|", ("mobile", "=", chat_id), ("phone", "=", chat_id)], limit=1
-                )
+                phone_like = partner.search([("phone", "=", chat_id)], limit=1)
                 if phone_like:
                     return phone_like
         if not self.inbound_create_partner:
@@ -1402,7 +1398,7 @@ class UniomConnection(models.Model):
         ) or sender.get("username") or chat.get("title") or _("Uniom contact %s", chat_id)
         values = {"name": name}
         if chat_id and chat_id.startswith("+"):
-            values["mobile"] = chat_id
+            values["phone"] = chat_id
         else:
             values["uniom_chat_id"] = chat_id
         return partner.create(values)

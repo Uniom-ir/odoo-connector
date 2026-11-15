@@ -1,6 +1,6 @@
 name: Screenshots
 
-# Boots Odoo 18 with demo data + the module, then captures the UI with
+# Boots Odoo 19 with demo data + the module, then captures the UI with
 # Playwright into screenshots/ (uploaded as an artifact). Run manually:
 # Actions -> Screenshots -> Run workflow.
 
@@ -34,7 +34,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: odoo/odoo
-          ref: "18.0"
+          ref: "19.0"
           path: odoo
 
       - uses: actions/setup-python@v5

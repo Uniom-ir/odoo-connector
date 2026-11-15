@@ -252,7 +252,7 @@ class TestPresenceAndDialogs(UniomTestCase):
             {"name": "Presence Test", "base_url": BASE_URL, "api_key": FAKE_KEY}
         )
         partner = self.env["res.partner"].create(
-            {"name": "Peer", "mobile": "+989120000001"})
+            {"name": "Peer", "phone": "+989120000001"})
         self.chat = self.env["uniom.chat"].create(
             {"connection_id": self.connection.id, "chat_id": "+989120000001",
              "partner_id": partner.id, "chat_type": "private"})

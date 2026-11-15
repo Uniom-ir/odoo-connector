@@ -13,7 +13,7 @@ class TestSaleOrderEvent(UniomTestCase):
             {"name": "Event Test", "base_url": BASE_URL, "api_key": FAKE_KEY}
         )
         self.partner = self.env["res.partner"].create(
-            {"name": "Sara Customer", "mobile": "09123456789"}
+            {"name": "Sara Customer", "phone": "09123456789"}
         )
         self.product = self.env["product.product"].create(
             {"name": "Test Service", "list_price": 100, "type": "service"}
@@ -53,7 +53,7 @@ class TestSaleOrderEvent(UniomTestCase):
 
     def test_opt_out_partner_gets_no_customer_message(self):
         opted_out = self.env["res.partner"].create(
-            {"name": "Quiet Customer", "mobile": "09121112233", "uniom_opt_out": True}
+            {"name": "Quiet Customer", "phone": "09121112233", "uniom_opt_out": True}
         )
         order = self._create_order(partner=opted_out)
         with patched_transport():

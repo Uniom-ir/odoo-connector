@@ -2,23 +2,22 @@
 <!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
      copyright and licensing details. -->
 <odoo>
-    <record id="module_category_uniom" model="ir.module.category">
-        <field name="name">Uniom</field>
-        <field name="sequence">25</field>
-    </record>
-
     <record id="group_uniom_user" model="res.groups">
         <field name="name">User</field>
-        <field name="category_id" ref="module_category_uniom"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
         <field name="comment">Can send Uniom messages and read the message log.</field>
     </record>
 
     <record id="group_uniom_manager" model="res.groups">
         <field name="name">Administrator</field>
-        <field name="category_id" ref="module_category_uniom"/>
         <field name="implied_ids" eval="[(4, ref('group_uniom_user'))]"/>
         <field name="comment">Manages connections, API keys, automation rules and templates.</field>
+    </record>
+
+    <!-- Odoo 19 no longer auto-assigns new-app groups to the admin, so
+         system administrators explicitly inherit Uniom management. -->
+    <record id="base.group_system" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('group_uniom_manager'))]"/>
     </record>
 
     <!-- Multi-company rules: users only see data of their current companies. -->

@@ -8,6 +8,11 @@ from .common import BASE_URL, FAKE_KEY, INVALID_KEY, FakeResponse, UniomTestCase
 
 
 class TestSetupWizard(UniomTestCase):
+    def test_system_admin_inherits_manager(self):
+        admin = self.env.ref("base.user_admin")
+        self.assertTrue(admin.has_group("uniom_connector.group_uniom_manager"))
+        self.assertTrue(admin.has_group("uniom_connector.group_uniom_user"))
+
     def test_connect_success_uses_gateway_identity(self):
         wizard = self.env["uniom.setup.wizard"].create(
             {"api_key": FAKE_KEY, "base_url": BASE_URL}

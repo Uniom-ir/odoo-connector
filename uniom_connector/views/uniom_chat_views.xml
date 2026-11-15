@@ -125,7 +125,7 @@
                 <field name="last_message_preview"/>
                 <filter name="filter_unread" string="Unread" domain="[('unread_count', '&gt;', 0)]"/>
                 <filter name="filter_private" string="Private" domain="[('chat_type', '=', 'private')]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_by_connection" string="Connection" context="{'group_by': 'connection_id'}"/>
                     <filter name="group_by_type" string="Type" context="{'group_by': 'chat_type'}"/>
                     <filter name="group_by_partner" string="Customer" context="{'group_by': 'partner_id'}"/>

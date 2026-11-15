@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 16:32\n"
-"PO-Revision-Date: 2026-11-15 16:32\n"
+"POT-Creation-Date: 2026-11-15 22:43\n"
+"PO-Revision-Date: 2026-11-15 22:43\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom\n"
 "MIME-Version: 1.0\n"
@@ -285,11 +285,6 @@ msgid "Bale"
 msgstr ""
 
 #. module: uniom_connector
-#: model:uniom.connection,name:uniom_connector.demo_connection_bale
-msgid "Bale — Sales Notifications (Demo)"
-msgstr ""
-
-#. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_connection__base_url
 msgid ""
 "Base URL of the Uniom Bot API. Use https://api.uniom.ir (Iran) or "
@@ -398,11 +393,6 @@ msgid "Company"
 msgstr ""
 
 #. module: uniom_connector
-#: model:ir.model,name:uniom_connector.model_res_config_settings
-msgid "Config Settings"
-msgstr ""
-
-#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_setup_wizard_form
 msgid "Connect"
 msgstr ""
@@ -467,6 +457,13 @@ msgstr ""
 #: model:ir.ui.menu,name:uniom_connector.menu_uniom_connections
 #: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Connections"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_failed_streak
+msgid ""
+"Consecutive polls the same update id failed; past the bound the poison "
+"update is skipped so polling never wedges."
 msgstr ""
 
 #. module: uniom_connector
@@ -711,16 +708,19 @@ msgid "Discuss Channel"
 msgstr ""
 
 #. module: uniom_connector
-#: model:ir.model,name:uniom_connector.model_discuss_channel
-msgid "Discussion Channel"
-msgstr ""
-
-#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__display_label
 msgid "Display Label"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_account_move__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_account_payment__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_discuss_channel__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_product_template__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_res_partner__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_sale_order__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_stock_picking__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__display_name
@@ -909,6 +909,13 @@ msgid "File is larger than the %(mb)s MB limit."
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_failed_update_id
+msgid ""
+"First update id that failed processing; the offset is held here for retry "
+"until it succeeds or exceeds the retry bound."
+msgstr ""
+
+#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Gateway"
 msgstr ""
@@ -937,13 +944,6 @@ msgstr ""
 #: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_chat__chat_type__group
 msgid "Group"
-msgstr ""
-
-#. module: uniom_connector
-#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_search
-#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
-#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_search
-msgid "Group By"
 msgstr ""
 
 #. module: uniom_connector
@@ -980,6 +980,14 @@ msgid ""
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_account_move__id
+#: model:ir.model.fields,field_description:uniom_connector.field_account_payment__id
+#: model:ir.model.fields,field_description:uniom_connector.field_discuss_channel__id
+#: model:ir.model.fields,field_description:uniom_connector.field_product_template__id
+#: model:ir.model.fields,field_description:uniom_connector.field_res_config_settings__id
+#: model:ir.model.fields,field_description:uniom_connector.field_res_partner__id
+#: model:ir.model.fields,field_description:uniom_connector.field_sale_order__id
+#: model:ir.model.fields,field_description:uniom_connector.field_stock_picking__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__id
@@ -1111,11 +1119,6 @@ msgstr ""
 msgid ""
 "JSON list of {type, name, description} for the chosen platform, from GET "
 "/platforms — drives the radio cards."
-msgstr ""
-
-#. module: uniom_connector
-#: model:ir.model,name:uniom_connector.model_account_move
-msgid "Journal Entry"
 msgstr ""
 
 #. module: uniom_connector
@@ -1546,7 +1549,7 @@ msgstr ""
 #: model:ir.model.fields,help:uniom_connector.field_res_users__uniom_chat_id
 msgid ""
 "Messenger destination for this contact: phone (+989123456789), @username or "
-"numeric chat id. Leave empty to use the mobile/phone number."
+"numeric chat id. Leave empty to use the phone number."
 msgstr ""
 
 #. module: uniom_connector
@@ -1723,6 +1726,12 @@ msgstr ""
 #. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "Only outgoing messages can be deleted."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Only outgoing text messages can be edited."
 msgstr ""
 
@@ -1781,9 +1790,9 @@ msgstr ""
 #: model:ir.model.fields,help:uniom_connector.field_uniom_template__lang
 msgid ""
 "Optional translation language (ISO code) to select when sending out an "
-"email. If not set, the english version will be used. This should usually be "
-"a placeholder expression that provides the appropriate language, e.g. {{ "
-"object.partner_id.lang }}."
+"email. If not set, the main partner's language will be used. This should "
+"usually be a placeholder expression that provides the appropriate language, "
+"e.g. {{ object.partner_id.lang }}."
 msgstr ""
 
 #. module: uniom_connector
@@ -1896,11 +1905,6 @@ msgid "Payment Received (Persian)"
 msgstr ""
 
 #. module: uniom_connector
-#: model:ir.model,name:uniom_connector.model_account_payment
-msgid "Payments"
-msgstr ""
-
-#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "Per-language templates (fa, ar, ...)"
 msgstr ""
@@ -1959,6 +1963,21 @@ msgstr ""
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_backoff_until
 msgid "Poll Backoff Until"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_dead_update
+msgid "Poll Dead Update"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_failed_streak
+msgid "Poll Failed Streak"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_failed_update_id
+msgid "Poll Failed Update"
 msgstr ""
 
 #. module: uniom_connector
@@ -2101,6 +2120,13 @@ msgid "Quotation Sent (English)"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_dead_update
+msgid ""
+"Raw payload of the last skipped poison update (JSON), kept for support "
+"replay after the retry bound gave up on it."
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-javascript
 #: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__seen_state__read
@@ -2233,11 +2259,6 @@ msgid "Rubika"
 msgstr ""
 
 #. module: uniom_connector
-#: model:uniom.connection,name:uniom_connector.demo_connection_rubika
-msgid "Rubika — Shop Channel (Demo)"
-msgstr ""
-
-#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__rule_id
 msgid "Rule"
 msgstr ""
@@ -2252,11 +2273,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_rule.py:0
 msgid "Sale Order Confirmed"
-msgstr ""
-
-#. module: uniom_connector
-#: model:ir.model,name:uniom_connector.model_sale_order
-msgid "Sales Order"
 msgstr ""
 
 #. module: uniom_connector
@@ -2851,7 +2867,6 @@ msgstr ""
 #: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
 #: code:addons/uniom_connector/wizards/uniom_send_wizard.py:0
-#: model:ir.module.category,name:uniom_connector.module_category_uniom
 #: model:ir.ui.menu,name:uniom_connector.menu_uniom_root
 msgid "Uniom"
 msgstr ""
@@ -3096,6 +3111,11 @@ msgid "Uniom: sync chat presence"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.actions.server,name:uniom_connector.ir_cron_uniom_sync_states_ir_actions_server
+msgid "Uniom: sync message states"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_chat__chat_type__unknown
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__seen_state__unknown
 msgid "Unknown"
@@ -3129,6 +3149,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Unsupported message"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid ""
+"Update %s failed %s times and was skipped; payload kept on the connection."
 msgstr ""
 
 #. module: uniom_connector
@@ -3404,6 +3431,18 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "account.move"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "account.payment"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "contact"
 msgstr ""
@@ -3449,8 +3488,68 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "invoice_posted"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "payment_received"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "picking_done"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "poll"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "product.template"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "product_created"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "product_price_changed"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "rule_id"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "sale.order"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_rule.py:0
+msgid "sale_order_confirmed"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "stock.picking"
 msgstr ""
 
 #. module: uniom_connector
@@ -3460,55 +3559,11 @@ msgid "unknown error"
 msgstr ""
 
 #. module: uniom_connector
-#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_failed_streak
-msgid ""
-"Consecutive polls the same update id failed; past the bound the poison "
-"update is skipped so polling never wedges."
+#: model:uniom.connection,name:uniom_connector.demo_connection_bale
+msgid "Bale — Sales Notifications (Demo)"
 msgstr ""
 
 #. module: uniom_connector
-#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_failed_update_id
-msgid ""
-"First update id that failed processing; the offset is held here for retry "
-"until it succeeds or exceeds the retry bound."
-msgstr ""
-
-#. module: uniom_connector
-#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_failed_streak
-msgid "Poll Failed Streak"
-msgstr ""
-
-#. module: uniom_connector
-#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_failed_update_id
-msgid "Poll Failed Update"
-msgstr ""
-
-#. module: uniom_connector
-#. odoo-python
-#: code:addons/uniom_connector/models/uniom_message.py:0
-msgid "Only outgoing messages can be deleted."
-msgstr ""
-
-#. module: uniom_connector
-#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_dead_update
-msgid "Poll Dead Update"
-msgstr ""
-
-#. module: uniom_connector
-#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_dead_update
-msgid ""
-"Raw payload of the last skipped poison update (JSON), kept for support "
-"replay after the retry bound gave up on it."
-msgstr ""
-
-#. module: uniom_connector
-#: model:ir.actions.server,name:uniom_connector.ir_cron_uniom_sync_states_ir_actions_server
-msgid "Uniom: sync message states"
-msgstr ""
-
-#. module: uniom_connector
-#. odoo-python
-#: code:addons/uniom_connector/models/uniom_connection.py:0
-msgid ""
-"Update %s failed %s times and was skipped; payload kept on the connection."
+#: model:uniom.connection,name:uniom_connector.demo_connection_rubika
+msgid "Rubika — Shop Channel (Demo)"
 msgstr ""

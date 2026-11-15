@@ -14,7 +14,7 @@ class TestConversations(UniomTestCase):
             {"name": "Chat Test", "base_url": BASE_URL, "api_key": FAKE_KEY}
         )
         self.partner = self.env["res.partner"].create(
-            {"name": "Sara Chat", "mobile": "+989120000001"}
+            {"name": "Sara Chat", "phone": "+989120000001"}
         )
 
     def _outbound(self, body="order confirmed"):

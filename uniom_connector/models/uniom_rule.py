@@ -295,9 +295,7 @@ class UniomRule(models.Model):
         seen = set()
         partner = self._get_partner(record)
         if partner and not partner.uniom_opt_out:
-            chat_id = partner.uniom_chat_id or canonicalize_chat_id(
-                partner.mobile or partner.phone
-            )
+            chat_id = partner.uniom_chat_id or canonicalize_chat_id(partner.phone)
             if chat_id:
                 recipients.append((chat_id, partner))
                 seen.add(chat_id)

@@ -1,5 +1,17 @@
 # Changelog
 
+## 19.0.2.0.2 (2026-11-15)
+
+Odoo 19 series: same features as 18.0.2.0.2, ported to the 19.0 APIs:
+
+* Contacts use the unified `phone` field (`res.partner.mobile` removed).
+* Uniqueness via `models.Constraint` (`_sql_constraints` unsupported).
+* Groups without `category_id`; system admins inherit Uniom management
+  (19 no longer auto-assigns new-app groups).
+* Search views use the bare `<group>` element (`expand`/`string` gone).
+* Display-name search uses `odoo.fields.Domain` (osv deprecated).
+* Suite: 106 tests green; Persian/Arabic at 580/580 user-facing terms.
+
 ## 18.0.2.0.2 (2026-11-15)
 
 Merge-review fixes (backend + frontend teams):

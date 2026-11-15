@@ -1010,6 +1010,10 @@ T = {
     "Write your message...": ("پیام خود را بنویسید...", "اكتب رسالتك..."),
     "e.g. Bale — Sales Notifications": ("مثلاً بله — اطلاع‌رسانی فروش", "مثال: Bale — إشعارات المبيعات"),
     "e.g. Notify customer when order is confirmed": ("مثلاً اطلاع به مشتری هنگام تأیید سفارش", "مثال: إشعار العميل عند تأكيد الطلب"),
+    # Odoo 19 help texts
+    "Messenger destination for this contact: phone (+989123456789), @username or numeric chat id. Leave empty to use the phone number.": ("مقصد پیام‌رسان این مخاطب: تلفن (+989123456789)، @نام‌کاربری یا شناسه عددی چت. خالی بگذارید تا از شماره تلفن استفاده شود.", "وجهة المراسلة لجهة الاتصال هذه: الهاتف (+989123456789) أو @اسم_المستخدم أو معرف المحادثة الرقمي. اتركه فارغاً لاستخدام رقم الهاتف."),
+    "Optional translation language (ISO code) to select when sending out an email. If not set, the main partner's language will be used. This should usually be a placeholder expression that provides the appropriate language, e.g. {{ object.partner_id.lang }}.": ("زبان ترجمه اختیاری (کد ISO) که هنگام ارسال ایمیل انتخاب می‌شود. اگر تنظیم نشود، از زبان مخاطب اصلی استفاده می‌شود. معمولاً باید یک عبارت جای‌نگه‌دار باشد که زبان مناسب را بدهد، مثلاً {{ object.partner_id.lang }}.", "لغة الترجمة الاختيارية (رمز ISO) للاختيار عند إرسال بريد. إذا لم تُضبط تُستخدم لغة جهة الاتصال الرئيسية. يجب أن يكون عادة تعبيراً نائباً يوفر اللغة المناسبة، مثل {{ object.partner_id.lang }}."),
+    "Message id assigned by the messenger, needed to edit later. Stored as text: gateway ids exceed the 32-bit integer range.": ("شناسه پیام تخصیص‌یافته توسط پیام‌رسان، لازم برای ویرایش بعدی. به‌صورت متن ذخیره می‌شود: شناسه‌های دروازه از بازه عدد صحیح ۳۲ بیتی بیشترند.", "معرف الرسالة المخصص من المراسلة، لازم للتعديل لاحقاً. يُخزن كنص: معرفات البوابة تتجاوز نطاق العدد الصحيح 32 بت."),
 }
 
 

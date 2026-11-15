@@ -22,7 +22,7 @@ class TestInboundWebhook(UniomTestCase):
 
     def test_known_phone_matches_partner(self):
         partner = self.env["res.partner"].create(
-            {"name": "Sara Known", "mobile": "+989123456789"}
+            {"name": "Sara Known", "phone": "+989123456789"}
         )
         self.connection._process_inbound_update(self._update())
         message = self.env["uniom.message"].search(
@@ -34,7 +34,7 @@ class TestInboundWebhook(UniomTestCase):
 
     def test_unknown_sender_creates_partner(self):
         self.connection._process_inbound_update(self._update())
-        partner = self.env["res.partner"].search([("mobile", "=", "+989123456789")], limit=1)
+        partner = self.env["res.partner"].search([("phone", "=", "+989123456789")], limit=1)
         self.assertTrue(partner)
         self.assertEqual(partner.name, "Sara")
 
