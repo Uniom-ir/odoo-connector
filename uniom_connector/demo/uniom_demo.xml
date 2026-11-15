@@ -3,12 +3,8 @@
      copyright and licensing details. -->
 <odoo>
     <!-- Demo data: a fake (invalid) API key — enough to explore the UI and
-         take screenshots without touching the real gateway. Admin needs the
-         Uniom group so the app is visible on demo databases (runbot,
-         screenshots, trial instances). -->
-    <record id="base.user_admin" model="res.users">
-        <field name="groups_id" eval="[(4, ref('group_uniom_manager'))]"/>
-    </record>
+         take screenshots without touching the real gateway. (Admin already
+         inherits Uniom management via base.group_system on Odoo 19.) -->
 
     <record id="demo_connection_bale" model="uniom.connection">
         <field name="name">Bale — Sales Notifications (Demo)</field>
