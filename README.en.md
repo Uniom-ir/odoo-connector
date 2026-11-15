@@ -12,8 +12,8 @@ price updates — including **editing the price post in place**.
 Works with Odoo **18.0** (Community & Enterprise); the `17.0` branch
 stays on the previous release until this rewrite is backported. The
 `18.0` branch is **verified on a real installation**: full test suite
-green (`--test-tags /uniom_connector`, 101/101 with `fa_IR` loaded),
-complete Persian/Arabic translations (579/579 terms per language), live
+green (`--test-tags /uniom_connector`, 102/102 with `fa_IR` loaded),
+complete Persian/Arabic translations (584/584 terms per language), live
 validation against api.uniom.ir
 (send/receive/polling/media/presence/history/Discuss/linking) and store
 screenshots captured from the live UI.

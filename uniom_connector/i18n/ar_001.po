@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-15 14:37\n"
-"PO-Revision-Date: 2026-11-15 14:37\n"
+"POT-Creation-Date: 2026-11-15 15:45\n"
+"PO-Revision-Date: 2026-11-15 15:45\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom <support@uniom.ir>\n"
 "Language: ar_001\n"
@@ -3591,3 +3591,37 @@ msgstr "استطلاع"
 #: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
 msgid "unknown error"
 msgstr "خطأ غير معروف"
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_failed_streak
+msgid ""
+"Consecutive polls the same update id failed; past the bound the poison "
+"update is skipped so polling never wedges."
+msgstr ""
+"مرات الاستطلاع المتتالية التي فشل فيها نفس معرف التحديث؛ بعد الحد يُتخطى "
+"التحديث المسموم حتى لا يتعطل الاستطلاع."
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_failed_update_id
+msgid ""
+"First update id that failed processing; the offset is held here for retry "
+"until it succeeds or exceeds the retry bound."
+msgstr ""
+"معرف أول تحديث فشلت معالجته؛ تُحفظ الإزاحة هنا لإعادة المحاولة حتى ينجح أو "
+"يتجاوز الحد."
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_failed_streak
+msgid "Poll Failed Streak"
+msgstr "سلسلة فشل الاستطلاع"
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_failed_update_id
+msgid "Poll Failed Update"
+msgstr "تحديث الاستطلاع الفاشل"
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Update %s failed %s times and was skipped; check the logs."
+msgstr "تُخطّي التحديث %s بعد %s محاولات فاشلة؛ راجع السجلات."

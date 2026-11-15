@@ -1,5 +1,13 @@
 # Changelog
 
+## 18.0.2.0.1 (2026-11-15)
+
+* Polling can no longer wedge on a poison update: the offset hold is now
+  bounded (5 retries, then the update is skipped with an error log).
+* Wizard follow-up steps run inside a savepoint, so a DB error surfaces
+  as a best-effort note instead of aborting the wizard transaction.
+* Suite: 102 tests green; Persian/Arabic at 584/584.
+
 ## 18.0.2.0.0 (2026-11-15)
 
 Messenger rework — the chat surface is now a real client, live-validated
