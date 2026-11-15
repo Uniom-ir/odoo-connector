@@ -8,8 +8,8 @@
         <field name="arch" type="xml">
             <kanban class="o_kanban_small_column" default_order="last_message_date desc">
                 <field name="display_name"/>
+                <field name="avatar_url"/>
                 <field name="chat_id"/>
-                <field name="partner_id"/>
                 <field name="connection_id"/>
                 <field name="platform"/>
                 <field name="chat_type"/>
@@ -21,13 +21,16 @@
                     <t t-name="card">
                         <div class="o_kanban_card d-flex flex-column gap-1 p-2">
                         <div class="d-flex align-items-center gap-2">
-                            <t t-if="record.partner_id.raw_value">
-                                <img t-att-src="'/web/image/res.partner/' + record.partner_id.raw_value + '/image_128/56x56'"
+                            <t t-if="record.avatar_url.value">
+                                <img t-att-src="record.avatar_url.value"
                                      t-att-alt="record.display_name.value" class="o_kanban_avatar"
-                                     style="width: 34px; height: 34px; border-radius: 50%;"/>
+                                     style="width: 34px; height: 34px; border-radius: 50%; object-fit: cover;"/>
                             </t>
                             <t t-else="">
-                                <i class="fa fa-user-circle fa-2x text-muted" role="img" t-att-aria-label="record.display_name.value"/>
+                                <span class="o_kanban_avatar d-inline-flex align-items-center justify-content-center text-white fw-bold"
+                                      style="width: 34px; height: 34px; border-radius: 50%; background-color: #6c757d;"
+                                      t-att-aria-label="record.display_name.value"
+                                      t-esc="(record.display_name.value || '?').trim().slice(0, 2)"/>
                             </t>
                                 <div class="flex-grow-1 overflow-hidden">
                                     <strong class="text-truncate d-block"><field name="display_name"/></strong>
