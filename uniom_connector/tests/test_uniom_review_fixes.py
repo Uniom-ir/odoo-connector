@@ -253,7 +253,9 @@ class TestReviewFixes(UniomTestCase):
 
     def test_friendly_call_isolates_db_errors(self):
         def bad_sql(connection):
-            connection.env.cr.execute("THIS IS NOT SQL")
+            # log_exceptions=False: the statement still aborts the txn
+            # (that's what's under test) but doesn't spam CI logs
+            connection.env.cr.execute("THIS IS NOT SQL", log_exceptions=False)
 
         with patch.object(UniomConnection, "action_sync_dialogs", bad_sql):
             text = self.connection._friendly_call("action_sync_dialogs")

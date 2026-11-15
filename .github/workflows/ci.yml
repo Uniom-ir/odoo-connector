@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        odoo: ["17.0", "18.0", "20.0"]
+        odoo: ["17.0", "18.0", "19.0", "20.0"]
     services:
       postgres:
         image: postgres:16
@@ -46,9 +46,9 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          # Odoo 20 requires Python >= 3.12; 17/18 stay on the interpreter
-          # their requirements were validated against.
-          python-version: ${{ matrix.odoo == '20.0' && '3.12' || '3.11' }}
+          # Native interpreter per series (19/20 ship Python 3.12);
+          # 17/18 stay on the interpreter they were validated against.
+          python-version: ${{ (matrix.odoo == '20.0' || matrix.odoo == '19.0') && '3.12' || '3.11' }}
           cache: pip
 
       - name: Install Odoo python dependencies
@@ -78,12 +78,15 @@ jobs:
       - name: Assert no test failures
         if: always()
         run: |
-          # unittest failure headers are logged as "FAIL: ..." / "ERROR: ..."
-          if grep -E "(FAIL|ERROR): " odoo-test.log; then
+          # authoritative: the result line (naive FAIL|ERROR grep trips on
+          # intentional-error negative tests). Requires at least 1 test so
+          # a silently skipped module still fails the build.
+          if grep -E 'odoo\.tests\.result: 0 failed, 0 error\(s\) of [1-9][0-9]* tests' odoo-test.log; then
+            echo "Suite green."
+          else
             echo "::error::Test failures detected (see log above)"
             exit 1
           fi
-          echo "No test failure markers found."
 
       - name: Show test summary on failure
         if: failure()
