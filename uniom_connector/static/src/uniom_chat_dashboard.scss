@@ -1,137 +1,605 @@
 // Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
 // copyright and licensing details.
 // WhatsApp-Web-like two-pane messenger. Layout uses flex + logical
-// properties only, so the whole UI mirrors under RTL languages.
+// properties only, so the whole UI mirrors under RTL languages. Surfaces and
+// accents are derived from Odoo/Bootstrap variables so the theme (and brand
+// color) is honoured without hard-coded surface colors.
 
 .o_uniom_chat {
     height: calc(100vh - 118px);
     min-height: 480px;
-    background: #f0f2f5;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
     overflow: hidden;
+    background: $o-gray-100;
+    border: 1px solid $o-gray-300;
+    border-radius: $o-border-radius * 1.5;
 
+    // --------------------------------------------------------------
+    // Sidebar
+    // --------------------------------------------------------------
     .o_uniom_sidebar {
-        width: 320px;
-        min-width: 240px;
-        background: #fff;
-        border-inline-end: 1px solid #e0e0e0;
+        inline-size: 340px;
+        min-inline-size: 260px;
+        background: $o-view-background-color;
+        border-inline-end: 1px solid $o-gray-300;
     }
 
     .o_uniom_sidebar_head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
         padding: 10px 12px;
-        background: #714b67;
-        color: #fff;
+        background: $o-brand-primary;
+        color: $o-white;
+    }
 
-        h6 {
-            color: #fff;
-            font-weight: 600;
+    .o_uniom_sidebar_title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-inline-size: 0;
+    }
+
+    .o_uniom_sidebar_title_text {
+        font-weight: $o-font-weight-bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .o_uniom_total_unread {
+        background: rgba($o-white, 0.22);
+        color: $o-white;
+        font-weight: $o-font-weight-bold;
+        border-radius: 999px;
+    }
+
+    .o_uniom_sidebar_actions {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+    }
+
+    .o_uniom_icon_btn {
+        color: $o-white;
+        background: transparent;
+        border: 0;
+        padding: 4px 7px;
+        line-height: 1;
+
+        &:hover,
+        &:focus-visible {
+            color: $o-white;
+            background: rgba($o-white, 0.16);
         }
 
-        .o_uniom_manage {
-            color: #fff;
+        &:disabled {
+            color: rgba($o-white, 0.55);
+            background: transparent;
+        }
+    }
 
-            &:hover {
-                color: #e8dfec;
+    .o_uniom_sidebar_filters {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px 12px;
+        border-bottom: 1px solid $o-gray-200;
+    }
+
+    .o_uniom_search {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .o_uniom_search_icon {
+            position: absolute;
+            inset-inline-start: 10px;
+            color: $o-main-color-muted;
+            font-size: $o-font-size-base-smaller;
+            pointer-events: none;
+        }
+
+        .o_uniom_search_input {
+            inline-size: 100%;
+            padding-block: 6px;
+            padding-inline: 30px 10px;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            background: $o-gray-100;
+            color: $o-main-text-color;
+
+            &:focus {
+                outline: none;
+                border-color: $o-brand-primary;
+                background: $o-view-background-color;
             }
         }
     }
 
-    .o_uniom_search {
-        padding: 8px;
-        border-bottom: 1px solid #eee;
+    .o_uniom_tabs {
+        display: flex;
+        gap: 6px;
+    }
 
-        input {
-            width: 100%;
-            border: 1px solid #e0e0e0;
-            border-radius: 14px;
-            padding: 5px 12px;
+    .o_uniom_tab {
+        flex: 1 1 0;
+        padding: 4px 8px;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        background: transparent;
+        color: $o-main-color-muted;
+        font-size: $o-font-size-base-smaller;
+        font-weight: $o-font-weight-medium;
 
-            &:focus {
-                outline: none;
-                border-color: #714b67;
-            }
+        &:hover {
+            color: $o-main-text-color;
+        }
+
+        &.active {
+            color: $o-brand-primary;
+            border-bottom-color: $o-brand-primary;
+        }
+    }
+
+    .o_uniom_conn_select {
+        inline-size: 100%;
+        padding-block: 4px;
+        padding-inline: 8px;
+        border: 1px solid $o-gray-300;
+        border-radius: $o-border-radius;
+        background: $o-view-background-color;
+        color: $o-main-text-color;
+        font-size: $o-font-size-base-smaller;
+
+        &:focus {
+            outline: none;
+            border-color: $o-brand-primary;
         }
     }
 
     .o_uniom_chat_list {
         overflow-y: auto;
+        scrollbar-width: thin;
     }
 
     .o_uniom_chat_item {
-        padding: 9px 12px;
+        padding: 10px 12px;
         gap: 10px;
         cursor: pointer;
         align-items: center;
-        border-bottom: 1px solid #f5f5f5;
+        border-bottom: 1px solid $o-gray-200;
+        outline: none;
 
         &:hover {
-            background: #f7f7f7;
+            background: $o-gray-100;
+        }
+
+        &:focus-visible {
+            box-shadow: inset 0 0 0 2px $o-brand-primary;
         }
 
         &.o_active {
-            background: #f0e6f0;
+            background: mix($o-brand-primary, $o-view-background-color, 10%);
+        }
+
+        &.o_unread .o_uniom_chat_name {
+            font-weight: $o-font-weight-bold;
         }
     }
 
     .o_uniom_avatar {
-        width: 38px;
-        height: 38px;
+        inline-size: 40px;
+        block-size: 40px;
+        min-inline-size: 40px;
         border-radius: 50%;
         object-fit: cover;
+        flex: 0 0 auto;
     }
 
-    .o_uniom_avatar_fallback {
-        font-size: 34px;
-        color: #b3b3b3;
-        width: 38px;
-        text-align: center;
+    .o_uniom_avatar_lg {
+        inline-size: 44px;
+        block-size: 44px;
+        min-inline-size: 44px;
+    }
+
+    .o_uniom_avatar_initials {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: $o-gray-400;
+        color: $o-white;
+        font-weight: $o-font-weight-bold;
+        letter-spacing: 0.02em;
+        user-select: none;
+
+        .fa {
+            font-size: 18px;
+            font-weight: normal;
+        }
     }
 
     .o_uniom_chat_meta {
-        min-width: 0;
+        min-inline-size: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .o_uniom_chat_name_row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+        min-inline-size: 0;
     }
 
     .o_uniom_chat_name {
-        font-weight: 600;
+        font-weight: $o-font-weight-medium;
+        color: $o-main-text-color;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+
+    .o_uniom_chat_time {
+        flex: 0 0 auto;
+        color: $o-main-color-muted;
+        font-size: $o-font-size-base-smaller;
+    }
+
+    .o_uniom_chat_preview_row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        min-inline-size: 0;
     }
 
     .o_uniom_chat_preview {
-        font-size: 12px;
-        color: #777;
+        flex: 1 1 auto;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        min-inline-size: 0;
+        color: $o-main-color-muted;
+        font-size: $o-font-size-base-smaller;
+
+        .o_uniom_preview_text {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .o_uniom_preview_icon {
+            flex: 0 0 auto;
+            opacity: $o-opacity-muted;
+        }
+    }
+
+    .o_uniom_preview_tick {
+        flex: 0 0 auto;
+        display: inline-flex;
+        color: $o-brand-primary;
+        font-size: 9px;
+
+        .fa + .fa {
+            margin-inline-start: -4px;
+        }
+    }
+
+    .o_uniom_chat_count {
+        flex: 0 0 auto;
+        min-inline-size: 20px;
+        padding: 1px 6px;
+        border-radius: 999px;
+        background: $o-brand-primary;
+        color: $o-white;
+        font-size: $o-font-size-base-smaller;
+        font-weight: $o-font-weight-bold;
+        text-align: center;
+    }
+
+    .o_uniom_chat_failed {
+        flex: 0 0 auto;
+        color: $o-danger;
+        font-size: $o-font-size-base-smaller;
+    }
+
+    .o_uniom_conn {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        min-inline-size: 0;
+        color: $o-main-color-muted;
+        font-size: $o-font-size-base-smaller;
+    }
+
+    .o_uniom_conn_dot {
+        inline-size: 8px;
+        block-size: 8px;
+        border-radius: 50%;
+        flex: 0 0 auto;
+        background: $o-gray-400;
+    }
+
+    .o_uniom_conn_icon {
+        inline-size: 16px;
+        block-size: 16px;
+        flex: 0 0 auto;
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 4px;
+        object-fit: contain;
+    }
+
+    .o_uniom_conn_label {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    // --------------------------------------------------------------
+    // Skeletons + empty states
+    // --------------------------------------------------------------
+    .o_uniom_skeleton_row {
+        cursor: default;
+
+        &:hover {
+            background: transparent;
+        }
+    }
+
+    .o_uniom_skeleton_avatar {
+        background: $o-gray-200;
+        border-radius: 50%;
+    }
+
+    .o_uniom_skeleton_line {
+        display: block;
+        block-size: 9px;
+        inline-size: 70%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, $o-gray-200 25%, $o-gray-100 50%, $o-gray-200 75%);
+        background-size: 200% 100%;
+        animation: o_uniom_shimmer 1.4s ease-in-out infinite;
+
+        & + & {
+            margin-block-start: 6px;
+            inline-size: 45%;
+        }
+    }
+
+    .o_uniom_skeleton_line_wide {
+        inline-size: 85%;
+    }
+
+    .o_uniom_empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 32px 20px;
+        text-align: center;
+        color: $o-main-color-muted;
+    }
+
+    .o_uniom_empty_list {
+        min-block-size: 220px;
+    }
+
+    .o_uniom_empty_thread {
+        min-block-size: 240px;
+    }
+
+    .o_uniom_empty_icon {
+        font-size: 34px;
+        opacity: $o-opacity-muted;
+    }
+
+    .o_uniom_empty_title {
+        margin: 0;
+        color: $o-main-text-color;
+        font-weight: $o-font-weight-medium;
+    }
+
+    .o_uniom_empty_hint {
+        margin: 0;
+        font-size: $o-font-size-base-smaller;
+    }
+
+    // --------------------------------------------------------------
+    // Main pane
+    // --------------------------------------------------------------
+    .o_uniom_main {
+        min-inline-size: 0;
+    }
+
+    .o_uniom_thread_head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 8px 14px;
+        background: $o-view-background-color;
+        border-bottom: 1px solid $o-gray-300;
+    }
+
+    .o_uniom_thread_identity {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-inline-size: 0;
+    }
+
+    .o_uniom_thread_meta {
+        min-inline-size: 0;
+    }
+
+    .o_uniom_thread_title {
+        font-weight: $o-font-weight-bold;
+        color: $o-main-text-color;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
-    .o_uniom_chat_count {
-        background: #714b67;
-        color: #fff;
+    .o_uniom_thread_sub {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        color: $o-main-color-muted;
+        font-size: $o-font-size-base-smaller;
+        line-height: 1.3;
     }
 
-    .o_uniom_main {
-        min-width: 0;
+    .o_uniom_presence {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+
+        .o_uniom_presence_dot {
+            font-size: 7px;
+        }
+
+        &.o_uniom_presence_online {
+            color: $o-success;
+
+            .o_uniom_presence_dot {
+                color: $o-success;
+            }
+        }
+
+        &.o_uniom_presence_recent {
+            color: $o-warning;
+
+            .o_uniom_presence_dot {
+                color: $o-warning;
+            }
+        }
+
+        &.o_uniom_presence_offline .o_uniom_presence_dot {
+            color: $o-gray-500;
+        }
+
+        &.o_uniom_presence_unknown .o_uniom_presence_dot {
+            color: $o-gray-400;
+        }
     }
 
-    .o_uniom_thread_head {
-        padding: 10px 16px;
-        background: #fff;
-        border-bottom: 1px solid #e0e0e0;
-        line-height: 1.2;
+    .o_uniom_thread_sep {
+        opacity: $o-opacity-disabled;
+    }
+
+    .o_uniom_thread_chatid,
+    .o_uniom_thread_username {
+        direction: ltr;
+        unicode-bidi: plaintext;
+        white-space: nowrap;
+    }
+
+    .o_uniom_platform_badge,
+    .o_uniom_chat_type_badge {
+        padding: 0 6px;
+        border-radius: 999px;
+        background: $o-brand-lightsecondary;
+        color: $o-main-text-color;
+        font-size: 11px;
+        line-height: 1.6;
+        white-space: nowrap;
+    }
+
+    .o_uniom_platform_badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+
+        .o_uniom_platform_badge_icon {
+            inline-size: 14px;
+            block-size: 14px;
+            flex: 0 0 auto;
+            display: inline-block;
+            vertical-align: middle;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+    }
+
+    .o_uniom_thread_actions {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex: 0 0 auto;
+    }
+
+    .o_uniom_thread_actions .o_uniom_icon_btn {
+        color: $o-main-text-color;
+        background: $o-gray-100;
+
+        &:hover,
+        &:focus-visible {
+            color: $o-main-text-color;
+            background: $o-gray-200;
+        }
+
+        &:disabled {
+            color: $o-main-color-muted;
+            background: $o-gray-100;
+        }
     }
 
     .o_uniom_thread {
         overflow-y: auto;
-        padding: 16px;
-        background: #efeae2;
+        padding: 12px 16px 16px;
+        background: mix($o-gray-100, $o-gray-200, 55%);
+        scrollbar-width: thin;
+    }
+
+    .o_uniom_thread_top {
+        display: flex;
+        justify-content: center;
+        padding-block-end: 8px;
+    }
+
+    .o_uniom_load_older {
+        padding: 3px 12px;
+        border: 1px solid $o-gray-300;
+        border-radius: 999px;
+        background: $o-view-background-color;
+        color: $o-main-text-color;
+        font-size: $o-font-size-base-smaller;
+
+        &:hover {
+            background: $o-gray-100;
+        }
+    }
+
+    .o_uniom_day {
+        display: flex;
+        justify-content: center;
+        margin-block: 10px;
+    }
+
+    .o_uniom_day_label {
+        padding: 2px 10px;
+        border-radius: 999px;
+        background: mix($o-gray-300, $o-view-background-color, 55%);
+        color: $o-main-text-color;
+        font-size: $o-font-size-base-smaller;
+        box-shadow: 0 1px 1px rgba($o-shadow-color, 0.08);
+    }
+
+    // --------------------------------------------------------------
+    // Bubbles
+    // --------------------------------------------------------------
+    .o_uniom_skeleton_thread .o_uniom_bubble {
+        min-inline-size: 180px;
     }
 
     .o_uniom_bubble_row {
         display: flex;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
 
         &.in {
             justify-content: flex-start;
@@ -143,54 +611,336 @@
     }
 
     .o_uniom_bubble {
-        max-width: 65%;
-        padding: 7px 11px;
-        border-radius: 10px;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+        max-inline-size: 65%;
+        min-inline-size: 88px;
+        padding: 6px 9px 4px;
+        border-radius: $o-border-radius * 2;
+        box-shadow: 0 1px 1px rgba($o-shadow-color, 0.1);
+        color: $o-main-text-color;
 
         &.in {
-            background: #fff;
+            background: $o-view-background-color;
         }
 
         &.out {
-            background: #d9fdd3;
+            background: mix($o-success, $o-view-background-color, 14%);
+        }
+
+        &.o_uniom_bubble_pending {
+            opacity: 0.85;
         }
 
         .o_uniom_bubble_body {
             white-space: pre-wrap;
+            overflow-wrap: anywhere;
             word-break: break-word;
+            font-size: $o-font-size-base;
+            line-height: $o-line-height-base;
+        }
+
+        .o_uniom_text {
+            white-space: pre-wrap;
         }
 
         .o_uniom_bubble_meta {
-            font-size: 11px;
-            color: #8696a0;
             display: flex;
-            gap: 4px;
-            justify-content: flex-end;
             align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+            margin-block-start: 2px;
+            color: $o-main-color-muted;
+            font-size: 11px;
+            line-height: 1;
         }
-    }
 
-    .o_uniom_composer {
-        padding: 10px 12px;
-        gap: 8px;
-        background: #fff;
-        border-top: 1px solid #e0e0e0;
+        .o_uniom_time {
+            white-space: nowrap;
+        }
 
-        textarea {
-            border: 1px solid #e0e0e0;
-            border-radius: 16px;
-            padding: 8px 14px;
-            resize: none;
+        .o_uniom_ticks {
+            display: inline-flex;
+            font-size: 10px;
 
-            &:focus {
-                outline: none;
-                border-color: #714b67;
+            .fa + .fa {
+                margin-inline-start: -4px;
+            }
+        }
+
+        .o_uniom_ticks.o_sent {
+            color: $o-main-color-muted;
+        }
+
+        .o_uniom_ticks.o_read {
+            color: $o-brand-primary;
+        }
+
+        .o_uniom_edited {
+            font-style: italic;
+        }
+
+        .o_uniom_tick {
+            font-size: 10px;
+
+            &.o_queued {
+                color: $o-main-color-muted;
+            }
+
+            &.o_failed {
+                color: $o-danger;
+            }
+
+            &.o_canceled {
+                color: $o-main-color-muted;
+            }
+        }
+
+        .o_uniom_bubble_actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 4px;
+            border-block-start: 1px solid rgba($o-shadow-color, 0.08);
+            margin-block-start: 4px;
+            padding-block-start: 2px;
+
+            .btn {
+                padding: 1px 4px;
+                font-size: 11px;
+                text-decoration: none;
             }
         }
     }
 
+    .o_uniom_attachments {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-block-end: 4px;
+    }
+
+    .o_uniom_photo_link {
+        display: block;
+        max-inline-size: 280px;
+    }
+
+    .o_uniom_photo {
+        display: block;
+        max-inline-size: 100%;
+        max-block-size: 260px;
+        border-radius: $o-border-radius * 1.5;
+        object-fit: cover;
+        cursor: zoom-in;
+    }
+
+    .o_uniom_audio {
+        display: block;
+        max-inline-size: 100%;
+        inline-size: 260px;
+        block-size: 36px;
+    }
+
+    .o_uniom_video {
+        display: block;
+        max-inline-size: 280px;
+        max-block-size: 260px;
+        border-radius: $o-border-radius * 1.5;
+        background: #000;
+    }
+
+    .o_uniom_file {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 8px;
+        border-radius: $o-border-radius;
+        background: rgba($o-shadow-color, 0.06);
+        color: $o-main-text-color;
+        text-decoration: none;
+
+        &:hover,
+        &:focus-visible {
+            color: $o-main-text-color;
+            background: rgba($o-shadow-color, 0.1);
+            text-decoration: none;
+        }
+    }
+
+    .o_uniom_file_icon {
+        flex: 0 0 auto;
+        font-size: 18px;
+        opacity: $o-opacity-muted;
+    }
+
+    .o_uniom_file_meta {
+        flex: 1 1 auto;
+        min-inline-size: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .o_uniom_file_name {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: $o-font-size-base-small;
+    }
+
+    .o_uniom_file_size {
+        color: $o-main-color-muted;
+        font-size: $o-font-size-base-smaller;
+    }
+
+    .o_uniom_file_download {
+        flex: 0 0 auto;
+        opacity: $o-opacity-muted;
+    }
+
+    .o_uniom_card {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 7px 9px;
+        border-inline-start: 3px solid $o-brand-primary;
+        border-radius: $o-border-radius;
+        background: rgba($o-shadow-color, 0.06);
+        color: $o-main-text-color;
+        text-decoration: none;
+
+        &:hover,
+        &:focus-visible {
+            color: $o-main-text-color;
+            text-decoration: none;
+            background: rgba($o-shadow-color, 0.1);
+        }
+    }
+
+    .o_uniom_card_icon {
+        flex: 0 0 auto;
+        color: $o-brand-primary;
+        font-size: 18px;
+        line-height: 1.2;
+    }
+
+    .o_uniom_card_body {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-inline-size: 0;
+    }
+
+    .o_uniom_card_title {
+        font-weight: $o-font-weight-medium;
+    }
+
+    .o_uniom_card_text {
+        color: $o-main-color-muted;
+        font-size: $o-font-size-base-smaller;
+        word-break: break-word;
+    }
+
+    .o_uniom_card_poll {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .o_uniom_poll_options {
+        margin: 2px 0 0;
+        padding-inline-start: 18px;
+        color: $o-main-color-muted;
+        font-size: $o-font-size-base-small;
+    }
+
+    // --------------------------------------------------------------
+    // Composer
+    // --------------------------------------------------------------
+    .o_uniom_composer {
+        align-items: flex-end;
+        gap: 8px;
+        padding: 8px 12px;
+        background: $o-view-background-color;
+        border-top: 1px solid $o-gray-300;
+
+        .o_uniom_composer_attach {
+            flex: 0 0 auto;
+            border: 0;
+            background: $o-gray-100;
+            color: $o-main-text-color;
+            border-radius: 50%;
+            inline-size: 38px;
+            block-size: 38px;
+            padding: 0;
+
+            &:hover {
+                background: $o-gray-200;
+            }
+
+            &:disabled {
+                opacity: $o-opacity-disabled;
+            }
+        }
+
+        .o_uniom_composer_input {
+            min-block-size: 38px;
+            max-block-size: 190px;
+            padding: 8px 14px;
+            border: 1px solid $o-gray-300;
+            border-radius: 18px;
+            background: $o-view-background-color;
+            color: $o-main-text-color;
+            font-size: $o-font-size-base;
+            line-height: 1.4;
+            resize: none;
+            overflow-y: hidden;
+
+            &:focus {
+                outline: none;
+                border-color: $o-brand-primary;
+            }
+        }
+
+        .o_uniom_composer_send {
+            flex: 0 0 auto;
+            inline-size: 38px;
+            block-size: 38px;
+            padding: 0;
+            border-radius: 50%;
+        }
+    }
+
     .o_uniom_placeholder {
-        font-size: 15px;
+        font-size: $o-font-size-base;
+
+        .o_uniom_placeholder_icon {
+            font-size: 44px;
+            margin-block-end: 8px;
+            opacity: $o-opacity-muted;
+        }
+    }
+
+    // --------------------------------------------------------------
+    // Responsive
+    // --------------------------------------------------------------
+    @media (max-width: 767.98px) {
+        .o_uniom_sidebar {
+            inline-size: 280px;
+            min-inline-size: 220px;
+        }
+
+        .o_uniom_thread_head {
+            flex-wrap: wrap;
+        }
+
+        .o_uniom_bubble {
+            max-inline-size: 82%;
+        }
+    }
+}
+
+@keyframes o_uniom_shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
     }
 }

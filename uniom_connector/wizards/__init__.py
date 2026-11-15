@@ -2,3 +2,4 @@
 # copyright and licensing details.
 from . import uniom_send_wizard
 from . import uniom_setup_wizard
+from . import uniom_link_wizard

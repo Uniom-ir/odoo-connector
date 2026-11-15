@@ -27,6 +27,13 @@
               groups="uniom_connector.group_uniom_manager"
               sequence="15"/>
 
+    <menuitem id="menu_uniom_link_messenger"
+              name="Link Messenger Account"
+              parent="menu_uniom_root"
+              action="action_uniom_link_wizard"
+              groups="uniom_connector.group_uniom_manager"
+              sequence="12"/>
+
     <menuitem id="menu_uniom_rules"
               name="Automation Rules"
               parent="menu_uniom_root"

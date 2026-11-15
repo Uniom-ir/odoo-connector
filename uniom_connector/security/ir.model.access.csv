@@ -12,3 +12,4 @@ access_uniom_rule_user,uniom.rule.user,model_uniom_rule,group_uniom_user,1,0,0,0
 access_uniom_send_wizard_user,uniom.send.wizard.user,model_uniom_send_wizard,group_uniom_user,1,1,1,1
 access_uniom_send_recipient_user,uniom.send.recipient.user,model_uniom_send_recipient,group_uniom_user,1,1,1,1
 access_uniom_setup_wizard_user,uniom.setup.wizard.user,model_uniom_setup_wizard,group_uniom_manager,1,1,1,1
+access_uniom_link_wizard_manager,uniom.link.wizard.manager,model_uniom_link_wizard,group_uniom_manager,1,1,1,1

@@ -19,7 +19,13 @@
                     <field name="api_key" password="True"/>
                     <field name="name"/>
                     <field name="base_url" groups="uniom_connector.group_uniom_manager"/>
+                    <field name="platform" widget="selection"/>
+                    <field name="inbound_mode" widget="radio"/>
+                    <field name="base_url_is_public" invisible="1"/>
                 </group>
+                <div class="alert alert-warning" role="alert" invisible="base_url_is_public or inbound_mode != 'webhook'">
+                    Your Odoo URL is not publicly reachable, so the gateway cannot push messages to it. Polling is recommended here.
+                </div>
                 <footer>
                     <button name="action_connect" string="Connect" type="object" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>

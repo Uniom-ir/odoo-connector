@@ -1,36 +1,34 @@
 <section style="max-width: 1080px; margin: 0 auto;">
   <h2 style="text-align: center;">Uniom Messaging Gateway</h2>
   <p class="lead" style="text-align: center;">
-    Notify customers on <strong>Bale, Rubika, Eitaa, Soroush+ and Telegram</strong>
-    straight from sale orders, invoices, payments and deliveries — through your
-    <strong>Uniom</strong> account.
+    Chat with customers on <strong>Bale, Rubika, Eitaa, Soroush+ and Telegram</strong>
+    straight from Odoo — messenger UI, Discuss threads and event automation,
+    through your <strong>Uniom</strong> account.
   </p>
 
   <div class="row">
+    <div class="col-md-4">
+      <h4>Messenger UI</h4>
+      <p>
+        WhatsApp-style <strong>Conversations</strong>: unread badges, last-seen
+        presence, per-messenger brand icons, media bubbles (photo, file, voice,
+        location, poll), history backfill and optimistic sends with retry.
+      </p>
+    </div>
+    <div class="col-md-4">
+      <h4>Discuss-native</h4>
+      <p>
+        Every conversation mirrors into a native <strong>Discuss</strong> channel,
+        and replies typed there go out through Uniom. Inbound that works
+        everywhere: webhook <em>or</em> getUpdates polling behind NAT.
+      </p>
+    </div>
     <div class="col-md-4">
       <h4>Event automation</h4>
       <p>
         Ready rules for quotation sent, order confirmed, invoice posted (PDF attached),
         payment received, delivery done, product published and
         <strong>price change with in-place message editing</strong> in your channel.
-        Works out of the box: paste one API key and you are live.
-      </p>
-    </div>
-    <div class="col-md-4">
-      <h4>Reliable queue</h4>
-      <p>
-        Every message is logged with its state, retried with backoff, honors
-        <code>429 retry_after</code>, and never duplicates a gateway-timed-out
-        send (504). Full per-record history in the chatter and a searchable log.
-      </p>
-    </div>
-    <div class="col-md-4">
-      <h4>Native experience</h4>
-      <p>
-        <strong>Send via Uniom</strong> button on partners, orders, invoices and
-        deliveries. Templates with <code>{{ object.field }}</code> placeholders,
-        English / Persian / Arabic with RTL, multi-company, user &amp; admin
-        groups, inbound webhook for customer replies.
       </p>
     </div>
   </div>
@@ -47,8 +45,18 @@
   </div>
   <div class="row" style="margin-top: 12px;">
     <div class="col-md-6">
+      <img src="uniom_link_wizard_screenshot.png" class="img-responsive img-rounded" alt="Link Messenger Account wizard"/>
+      <p class="text-center text-muted">Link a messenger account from inside Odoo: phone + OTP, like the Uniom panel</p>
+    </div>
+    <div class="col-md-6">
+      <img src="uniom_discuss_screenshot.png" class="img-responsive img-rounded" alt="Discuss mirror thread"/>
+      <p class="text-center text-muted">Native Discuss threads: every conversation, two-way</p>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 12px;">
+    <div class="col-md-6">
       <img src="uniom_connect_wizard_screenshot.png" class="img-responsive img-rounded" alt="Connect Uniom Account wizard"/>
-      <p class="text-center text-muted">Login-style setup: paste one API key, press Connect</p>
+      <p class="text-center text-muted">Or paste an API key: login-style setup, gateway-confirmed account</p>
     </div>
     <div class="col-md-6">
       <img src="uniom_messages_rtl_screenshot.png" class="img-responsive img-rounded" alt="Uniom in Persian, RTL"/>
@@ -58,10 +66,18 @@
 
   <h3>How it works</h3>
   <ol>
-    <li>Uniom → Connect Uniom Account: paste an API key from your dashboard (Account → API Keys) — one key per messenger account. The gateway confirms the account name.</li>
-    <li>Confirm an order: the customer's phone gets the message, your channel can get a copy.</li>
-    <li>Customer replies arrive in Conversations (webhook) — answer from the thread, like any messenger.</li>
+    <li>Uniom → Link Messenger Account: sign in with your Uniom phone + OTP, then link the messenger account (phone + OTP, 2FA password or bot token) — or paste an API key via Connect Uniom Account.</li>
+    <li>Pick the messenger and the inbound mode (webhook for public servers, polling everywhere else). Conversations seed automatically.</li>
+    <li>Confirm an order: the customer's phone gets the message, your channel can get a copy. Replies land in Conversations <em>and</em> Discuss — answer from either.</li>
   </ol>
+
+  <h3>Reliability</h3>
+  <p>
+    Every message is queued, retried with backoff, honors
+    <code>429 retry_after</code>, and never duplicates a gateway-timed-out
+    send (504). Failures raise to-dos on the business record; everything is
+    logged per message and mirrored to the chatter.
+  </p>
 
   <h3>What is sent to Uniom</h3>
   <p>
@@ -75,6 +91,6 @@
   <ul>
     <li>Odoo 18.0, Community or Enterprise (sale, invoicing and inventory events supported).</li>
     <li>A Uniom account (free plan supported) at uniom.ir / uniomi.ir.</li>
-    <li>For inbound messages: an Odoo instance reachable on a public HTTPS URL.</li>
+    <li>For webhook inbound: an Odoo instance reachable on a public HTTPS URL (polling needs none).</li>
   </ul>
 </section>

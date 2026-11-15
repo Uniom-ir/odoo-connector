@@ -14,7 +14,7 @@ body size is capped — Telegram-style updates are tiny.
 import hmac
 import logging
 
-from odoo import http
+from odoo import fields, http
 from odoo.http import request
 
 _logger = logging.getLogger(__name__)
@@ -59,7 +59,11 @@ class UniomWebhookController(http.Controller):
             return request.make_json_response({"ok": False, "error": "invalid payload"}, status=400)
 
         try:
-            connection._process_inbound_update(update)
+            # a broken update (or a duplicate racing the polling cron) must
+            # not abort the request transaction: roll back just this attempt
+            with request.env.cr.savepoint():
+                connection._process_inbound_update(update)
         except Exception:  # noqa: BLE001 - always ACK so Uniom does not retry endlessly
             _logger.exception("Uniom webhook: processing failed for connection %s", connection_id)
+        connection.sudo().write({"last_webhook_at": fields.Datetime.now()})
         return request.make_json_response({"ok": True})

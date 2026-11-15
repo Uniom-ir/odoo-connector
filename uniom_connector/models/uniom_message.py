@@ -27,6 +27,13 @@ class UniomMessage(models.Model):
     _description = "Uniom Message"
     _order = "id desc"
     _rec_name = "display_label"
+    _sql_constraints = [
+        (
+            "connection_update_uniq",
+            "unique(connection_id, uniom_update_id)",
+            "This gateway update was already stored for this connection.",
+        )
+    ]
 
     display_label = fields.Char(compute="_compute_display_label")
     connection_id = fields.Many2one(
@@ -67,12 +74,67 @@ class UniomMessage(models.Model):
         ondelete="set null",
         help="Conversation this message belongs to (kept for history).",
     )
-    uniom_message_id = fields.Integer(
-        copy=False, help="Message id assigned by the messenger, needed to edit later."
+    uniom_message_id = fields.Char(
+        copy=False,
+        index=True,
+        help="Message id assigned by the messenger, needed to edit later. "
+        "Stored as text: gateway ids exceed the 32-bit integer range.",
+    )
+    uniom_update_id = fields.Char(
+        copy=False, index=True, help="Gateway update id, used to ignore re-deliveries."
+    )
+    message_kind = fields.Selection(
+        [
+            ("text", "Text"),
+            ("photo", "Photo"),
+            ("document", "Document"),
+            ("video", "Video"),
+            ("audio", "Audio"),
+            ("voice", "Voice message"),
+            ("sticker", "Sticker"),
+            ("location", "Location"),
+            ("contact", "Contact"),
+            ("poll", "Poll"),
+            ("unknown", "Unsupported"),
+        ],
+        default="text",
+        required=True,
+        help="Kind of content carried by this message.",
+    )
+    is_read = fields.Boolean(
+        default=True,
+        required=True,
+        index=True,
+        help="Incoming messages start unread and are marked read when the "
+        "conversation is opened or the messenger confirms the read receipt.",
+    )
+    attachment_ids = fields.One2many(
+        "ir.attachment",
+        "res_id",
+        domain=[("res_model", "=", "uniom.message")],
+        string="Attachments",
+        copy=False,
     )
     date_sent = fields.Datetime(copy=False)
     date_edited = fields.Datetime(copy=False)
     edit_count = fields.Integer(default=0, copy=False)
+    seen_state = fields.Selection(
+        [
+            ("unknown", "Unknown"),
+            ("delivered", "Delivered"),
+            ("seen", "Seen"),
+            ("read", "Read"),
+        ],
+        default="unknown",
+        copy=False,
+        help="Read/delivery state reported by getMessageStates.",
+    )
+    seen_count = fields.Integer(copy=False, help="Seen count from getMessageStates.")
+    views_count = fields.Integer(copy=False, help="View count from getMessageStates.")
+    state_updated_at = fields.Datetime(readonly=True, copy=False)
+    deleted_on_messenger = fields.Boolean(
+        copy=False, help="The message was deleted on the messenger side."
+    )
     error_message = fields.Text(copy=False)
     retry_count = fields.Integer(default=0, copy=False)
     next_attempt = fields.Datetime(
@@ -123,7 +185,19 @@ class UniomMessage(models.Model):
     # ------------------------------------------------------------------
     @api.model_create_multi
     def create(self, vals_list):
-        messages = super().create(vals_list)
+        backfill = bool(self.env.context.get("uniom_backfill"))
+        prepared = []
+        for vals in vals_list:
+            vals = dict(vals)
+            if "is_read" not in vals:
+                # outgoing messages are ours (already read); incoming webhook
+                # messages start unread, except during history backfill where
+                # the whole page is historical and must not badge the inbox
+                vals["is_read"] = (
+                    True if vals.get("direction", "out") != "in" else backfill
+                )
+            prepared.append(vals)
+        messages = super().create(prepared)
         for message in messages:
             # trust an explicit link (reply box, copies); only derive when
             # absent so a differently-spelled chat id never splits a thread
@@ -131,7 +205,60 @@ class UniomMessage(models.Model):
             if message.chat_session_id != chat:
                 message.chat_session_id = chat.id
             chat._touch_from(message)
+        for message in messages:
+            message._notify_bus()
+        ctx = self.env.context
+        skip_mirror = (
+            backfill
+            or ctx.get("uniom_no_discuss_mirror")
+            or ctx.get("uniom_mirror_origin")
+        )
+        if not skip_mirror:
+            for message in messages:
+                if message.chat_session_id:
+                    message.chat_session_id._mirror_to_discuss(message)
         return messages
+
+    def write(self, vals):
+        old_states = {message.id: message.state for message in self} if "state" in vals else {}
+        result = super().write(vals)
+        if "state" in vals:
+            for message in self:
+                if old_states.get(message.id) == message.state:
+                    continue
+                if message.direction == "out":
+                    message._notify_bus()
+                chat = message.chat_session_id
+                if not chat:
+                    continue
+                newest = chat.message_ids.sorted(key=lambda m: (m.date_sent or m.create_date or "", m.id))
+                if newest and newest[-1].id == message.id:
+                    # keep the sidebar tick describing the newest bubble
+                    chat.write({"last_message_state": message.state or "sent"})
+        return result
+
+    def _notify_bus(self):
+        """Tell open dashboards that a thread changed.
+
+        Only ids and routing metadata travel on the bus: bus channels are
+        not company-scoped, so message bodies must never be broadcast there
+        (a multi-company leak). Clients re-read the record through the ORM,
+        which applies the usual access/record rules.
+        """
+        self.ensure_one()
+        try:
+            self.env["bus.bus"]._sendone(
+                self.env.ref("uniom_connector.group_uniom_user"),
+                "uniom.message/new",
+                {
+                    "chat_id": self.chat_session_id.id,
+                    "message_id": self.id,
+                    "direction": self.direction or "",
+                    "state": self.state or "",
+                },
+            )
+        except Exception:  # noqa: BLE001 - a bus hiccup must not lose a message
+            _logger.warning("Uniom: could not notify bus for message %s", self.id, exc_info=True)
 
     # ------------------------------------------------------------------
     # Sending
@@ -163,16 +290,21 @@ class UniomMessage(models.Model):
         self.error_message = False
         connection = self.connection_id.sudo()
         attachment = self._ensure_document()
+        message_kind = "text"
         if attachment:
+            is_image = (attachment.mimetype or "").startswith("image/")
+            message_kind = "photo" if is_image else "document"
+            method = "sendPhoto" if is_image else "sendDocument"
+            file_field = "photo" if is_image else "document"
             result = connection._call(
-                "sendDocument",
+                method,
                 payload={
                     "chat_id": self.chat_id,
                     "caption": (self.body or "")[:1024] or None,
                 },
                 files={
-                    "document": (
-                        attachment.name or "document",
+                    file_field: (
+                        attachment.name or "file",
                         attachment.raw,
                         attachment.mimetype or "application/octet-stream",
                     )
@@ -183,10 +315,12 @@ class UniomMessage(models.Model):
                 "sendMessage",
                 payload={"chat_id": self.chat_id, "text": self.body or ""},
             )
+        gateway_message_id = (result or {}).get("message_id")
         self.write(
             {
                 "state": "sent",
-                "uniom_message_id": (result or {}).get("message_id"),
+                "uniom_message_id": str(gateway_message_id) if gateway_message_id else False,
+                "message_kind": message_kind,
                 "date_sent": fields.Datetime.now(),
                 # keep a possible "PDF not attached" note from _ensure_document
                 "error_message": self.error_message or False,
@@ -225,6 +359,7 @@ class UniomMessage(models.Model):
                     }
                 )
                 self._post_chatter(_("Uniom message failed permanently: %s", error_text))
+                self._create_failure_activity(error_text)
                 return
             if error.retry_after:
                 delay_minutes = min(max(int(error.retry_after) // 60, 1), MAX_RETRY_DELAY_MINUTES)
@@ -248,6 +383,46 @@ class UniomMessage(models.Model):
         self.write(
             {"state": "error", "next_attempt": False, "error_message": error_text}
         )
+        self._create_failure_activity(error_text)
+
+    def _create_failure_activity(self, error_text):
+        """Leave a to-do on the business record so a human sees the failure.
+
+        Best effort: activities need a mail.activity.mixin record and the
+        activity type may be removed on stripped-down databases, neither of
+        which may turn a failed send into an exception.
+        """
+        self.ensure_one()
+        if not (self.record_res_model and self.record_res_id):
+            return False
+        try:
+            record = self.env[self.record_res_model].browse(self.record_res_id).exists()
+            if not record or not hasattr(record, "activity_ids"):
+                return False
+            activity_type = self.env.ref("mail.mail_activity_data_todo", raise_if_not_found=False)
+            if not activity_type:
+                return False
+            assignee = record.user_id if "user_id" in record._fields else False
+            assignee = assignee or self.create_uid or self.env.user
+            summary = _(
+                "Uniom delivery failed: %(name)s",
+                name=self.record_name or record.display_name or self.chat_id,
+            )
+            self.env["mail.activity"].create(
+                {
+                    "activity_type_id": activity_type.id,
+                    "summary": summary[:255],
+                    "note": error_text,
+                    "res_model_id": self.env["ir.model"]._get_id(record._name),
+                    "res_id": record.id,
+                    "user_id": assignee.id,
+                }
+            )
+        except Exception:  # noqa: BLE001 - activity is a courtesy, not the fix
+            _logger.warning(
+                "Uniom: could not create a failure activity for message %s", self.id, exc_info=True
+            )
+        return True
 
     def _ensure_document(self):
         """Lazily render the linked report into an attachment at send time,
@@ -273,6 +448,8 @@ class UniomMessage(models.Model):
         if model is None:
             return self.env["ir.attachment"]
         try:
+            # check_access covers ir.model.access AND ir.rule (verified in
+            # odoo/models.py::_check_access) — the sudo render below is safe
             model.with_user(self.create_uid).browse(self.record_res_id).check_access("read")
         except Exception as error:  # noqa: BLE001 - AccessError expected
             _logger.warning(
@@ -351,10 +528,28 @@ class UniomMessage(models.Model):
     def _send_fresh_copy(self, new_body):
         duplicate = self.copy(
             {"body": new_body, "state": "outgoing", "retry_count": 0,
-             "edit_count": 0, "uniom_message_id": False, "error_message": False,
+             "edit_count": 0, "uniom_message_id": False, "uniom_update_id": False,
+             "message_kind": "text", "error_message": False,
              "next_attempt": fields.Datetime.now(), "attachment_id": False}
         )
         duplicate._send_message()
+        return True
+
+    def action_edit_body(self, new_body):
+        """Edit one outgoing text message from the dashboard (client RPC)."""
+        self.ensure_one()
+        new_body = (new_body or "").strip()
+        if not new_body:
+            raise UserError(_("Write the edited text first."))
+        if self.direction != "out" or self.message_kind != "text":
+            raise UserError(_("Only outgoing text messages can be edited."))
+        self._edit_message(new_body)
+        return self.read(["state", "body", "edit_count"])[0]
+
+    def action_delete_message(self):
+        """Delete one message from the messenger (client RPC)."""
+        self.ensure_one()
+        self.action_delete_from_messenger()
         return True
 
     # ------------------------------------------------------------------
@@ -377,6 +572,29 @@ class UniomMessage(models.Model):
     # ------------------------------------------------------------------
     # UI actions
     # ------------------------------------------------------------------
+    @api.model
+    def get_failed_chat_ids(self, limit=200):
+        """Distinct conversation ids having failed outbound messages.
+
+        Served from the backend (via _read_group, record rules applied)
+        instead of orm.readGroup so the dashboard works unchanged on
+        every Odoo version (19.0 renamed the JS grouping API).
+        """
+        try:
+            limit = max(1, min(int(limit), 500))
+        except (TypeError, ValueError):
+            limit = 200
+        rows = self._read_group(
+            [
+                ("state", "=", "error"),
+                ("direction", "=", "out"),
+                ("chat_session_id", "!=", False),
+            ],
+            ["chat_session_id"],
+            ["__count"],
+        )
+        return [chat.id for chat, _count in rows if chat][:limit]
+
     def action_send_now(self):
         self.filtered(lambda m: m.state in ("outgoing", "error")).write(
             {"state": "outgoing", "retry_count": 0, "next_attempt": fields.Datetime.now()}
@@ -397,4 +615,68 @@ class UniomMessage(models.Model):
             "res_model": self.record_res_model,
             "res_id": self.record_res_id,
             "view_mode": "form",
+            "views": [[False, "form"]],
+            "target": "current",
         }
+
+    def action_sync_states(self):
+        """Refresh seen/edited/deleted state from getMessageStates (≤100)."""
+        targets = self.filtered(lambda m: m.uniom_message_id and m.state == "sent")
+        if not targets:
+            return True
+        for connection in targets.mapped("connection_id"):
+            batch = targets.filtered(lambda m: m.connection_id == connection)[:100]
+            try:
+                states = connection.sudo()._call(
+                    "getMessageStates",
+                    {
+                        "messages": [
+                            "%s/%s" % (m.chat_id, m.uniom_message_id) for m in batch
+                        ]
+                    },
+                ) or []
+            except Exception:  # noqa: BLE001 - state sync is best effort
+                _logger.info(
+                    "Uniom: getMessageStates failed for connection %s",
+                    connection.id, exc_info=True,
+                )
+                continue
+            by_index = {}
+            if isinstance(states, list):
+                for item in states:
+                    if isinstance(item, dict) and "request_index" in item:
+                        by_index[item["request_index"]] = item
+            now = fields.Datetime.now()
+            for index, message in enumerate(batch):
+                item = by_index.get(index) or {}
+                values = {"state_updated_at": now}
+                seen = (item.get("seen_state") or "").lower()
+                if seen in ("read", "seen", "delivered", "unknown"):
+                    values["seen_state"] = seen
+                elif item.get("status") == "ok":
+                    values["seen_state"] = "delivered"
+                for key, field in (("seen_count", "seen_count"), ("views", "views_count")):
+                    if isinstance(item.get(key), int):
+                        values[field] = item[key]
+                if item.get("edited") and not message.date_edited:
+                    values["date_edited"] = now
+                    values["edit_count"] = message.edit_count + 1
+                if item.get("deleted") or item.get("status") == "deleted":
+                    values["deleted_on_messenger"] = True
+                message.write(values)
+        return True
+
+    def action_delete_from_messenger(self):
+        """Delete sent messages via deleteMessage (best effort each)."""
+        for message in self.filtered(lambda m: m.uniom_message_id and m.state == "sent"):
+            try:
+                message.connection_id.sudo()._call(
+                    "deleteMessage",
+                    {"chat_id": message.chat_id, "message_id": message.uniom_message_id},
+                )
+                message.write({"deleted_on_messenger": True})
+            except Exception:  # noqa: BLE001 - per-message best effort
+                _logger.info(
+                    "Uniom: deleteMessage failed for %s", message.id, exc_info=True
+                )
+        return True

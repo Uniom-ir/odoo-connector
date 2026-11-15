@@ -1,129 +1,118 @@
-# Uniom Messaging Gateway for Odoo
+# درگاه پیام‌رسانی یونیوم برای اودو
 
-Connect Odoo to the messengers your customers actually use — **Bale, Rubika,
-Eitaa, Soroush+ and Telegram** — through the [Uniom](https://uniom.ir)
-gateway. When an order is confirmed, an invoice is issued, a payment lands or
-a delivery ships, the customer gets a message on their phone; your channel
-stays in sync with product news and price updates — including **editing the
-price post in place**.
+**[English](README.en.md) | فارسی**
 
-Works with Odoo **18.0 and 17.0** (Community & Enterprise), one branch per
-version exactly how the Odoo Apps store expects it (this `18.0` branch is
-the main line; the `17.0` branch carries the same features). Both branches
-are **verified on real installations**: full test suite green
-(`--test-tags /uniom_connector`, 43/43) on Odoo 18.0 and 17.0, demo data
-and Persian/Arabic translations loaded and checked, and the store
-screenshots captured from the live UI.
+اودو را به پیام‌رسان‌هایی که مشتریان شما واقعاً استفاده می‌کنند وصل کنید —
+**بله، روبیکا، ایتا، سروش‌پلاس و تلگرام** — از طریق دروازه
+[یونیوم](https://uniom.ir). وقتی سفارشی تأیید شود، فاکتوری صادر شود، پرداختی
+برسد یا مرسوله‌ای ارسال شود، مشتری روی گوشی خودش پیام می‌گیرد؛ کانال شما هم
+با اخبار محصولات و به‌روزرسانی قیمت‌ها همگام می‌ماند — از جمله **ویرایش
+پیام قیمت در جای خودش**.
+
+با اودو **18.0** (Community و Enterprise) کار می‌کند؛ شاخه `17.0` تا زمان
+بک‌پورت این بازنویسی روی نسخه قبلی می‌ماند. شاخه `18.0` **روی نصب واقعی
+راستی‌آزمایی شده**: مجموعه تست کامل سبز (`--test-tags /uniom_connector`،
+101/101 با `fa_IR` لودشده)، ترجمه‌های فارسی/عربی کامل (579/579 عبارت برای
+هر زبان)، اعتبارسنجی زنده در برابر api.uniom.ir (ارسال/دریافت/نظرسنجی/
+رسانه/حضور/سابقه/Discuss/پیوند) و اسکرین‌شات‌های فروشگاه گرفته‌شده از
+رابط زنده.
 
 ```
-Sale confirmed ──┐
-Invoice posted ──┤
-Payment in ──────┼──▶ uniom.message queue ──▶ api.uniom.ir ──▶ customer phone
-Delivery done ───┤        (retry + backoff)      Bot API        / @channel
-Price changed ───┘                                        (editMessageText)
+تأیید فروش ──────┐
+ثبت فاکتور ──────┤
+دریافت پرداخت ───┼──▶ صف uniom.message ──▶ api.uniom.ir ──▶ گوشی مشتری
+انجام تحویل ─────┤     (تلاش مجدد + backoff)   Bot API      / @channel
+تغییر قیمت ──────┘                                        (editMessageText)
 ```
 
-![Uniom Chat Dashboard](uniom_connector/static/description/uniom_chat_dashboard_screenshot.png)
+![پیشخوان گفتگوی یونیوم](uniom_connector/static/description/uniom_chat_dashboard_screenshot.png)
 
-![Chat bubbles and composer](uniom_connector/static/description/uniom_chat_thread_screenshot.png)
+![حباب‌های گفتگو و نویسنده](uniom_connector/static/description/uniom_chat_thread_screenshot.png)
 
-![Connect Uniom Account](uniom_connector/static/description/uniom_connect_wizard_screenshot.png)
+![پیوند حساب پیام‌رسان](uniom_connector/static/description/uniom_link_wizard_screenshot.png)
 
-![Uniom Messages in Odoo](uniom_connector/static/description/uniom_messages_screenshot.png)
+![اتصال حساب یونیوم](uniom_connector/static/description/uniom_connect_wizard_screenshot.png)
 
-![Uniom Messages — Persian RTL](uniom_connector/static/description/uniom_messages_rtl_screenshot.png)
+![آینه Discuss](uniom_connector/static/description/uniom_discuss_screenshot.png)
 
-## Out of the box
+![پیام‌های یونیوم در اودو](uniom_connector/static/description/uniom_messages_screenshot.png)
 
-After install you get **Conversations** (messenger UI), seven ready automation
-rules (five active), templates in **English, Persian and Arabic**, and the
-message log. The only thing to do is connect:
+![پیام‌های یونیوم — راست‌چین فارسی](uniom_connector/static/description/uniom_messages_rtl_screenshot.png)
 
-1. Install the module, then **Uniom → Connect Uniom Account** (or the button
-   in Settings).
-2. Paste the `uniom_...` API key from your Uniom dashboard
-   (Account → API Keys — one key per messenger account) and press
-   **Connect** — the gateway replies with the account name and the
-   connection is live.
+## بدون هیچ تنظیمی
 
-Rules fire only when an active connection exists, so installing the module
-never surprises anyone with sends. Nothing else is required: customer phone
-numbers are canonicalized automatically (`09123456789` → `+989123456789`).
+بعد از نصب، **گفتگوها** (رابط پیام‌رسان)، هفت قانون خودکار آماده (پنج فعال)،
+قالب‌ها به **انگلیسی، فارسی و عربی** و لاگ پیام‌ها را می‌گیرید. تنها کار
+باقی‌مانده اتصال است:
 
-## Features
+1. ماژول را نصب کنید، بعد با **یونیوم ← پیوند حساب پیام‌رسان** یک حساب
+   پیام‌رسان را از داخل اودو پیوند کنید (ورود با تلفن یونیوم ← کد یک‌بارمصرف،
+   بعد تلفن پیام‌رسان ← کد/رمز دومرحله‌ای یا توکن ربات — همان فلوِ پنل
+   یونیوم؛ کلید API ساخته می‌شود و اتصال برای شما ایجاد می‌شود).
+   کلید را ترجیح می‌دهید؟ با **یونیوم ← اتصال حساب یونیوم** یک کلید
+   `uniom_...` از داشبورد یونیوم (حساب ← کلیدهای API) بچسبانید.
+2. پیام‌رسان و حالت ورودی (وب‌هوک/نظرسنجی دوره‌ای) را انتخاب کنید و
+   **اتصال** را بزنید — دروازه با نام حساب جواب می‌دهد و اتصال زنده است.
 
-| Area | What you get |
+قوانین فقط وقتی فعال شدن که اتصالی وجود داشته باشد، پس نصب ماژول هیچ‌وقت
+کسی را با ارسال غافلگیر نمی‌کند. هیچ چیز دیگری لازم نیست: شماره موبایل
+مشتریان خودکار استاندارد می‌شود (`09123456789` ← `+989123456789`).
+
+## امکانات
+
+| بخش | چه می‌گیرید |
 | --- | --- |
-| Conversations | Messenger UI à la WhatsApp connectors: every inbound/outbound message opens a thread (kanban of conversations, per-thread history with IN/OUT badges, **reply box that sends through Uniom**) |
-| Setup | **Connect Uniom Account** wizard — paste one API key, press Connect, the gateway confirms the account name. No configuration pages needed |
-| Events | Quotation sent · sale confirmed · invoice posted (PDF attached) · payment received · delivery done · product published · **product price changed (edits the previous channel post)** |
-| Recipients | Customer's phone / explicit chat id, per-contact opt-out, plus manual destinations (`@channel`, phones, numeric ids) |
-| Templates | `{{ object.field }}` placeholders (same engine as Odoo mail templates), per-language templates picked by customer language |
-| Queue | Immediate send with retry cron (every 5 min), exponential backoff, `retry_after` respected, 5xx retried, **504 "outcome unknown" never retried** (Uniom API policy), full error log per message |
-| Inbound | Webhook endpoint `/uniom/webhook/<connection>` with secret-token verification, contact matching by phone/chat id, auto-contact creation, messages logged and shown on the chatter |
-| Manual send | **Send via Uniom** button on partners, sale orders, invoices and deliveries (composer with recipient list + optional PDF) |
-| Access | *Uniom User* and *Uniom Administrator* groups, multi-company connections and record rules |
-| Languages | UI translated to Persian (fa_IR) and Arabic (ar_001); RTL rendering is native in Odoo once the user language is fa/ar |
+| گفتگوها | پیام‌رسان دومنظاره به سبک واتساپ: نشان‌های خوانده‌نشده، وضعیت آخرین بازدید، آیکون اختصاصی هر پیام‌رسان (بله/روبیکا/ایتا/سروش‌پلاس/تلگرام)، حباب‌های رسانه (عکس/فایل/صوت/موقعیت/نظرسنجی)، جداکننده روز، بارگذاری سابقه، ارسال خوش‌بینانه با تلاش مجدد/لغو، به‌روزرسانی زنده bus با نظرسنجی پشتیبان، سمت حباب‌های خود قابل تنظیم در تنظیمات |
+| راه‌اندازی | جادوگر **پیوند حساب پیام‌رسان** — ورود با تلفن+کد یونیوم و بعد پیوند با تلفن+کد/دومرحله‌ای/توکن ربات (فلوِ پنل، داخل اودو)؛ یا **اتصال حساب یونیوم** با چسباندن کلید API. در هر دو حالت: پیام‌رسان + حالت ورودی (وب‌هوک/نظرسنجی)، حساب تأییدشده توسط دروازه، گفتگوها از getDialogs مقداردهی می‌شوند |
+| رویدادها | ارسال پیش‌فاکتور · تأیید فروش · ثبت فاکتور (با پیوست PDF) · دریافت پرداخت · انجام تحویل · انتشار محصول · **تغییر قیمت محصول (ویرایش پیام قبلی کانال)** |
+| گیرندگان | موبایل مشتری / شناسه چت صریح، انصراف هر مخاطب، به‌علاوه مقصدهای دستی (`@channel`، موبایل‌ها، شناسه‌های عددی) |
+| قالب‌ها | جای‌نگه‌دارهای `{{ object.field }}` (همان موتور قالب‌های ایمیل اودو)، قالب هر زبان بر اساس زبان مشتری انتخاب می‌شود |
+| صف | ارسال فوری با کرون تلاش مجدد (هر ۵ دقیقه)، backoff نمایی، رعایت `retry_after`، تلاش مجدد 5xx، **عدم تلاش مجدد 504 «نتیجه نامشخص»** (سیاست Uniom API)، لاگ کامل خطا برای هر پیام، یادآور خرابی روی رکوردهای تجاری |
+| ورودی | وب‌هوک (`/uniom/webhook/<connection>` با تأیید secret-token) **یا** نظرسنجی getUpdates (کرون ۱ دقیقه‌ای، آفست ماندگار، backoff تداخل) — دانلود رسانه به پیوست‌ها، تطبیق مخاطب، پست‌های چیتر با پیوند عمیق به رشته |
+| Discuss | هر گفتگو در یک کانال بومی Discuss (پیام‌های مستقیم) آینه می‌شود؛ پاسخ‌های تایپ‌شده در Discuss با محافظ حلقه از صف یونیوم ارسال می‌شوند |
+| ارسال دستی | دکمه **ارسال با یونیوم** روی مخاطبان، سفارش‌های فروش، فاکتورها و تحویل‌ها (نویسنده با فهرست گیرندگان + PDF اختیاری) |
+| دسترسی | گروه‌های *کاربر یونیوم* و *مدیر یونیوم*، اتصال‌های چندشرکتی و قوانین رکورد |
+| زبان‌ها | رابط کاربری به فارسی (fa_IR) و عربی (ar_001) ترجمه شده؛ با فارسی/عربی شدن زبان کاربر، راست‌چین شدن در اودو بومی است |
 
-## Configuration notes
+## نکته‌های پیکربندی
 
-* **Gateway URL**: `https://api.uniom.ir` in Iran, `https://api.uniomi.ir`
-  from abroad. Only public HTTPS hosts are accepted (localhost/private
-  addresses are refused, and redirects are never followed).
-* **Webhook (inbound)**: your Odoo must be reachable on a public HTTPS URL.
-  Press *Register Webhook* on the connection form — the module calls
-  `setWebhook` with a generated `secret_token` and Uniom then posts updates
-  with the `X-Telegram-Bot-Api-Secret-Token` header, verified on every call.
-* **Quotas**: free Uniom plans cap at 30 req/min and 1000 messages/month;
-  the queue respects `429 + retry_after` automatically.
+* **نشانی دروازه**: داخل ایران `https://api.uniom.ir` و خارج از ایران
+  `https://api.uniomi.ir`. فقط میزبان‌های HTTPS عمومی پذیرفته می‌شوند
+  (localhost/نشانی‌های خصوصی رد می‌شوند و ریدایرکت هرگز دنبال نمی‌شود).
+* **وب‌هوک (ورودی)**: اودوی شما باید روی یک نشانی HTTPS عمومی در دسترس
+  باشد. روی فرم اتصال *ثبت وب‌هوک* را بزنید — ماژول `setWebhook` را با
+  یک `secret_token` تولیدشده صدا می‌زند و یونیوم بعداً به‌روزرسانی‌ها را
+  با سربرگ `X-Telegram-Bot-Api-Secret-Token` می‌فرستد که در هر فراخوانی
+  راستی‌آزمایی می‌شود.
 
-## Installation
+## نصب
 
 ```bash
-git clone https://github.com/uniom/uniom-odoo   # or your mirror
-cd uniom-odoo
-# symlink or copy uniom_connector/ into your addons path, then:
+git clone https://github.com/Uniom-ir/odoo-connector   # یا آینه خودتان
+cd odoo-connector
+# uniom_connector/ را به مسیر افزونه‌ها symlink یا کپی کنید، بعد:
 odoo-bin -d mydb -i uniom_connector
 ```
 
-No external Python packages beyond `requests` (already shipped with Odoo).
+هیچ بسته پایتونی بیرون از `requests` لازم نیست (با اودو عرضه می‌شود).
 
-## Development & tests
+## توسعه و تست‌ها
 
 ```bash
-# unit tests inside Odoo 18.0
+# تست‌های واحد داخل Odoo 18.0
 odoo-bin -d test --test-enable --stop-after-init \
     -i uniom_connector --test-tags /uniom_connector --without-demo=all \
     --load-language en_US,fa_IR,ar_001
 
-# regenerate translation templates
+# بازتولید قالب‌های ترجمه
 python3 scripts/gen_i18n.py
 ```
 
-CI (`.github/workflows/ci.yml`) runs the full suite on Odoo 18 with
-`fa_IR`/`ar_001` loaded. `screenshots.yml` (workflow_dispatch) boots Odoo
-with demo data and captures the store screenshots with Playwright.
+CI (`.github/workflows/ci.yml`) مجموعه کامل را روی Odoo 18 با
+`fa_IR`/`ar_001` لودشده اجرا می‌کند. `screenshots.yml` (با
+workflow_dispatch) اودو را با داده نمایشی بالا می‌آورد و با Playwright
+اسکرین‌شات‌های فروشگاه را می‌گیرد.
 
-## License
+## لایسنس
 
-LGPL-3 (see `LICENSE`). © Uniom — https://uniom.ir
-
----
-
-## فارسی — راهنمای سریع
-
-اتصال اودو به پیام‌رسان‌های **بله، روبیکا، ایتا، سروش‌پلاس و تلگرام** از
-طریق دروازه [یونیوم](https://uniom.ir):
-
-1. ماژول را نصب کنید و به مسیر **یونیوم ← اتصال‌ها ← جدید** بروید.
-2. کلید API (`uniom_...`) را از داشبورد یونیوم (حساب ← کلیدهای API) کپی کنید.
-3. دکمه **تست اتصال** را بزنید تا نام حساب متصل تأیید شود.
-
-بعد از آن، این رویدادها به‌صورت خودکار به شماره موبایل مشتری (یا کانال
-شما) پیام می‌فرستند: تأیید سفارش، ثبت فاکتور (با پیوست PDF)، دریافت
-پرداخت، ارسال مرسوله، محصول جدید و **تغییر قیمت (با ویرایش پیام قبلی
-کانال)**. پیام‌ها با احترام به محدودیت نرخ یونیوم در صف ارسال و تلاش
-مجدد قرار می‌گیرند و همه‌چیز در لاگ پیام‌ها قابل پیگیری است.
-
-رابط کاربری به فارسی و عربی ترجمه شده و راست‌چین است؛ کافی است زبان
-کاربر فارسی/عربی باشد.
+LGPL-3 (فایل `LICENSE` را ببینید). © یونیوم — https://uniom.ir

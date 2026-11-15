@@ -1,0 +1,37 @@
+// Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+// copyright and licensing details.
+// Platform picker + auth-type cards for the Link Messenger Account wizard.
+
+.o_uniom_platform_picker {
+    .o_uniom_platform_item {
+        padding: 6px 12px;
+        font-weight: 500;
+
+        img {
+            object-fit: contain;
+        }
+    }
+
+    .o_uniom_platform_fallback {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        inline-size: 22px;
+        block-size: 22px;
+        border-radius: 4px;
+        background: $o-gray-200;
+        color: $o-main-color-muted;
+        font-weight: 700;
+    }
+}
+
+.o_uniom_auth_cards {
+    .o_uniom_auth_card {
+        cursor: pointer;
+
+        input[type="radio"] {
+            margin-block-start: 3px;
+            flex-shrink: 0;
+        }
+    }
+}

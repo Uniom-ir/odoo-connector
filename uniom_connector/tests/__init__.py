@@ -9,3 +9,6 @@ from . import test_uniom_events
 from . import test_uniom_webhook
 from . import test_uniom_chat
 from . import test_uniom_setup_wizard
+from . import test_uniom_link_wizard
+from . import test_uniom_messenger
+from . import test_uniom_review_fixes

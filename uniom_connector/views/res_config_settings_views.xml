@@ -17,6 +17,10 @@
                              help="Default Uniom Bot API URL used by new connections.">
                         <field name="uniom_default_base_url"/>
                     </setting>
+                    <setting id="uniom_outgoing_side" string="Own Messages Side"
+                             help="Right (WhatsApp style) or left for your outgoing bubbles; incoming takes the other side.">
+                        <field name="uniom_outgoing_side" widget="radio"/>
+                    </setting>
                     <setting id="uniom_open_connections" string="Connections"
                              help="Manage API-key connections and register the inbound webhook.">
                         <button name="%(uniom_connector.action_uniom_connection)d" type="action" string="Open Connections" class="btn-secondary o_form_uri" icon="fa-arrow-right"/>

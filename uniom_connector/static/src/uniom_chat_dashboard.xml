@@ -5,71 +5,443 @@
 
 <t t-name="uniom_connector.ChatDashboard">
     <div class="o_uniom_chat d-flex">
-        <aside class="o_uniom_sidebar d-flex flex-column">
-            <div class="o_uniom_sidebar_head d-flex align-items-center justify-content-between">
-                <h6 class="m-0">Conversations</h6>
-                <button class="btn btn-sm o_uniom_manage" t-on-click="openManage" title="Manage">
-                    <i class="fa fa-cog" role="img" aria-label="Manage"/>
-                </button>
+        <aside class="o_uniom_sidebar d-flex flex-column" t-att-aria-label="labels.conversations">
+            <div class="o_uniom_sidebar_head">
+                <div class="o_uniom_sidebar_title">
+                    <span class="o_uniom_sidebar_title_text" t-esc="labels.conversations"/>
+                    <span t-if="state.totalUnread" class="badge o_uniom_total_unread"
+                          t-esc="formatUnread(state.totalUnread)"
+                          t-att-title="labels.unread"/>
+                </div>
+                <div class="o_uniom_sidebar_actions">
+                    <button type="button" class="btn btn-sm o_uniom_icon_btn o_uniom_refresh"
+                            t-on-click="refresh" t-att-disabled="state.refreshing"
+                            t-att-title="labels.refresh" t-att-aria-label="labels.refresh">
+                        <i t-att-class="state.refreshing ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-refresh'"
+                           aria-hidden="true"/>
+                    </button>
+                    <button type="button" class="btn btn-sm o_uniom_icon_btn o_uniom_new_chat"
+                            t-on-click="openNewChat" t-att-title="labels.newChat"
+                            t-att-aria-label="labels.newChat">
+                        <i class="fa fa-plus" aria-hidden="true"/>
+                    </button>
+                    <button type="button" class="btn btn-sm o_uniom_icon_btn o_uniom_manage"
+                            t-on-click="openManage" t-att-title="labels.manage"
+                            t-att-aria-label="labels.manage">
+                        <i class="fa fa-cog" aria-hidden="true"/>
+                    </button>
+                </div>
             </div>
-            <div class="o_uniom_search">
-                <input type="text" placeholder="Search conversations..." t-on-input="onSearchInput"/>
+
+            <div class="o_uniom_sidebar_filters">
+                <div class="o_uniom_search">
+                    <i class="fa fa-search o_uniom_search_icon" aria-hidden="true"/>
+                    <input type="search" class="o_uniom_search_input"
+                           t-att-placeholder="labels.searchPlaceholder"
+                           t-att-aria-label="labels.searchPlaceholder"
+                           t-on-input="onSearchInput"/>
+                </div>
+                <div class="o_uniom_tabs" role="tablist" t-att-aria-label="labels.all">
+                    <button type="button" role="tab" class="o_uniom_tab"
+                            t-att-class="{ active: state.filter === 'all' }"
+                            t-att-aria-selected="state.filter === 'all'"
+                            t-on-click="() => this.setFilter('all')"
+                            t-esc="labels.all"/>
+                    <button type="button" role="tab" class="o_uniom_tab"
+                            t-att-class="{ active: state.filter === 'unread' }"
+                            t-att-aria-selected="state.filter === 'unread'"
+                            t-on-click="() => this.setFilter('unread')"
+                            t-esc="labels.unread"/>
+                    <button type="button" role="tab" class="o_uniom_tab"
+                            t-att-class="{ active: state.filter === 'failed' }"
+                            t-att-aria-selected="state.filter === 'failed'"
+                            t-on-click="() => this.setFilter('failed')"
+                            t-esc="labels.failed"/>
+                </div>
+                <select class="o_uniom_conn_select" t-on-change="onConnectionChange"
+                        t-att-aria-label="labels.allConnections">
+                    <option value="" t-att-selected="!state.connectionId" t-esc="labels.allConnections"/>
+                    <t t-foreach="connectionOptions" t-as="connection" t-key="connection.id">
+                        <option t-att-value="connection.id"
+                                t-att-selected="connection.id === state.connectionId"
+                                t-esc="connectionOptionLabel(connection)"/>
+                    </t>
+                </select>
             </div>
+
             <div class="o_uniom_chat_list flex-grow-1">
-                <t t-foreach="filteredChats" t-as="chat" t-key="chat.id">
-                    <div class="o_uniom_chat_item d-flex"
-                         t-att-class="{ o_active: chat.id === state.activeId }"
-                         t-on-click="() => this.openChat(chat.id)">
-                        <t t-if="chat.avatarUrl">
-                            <img class="o_uniom_avatar" t-att-src="chat.avatarUrl" t-att-alt="chat.display_name"/>
-                        </t>
-                        <t t-else="">
-                            <i class="fa fa-user-circle o_uniom_avatar_fallback" role="img" t-att-alt="chat.display_name"/>
-                        </t>
-                        <div class="flex-grow-1 o_uniom_chat_meta">
-                            <div class="o_uniom_chat_name" t-esc="chat.display_name"/>
-                            <div class="o_uniom_chat_preview" t-esc="chat.last_message_preview or chat.chat_id"/>
+                <t t-if="state.loadingChats &amp;&amp; !state.chats.length">
+                    <div class="o_uniom_skeleton_list" t-att-aria-label="labels.loading">
+                        <div t-foreach="[1, 2, 3, 4, 5, 6]" t-as="row" t-key="row"
+                             class="o_uniom_chat_item o_uniom_skeleton_row d-flex" aria-hidden="true">
+                            <span class="o_uniom_avatar o_uniom_skeleton_avatar"/>
+                            <div class="flex-grow-1 o_uniom_chat_meta">
+                                <span class="o_uniom_skeleton_line o_uniom_skeleton_line_wide"/>
+                                <span class="o_uniom_skeleton_line"/>
+                            </div>
                         </div>
-                        <span class="badge o_uniom_chat_count" t-esc="chat.message_count"/>
                     </div>
                 </t>
-                <div t-if="!filteredChats.length" class="p-3 text-muted">No conversations yet.</div>
+                <t t-elif="!state.chats.length">
+                    <div class="o_uniom_empty o_uniom_empty_list">
+                        <i class="fa fa-comments-o o_uniom_empty_icon" aria-hidden="true"/>
+                        <t t-if="state.search || state.filter !== 'all' || state.connectionId">
+                            <p class="o_uniom_empty_title" t-esc="labels.emptyFiltered"/>
+                        </t>
+                        <t t-else="">
+                            <p class="o_uniom_empty_title" t-esc="labels.emptyTitle"/>
+                            <p class="o_uniom_empty_hint" t-esc="labels.emptyHint"/>
+                        </t>
+                    </div>
+                </t>
+                <t t-else="">
+                    <t t-foreach="state.chats" t-as="chat" t-key="chat.id">
+                        <div class="o_uniom_chat_item d-flex"
+                             t-att-class="{ o_active: chat.id === state.activeId, o_unread: chat.unread_count > 0 }"
+                             t-on-click="() => this.openChat(chat.id)"
+                             t-on-keydown="(ev) => this.onChatKeydown(ev, chat.id)"
+                             role="button" tabindex="0"
+                             t-att-aria-label="chat.display_name"
+                             t-att-aria-current="chat.id === state.activeId">
+                            <t t-if="chatAvatarUrl(chat) &amp;&amp; !state.brokenAvatars.includes(chat.id)">
+                                <img class="o_uniom_avatar" t-att-src="chatAvatarUrl(chat)"
+                                     t-att-alt="chat.display_name"
+                                     t-on-error="() => this.onAvatarError(chat.id)"/>
+                            </t>
+                            <t t-else="">
+                                <span class="o_uniom_avatar o_uniom_avatar_initials"
+                                      t-att-style="chatAvatarStyle(chat)">
+                                    <t t-if="chatInitials(chat)" t-esc="chatInitials(chat)"/>
+                                    <i t-else="" class="fa fa-comments" aria-hidden="true"/>
+                                </span>
+                            </t>
+                            <div class="flex-grow-1 o_uniom_chat_meta">
+                                <div class="o_uniom_chat_name_row">
+                                    <span class="o_uniom_chat_name" t-esc="chat.display_name"/>
+                                    <span class="o_uniom_chat_time"
+                                          t-esc="relativeTime(chat.last_message_date)"
+                                          t-att-title="chat.last_message_date || ''"/>
+                                </div>
+                                <div class="o_uniom_chat_preview_row">
+                                    <span class="o_uniom_chat_preview">
+                                        <i t-if="lastKindIcon(chat)"
+                                           t-att-class="'fa ' + lastKindIcon(chat) + ' o_uniom_preview_icon'"
+                                           role="img" t-att-aria-label="lastKindLabel(chat)"/>
+                                        <span t-if="lastDirectionIsOut(chat)" class="o_uniom_preview_tick"
+                                              t-att-title="labels.sent">
+                                            <i class="fa fa-check" aria-hidden="true"/>
+                                            <i class="fa fa-check" aria-hidden="true"/>
+                                        </span>
+                                        <span class="o_uniom_preview_text"
+                                              t-esc="chat.last_message_preview || chat.chat_id"/>
+                                    </span>
+                                    <span t-if="chat.unread_count" class="o_uniom_chat_count"
+                                          t-esc="formatUnread(chat.unread_count)"/>
+                                    <i t-if="isChatFailed(chat)"
+                                       class="fa fa-exclamation-triangle o_uniom_chat_failed"
+                                       role="img" t-att-aria-label="labels.failedBadge"
+                                       t-att-title="labels.failedBadge"/>
+                                </div>
+                                <div class="o_uniom_conn">
+                                    <t t-if="platformIconUrl(connectionPlatformKey(chat))">
+                                        <img class="o_uniom_conn_icon"
+                                             t-att-src="platformIconUrl(connectionPlatformKey(chat))"
+                                             alt="" aria-hidden="true"
+                                             t-att-title="connectionName(chat)"/>
+                                    </t>
+                                    <span t-else="" class="o_uniom_conn_dot"
+                                          t-att-style="connectionStyle(chat)"/>
+                                    <span class="o_uniom_conn_label"
+                                          t-esc="connectionPlatform(chat)"
+                                          t-att-title="connectionName(chat)"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
             </div>
         </aside>
 
         <main class="o_uniom_main d-flex flex-column flex-grow-1">
             <t t-if="state.activeChat">
                 <header class="o_uniom_thread_head">
-                    <div class="fw-bold" t-esc="state.activeChat.display_name"/>
-                    <small class="text-muted" t-esc="state.activeChat.chat_id"/>
+                    <div class="o_uniom_thread_identity">
+                        <t t-if="chatAvatarUrl(state.activeChat) &amp;&amp; !state.brokenAvatars.includes(state.activeChat.id)">
+                            <img class="o_uniom_avatar o_uniom_avatar_lg"
+                                 t-att-src="chatAvatarUrl(state.activeChat)"
+                                 t-att-alt="state.activeChat.display_name"
+                                 t-on-error="() => this.onAvatarError(state.activeChat.id)"/>
+                        </t>
+                        <t t-else="">
+                            <span class="o_uniom_avatar o_uniom_avatar_lg o_uniom_avatar_initials"
+                                  t-att-style="chatAvatarStyle(state.activeChat)">
+                                <t t-if="chatInitials(state.activeChat)" t-esc="chatInitials(state.activeChat)"/>
+                                <i t-else="" class="fa fa-comments" aria-hidden="true"/>
+                            </span>
+                        </t>
+                        <div class="o_uniom_thread_meta">
+                            <div class="o_uniom_thread_title" t-esc="state.activeChat.display_name"/>
+                            <div class="o_uniom_thread_sub">
+                                <span t-att-class="'o_uniom_presence ' + presenceClass(state.activeChat)"
+                                      t-att-title="presenceTooltip(state.activeChat)">
+                                    <i class="fa fa-circle o_uniom_presence_dot" aria-hidden="true"/>
+                                    <span t-esc="presenceText(state.activeChat)"/>
+                                </span>
+                                <span class="o_uniom_thread_sep" aria-hidden="true">·</span>
+                                <span class="o_uniom_thread_chatid" t-esc="state.activeChat.chat_id"/>
+                                <span t-if="state.activeChat.messenger_username" class="o_uniom_thread_username"
+                                      t-esc="'@' + state.activeChat.messenger_username"/>
+                                <span t-if="connectionPlatform(state.activeChat)" class="o_uniom_platform_badge"
+                                      t-att-title="connectionName(state.activeChat)">
+                                    <img t-if="platformIconUrl(connectionPlatformKey(state.activeChat))"
+                                         class="o_uniom_platform_badge_icon"
+                                         t-att-src="platformIconUrl(connectionPlatformKey(state.activeChat))"
+                                         alt="" aria-hidden="true"/>
+                                    <span t-esc="connectionPlatform(state.activeChat)"/>
+                                </span>
+                                <span t-if="chatTypeLabel(state.activeChat)" class="o_uniom_chat_type_badge"
+                                      t-esc="chatTypeLabel(state.activeChat)"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="o_uniom_thread_actions">
+                        <button type="button" class="btn btn-sm btn-light o_uniom_icon_btn o_uniom_load_older_btn"
+                                t-on-click="loadOlder"
+                                t-att-disabled="!state.hasMoreHistory || state.loadingOlder || state.loadingMessages"
+                                t-att-title="labels.loadOlder" t-att-aria-label="labels.loadOlder">
+                            <i t-att-class="state.loadingOlder ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-history'"
+                               aria-hidden="true"/>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light o_uniom_icon_btn o_uniom_open_partner"
+                                t-on-click="openPartner" t-att-title="labels.openPartner"
+                                t-att-aria-label="labels.openPartner">
+                            <i class="fa fa-user" aria-hidden="true"/>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light o_uniom_icon_btn o_uniom_thread_refresh"
+                                t-on-click="refreshThread"
+                                t-att-disabled="state.refreshing"
+                                t-att-title="labels.refresh" t-att-aria-label="labels.refresh">
+                            <i t-att-class="state.refreshing ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-refresh'"
+                               aria-hidden="true"/>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-light o_uniom_icon_btn o_uniom_sync_presence"
+                                t-on-click="syncPresence"
+                                t-att-disabled="state.syncingPresence"
+                                t-att-title="labels.syncPresence" t-att-aria-label="labels.syncPresence">
+                            <i t-att-class="state.syncingPresence ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-mobile'"
+                               aria-hidden="true"/>
+                        </button>
+                    </div>
                 </header>
-                <div class="o_uniom_thread flex-grow-1" t-ref="thread">
-                    <t t-foreach="state.messages" t-as="msg" t-key="msg.id">
-                        <div t-att-class="'o_uniom_bubble_row ' + (msg.direction === 'in' ? 'in' : 'out')">
-                            <div t-att-class="'o_uniom_bubble ' + (msg.direction === 'in' ? 'in' : 'out')">
-                                <div class="o_uniom_bubble_body" t-esc="msg.body"/>
-                                <div class="o_uniom_bubble_meta">
-                                    <span t-esc="formatTs(msg.date_sent or msg.create_date)"/>
-                                    <t t-if="msg.direction === 'out'">
-                                        <i t-if="msg.state === 'sent' and !msg.error_message" class="fa fa-check text-success" title="Sent"/>
-                                        <i t-elif="msg.state === 'outgoing'" class="fa fa-clock-o text-muted" title="Queued"/>
-                                        <i t-elif="msg.state === 'error'" class="fa fa-warning text-danger" t-att-title="msg.error_message or 'Failed'"/>
-                                        <i t-elif="msg.state === 'canceled'" class="fa fa-ban text-muted" title="Canceled"/>
-                                    </t>
+
+                <div class="o_uniom_thread flex-grow-1" t-ref="thread"
+                     t-on-scroll="onThreadScroll" role="log"
+                     t-att-aria-label="state.activeChat.display_name">
+                    <div class="o_uniom_thread_top">
+                        <button t-if="state.hasMoreHistory" type="button"
+                                class="btn btn-sm o_uniom_load_older"
+                                t-on-click="loadOlder" t-att-disabled="state.loadingOlder">
+                            <i t-att-class="state.loadingOlder ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-history'"
+                               aria-hidden="true"/>
+                            <span t-esc="labels.loadOlder"/>
+                        </button>
+                    </div>
+
+                    <t t-if="state.loadingMessages &amp;&amp; !state.messages.length">
+                        <div class="o_uniom_skeleton_thread" role="status" t-att-aria-label="labels.loading">
+                            <div t-foreach="[1, 2, 3]" t-as="row" t-key="row"
+                                 t-att-class="'o_uniom_bubble_row ' + (row % 2 ? 'in' : 'out')"
+                                 aria-hidden="true">
+                                <div t-att-class="'o_uniom_bubble ' + (row % 2 ? 'in' : 'out')">
+                                    <span class="o_uniom_skeleton_line o_uniom_skeleton_line_wide"/>
+                                    <span class="o_uniom_skeleton_line"/>
                                 </div>
                             </div>
                         </div>
                     </t>
+
+                    <t t-elif="!state.messages.length">
+                        <div class="o_uniom_empty o_uniom_empty_thread">
+                            <i class="fa fa-comment-o o_uniom_empty_icon" aria-hidden="true"/>
+                            <p class="o_uniom_empty_title" t-esc="labels.noMessages"/>
+                        </div>
+                    </t>
+
+                    <t t-else="">
+                        <t t-foreach="state.messages" t-as="msg" t-key="msg.id">
+                            <div t-if="msg.showDay" class="o_uniom_day">
+                                <span class="o_uniom_day_label" t-esc="msg.dayLabel"/>
+                            </div>
+                            <div t-att-class="'o_uniom_bubble_row ' + bubbleSide(msg.direction)">
+                                <div t-att-class="'o_uniom_bubble ' + (msg.direction === 'in' ? 'in' : 'out') + (msg.optimistic ? ' o_uniom_bubble_pending' : '')">
+                                    <div class="o_uniom_bubble_body" dir="auto">
+                                        <div t-if="msg.attachments.length" class="o_uniom_attachments">
+                                            <t t-foreach="msg.attachments" t-as="att" t-key="att.id">
+                                                <a t-if="att.isImage" class="o_uniom_photo_link"
+                                                   t-att-href="att.contentUrl" target="_blank"
+                                                   rel="noopener noreferrer"
+                                                   t-att-title="att.name">
+                                                    <img class="o_uniom_photo" t-att-src="att.contentUrl"
+                                                         t-att-alt="att.name"/>
+                                                </a>
+                                                <audio t-elif="att.isAudio" class="o_uniom_audio"
+                                                       controls="controls" preload="metadata"
+                                                       t-att-src="att.contentUrl"/>
+                                                <video t-elif="att.isVideo" class="o_uniom_video"
+                                                       controls="controls" preload="metadata"
+                                                       t-att-src="att.contentUrl"/>
+                                                <a t-else="" class="o_uniom_file" t-att-href="att.downloadUrl"
+                                                   target="_blank" rel="noopener noreferrer"
+                                                   t-att-title="att.name">
+                                                    <span class="o_uniom_file_icon">
+                                                        <i class="fa fa-file-o" aria-hidden="true"/>
+                                                    </span>
+                                                    <span class="o_uniom_file_meta">
+                                                        <span class="o_uniom_file_name" t-esc="att.name"/>
+                                                        <span t-if="att.sizeLabel" class="o_uniom_file_size"
+                                                              t-esc="att.sizeLabel"/>
+                                                    </span>
+                                                    <i class="fa fa-download o_uniom_file_download"
+                                                       aria-hidden="true"/>
+                                                </a>
+                                            </t>
+                                        </div>
+
+                                        <t t-if="msg.extra &amp;&amp; msg.extra.type === 'location'">
+                                            <a class="o_uniom_card" t-att-href="msg.extra.url"
+                                               target="_blank" rel="noopener noreferrer">
+                                                <span class="o_uniom_card_icon">
+                                                    <i class="fa fa-map-marker" aria-hidden="true"/>
+                                                </span>
+                                                <span class="o_uniom_card_body">
+                                                    <span class="o_uniom_card_title" t-esc="labels.location"/>
+                                                    <span class="o_uniom_card_text"
+                                                          t-esc="msg.extra.latitude + ', ' + msg.extra.longitude"/>
+                                                </span>
+                                            </a>
+                                        </t>
+                                        <t t-elif="msg.extra &amp;&amp; msg.extra.type === 'contact'">
+                                            <div class="o_uniom_card">
+                                                <span class="o_uniom_card_icon">
+                                                    <i class="fa fa-user" aria-hidden="true"/>
+                                                </span>
+                                                <span class="o_uniom_card_body">
+                                                    <span class="o_uniom_card_title"
+                                                          t-esc="msg.extra.name || labels.contact"/>
+                                                    <a t-if="msg.extra.phoneUrl" class="o_uniom_card_text"
+                                                       t-att-href="msg.extra.phoneUrl"
+                                                       t-esc="msg.extra.phone"/>
+                                                </span>
+                                            </div>
+                                        </t>
+                                        <t t-elif="msg.extra &amp;&amp; msg.extra.type === 'poll'">
+                                            <div class="o_uniom_card o_uniom_card_poll">
+                                                <span class="o_uniom_card_title" t-esc="msg.extra.question"/>
+                                                <ul t-if="msg.extra.options.length" class="o_uniom_poll_options">
+                                                    <li t-foreach="msg.extra.options" t-as="option"
+                                                        t-key="option_index" t-esc="option"/>
+                                                </ul>
+                                            </div>
+                                        </t>
+                                        <t t-if="msg.showBody">
+                                            <span class="o_uniom_text" t-esc="msg.body"/>
+                                        </t>
+                                    </div>
+
+                                    <div class="o_uniom_bubble_meta">
+                                        <span t-if="msg.date_edited or msg.edit_count" class="o_uniom_edited"
+                                              t-att-title="labels.edited" t-esc="labels.edited"/>
+                                        <span class="o_uniom_time" t-esc="msg.timeLabel"/>
+                                        <t t-if="msg.direction === 'out'">
+                                            <t t-if="msg.optimistic">
+                                                <i class="fa fa-circle-o-notch fa-spin o_uniom_tick o_queued"
+                                                   role="img" t-att-aria-label="labels.sending"/>
+                                            </t>
+                                            <t t-elif="msg.state === 'sent'">
+                                                <span t-att-class="'o_uniom_ticks ' + (msg.seen_state === 'read' or msg.seen_state === 'seen' ? 'o_read' : 'o_sent')"
+                                                      t-att-title="seenTitle(msg)"
+                                                      t-att-aria-label="seenTitle(msg)" role="img">
+                                                    <i class="fa fa-check" aria-hidden="true"/>
+                                                    <i class="fa fa-check" aria-hidden="true"/>
+                                                </span>
+                                            </t>
+                                            <t t-elif="msg.state === 'error'">
+                                                <i class="fa fa-exclamation-triangle o_uniom_tick o_failed"
+                                                   role="img" t-att-aria-label="labels.failedMessage"
+                                                   t-att-title="msg.error_message || labels.failedMessage"/>
+                                            </t>
+                                            <t t-elif="msg.state === 'canceled'">
+                                                <i class="fa fa-ban o_uniom_tick o_canceled" role="img"
+                                                   t-att-aria-label="labels.canceled"
+                                                   t-att-title="labels.canceled"/>
+                                            </t>
+                                            <t t-else="">
+                                                <i class="fa fa-check o_uniom_tick o_queued" role="img"
+                                                   t-att-aria-label="labels.queued"
+                                                   t-att-title="msg.error_message || labels.queued"/>
+                                            </t>
+                                        </t>
+                                    </div>
+
+                                    <div t-if="msg.direction === 'out' &amp;&amp; msg.state === 'error' &amp;&amp; !msg.optimistic"
+                                         class="o_uniom_bubble_actions">
+                                        <button type="button" class="btn btn-sm btn-link o_uniom_retry"
+                                                t-on-click="() => this.retryMessage(msg)">
+                                            <i class="fa fa-refresh" aria-hidden="true"/>
+                                            <span t-esc="labels.retry"/>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-link text-muted o_uniom_cancel"
+                                                t-on-click="() => this.cancelMessage(msg)">
+                                            <i class="fa fa-ban" aria-hidden="true"/>
+                                            <span t-esc="labels.cancel"/>
+                                        </button>
+                                    </div>
+                                    <div t-if="msg.direction === 'out' &amp;&amp; msg.state === 'sent' &amp;&amp; !msg.optimistic &amp;&amp; !msg.deleted_on_messenger"
+                                         class="o_uniom_bubble_actions">
+                                        <button t-if="msg.message_kind === 'text'" type="button" class="btn btn-sm btn-link o_uniom_edit"
+                                                t-on-click="() => this.editMessage(msg)">
+                                            <i class="fa fa-pencil" aria-hidden="true"/>
+                                            <span t-esc="labels.edit"/>
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-link text-muted o_uniom_delete"
+                                                t-on-click="() => this.deleteMessage(msg)">
+                                            <i class="fa fa-trash-o" aria-hidden="true"/>
+                                            <span t-esc="labels.delete"/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </t>
                 </div>
+
                 <footer class="o_uniom_composer d-flex">
-                    <textarea class="flex-grow-1" rows="1" t-ref="composer"
-                              t-on-keydown="onComposerKeydown" placeholder="Type a message"/>
-                    <button class="btn btn-primary" t-on-click="sendReply">Send</button>
+                    <input type="file" class="d-none" t-ref="fileInput"
+                           t-on-change="onFilePicked" t-att-aria-label="labels.attach"/>
+                    <button type="button" class="btn btn-light o_uniom_composer_attach"
+                            t-on-click="openFilePicker" t-att-disabled="state.uploading"
+                            t-att-title="state.uploading ? labels.uploading : labels.attach"
+                            t-att-aria-label="state.uploading ? labels.uploading : labels.attach">
+                        <i t-att-class="state.uploading ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-paperclip'"
+                           aria-hidden="true"/>
+                    </button>
+                    <textarea class="o_uniom_composer_input flex-grow-1" rows="1" t-ref="composer"
+                              t-att-placeholder="labels.composerPlaceholder"
+                              t-att-aria-label="labels.composerPlaceholder"
+                              t-on-input="onComposerInput"
+                              t-on-keydown="onComposerKeydown"/>
+                    <button type="button" class="btn btn-primary o_uniom_composer_send"
+                            t-on-click="sendReply" t-att-disabled="state.sending || state.uploading"
+                            t-att-title="labels.send" t-att-aria-label="labels.send">
+                        <i t-att-class="state.sending ? 'fa fa-circle-o-notch fa-spin' : 'fa fa-paper-plane'"
+                           aria-hidden="true"/>
+                    </button>
                 </footer>
             </t>
             <t t-else="">
-                <div class="o_uniom_placeholder flex-grow-1 d-flex align-items-center justify-content-center text-muted">
-                    Select a conversation to start chatting
+                <div class="o_uniom_placeholder flex-grow-1 d-flex flex-column align-items-center justify-content-center text-muted">
+                    <i class="fa fa-comments-o o_uniom_placeholder_icon" aria-hidden="true"/>
+                    <p class="mb-0" t-esc="labels.selectChat"/>
                 </div>
             </t>
         </main>

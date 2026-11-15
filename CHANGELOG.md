@@ -1,5 +1,50 @@
 # Changelog
 
+## 18.0.2.0.0 (2026-11-15)
+
+Messenger rework — the chat surface is now a real client, live-validated
+against api.uniom.ir (Bale) and Odoo 18:
+
+* **Inbound that works everywhere**: getUpdates polling mode (1-min cron,
+  offset persisted, 409 conflict backoff) alongside webhook; the setup
+  wizard picks a mode, falls back to polling when the URL is not public,
+  and seeds conversations from getDialogs.
+* **Unread that means unread**: per-message read state, per-chat counters,
+  total pill, mark-read on open (plus best-effort markChatRead).
+* **Media**: photo/document/video/audio/voice/sticker/location/contact/poll
+  inbound with captions-or-labels, getFile downloads into attachments;
+  composer sends photos/documents via sendPhoto/sendDocument.
+* **Presence**: last-seen label/timestamp from getChatActivity, synced on
+  open and by a 6-hour cron; typing action broadcast while composing.
+* **History**: per-chat backfill from getChatHistory, deduped by gateway
+  id (ids now stored as text — Bale ids exceed int32).
+* **Live updates**: bus push (ids only, no body leak) with polling
+  fallback; day dividers, ticks, retry/cancel bubbles, optimistic sends.
+* **Discuss-native**: every conversation mirrors into a Discuss channel
+  (visible under Direct Messages); replies typed in Discuss forward back
+  through the Uniom queue with loop guards; company-scoped membership.
+* **Platform brands**: per-messenger icons (Bale/Rubika/Eitaa/Soroush+/
+  Telegram) in sidebar rows, thread header and kanban cards.
+* **In-Odoo linking**: Link Messenger Account wizard mirrors the Uniom
+  panel — Uniom phone+OTP sign-in (cookie session + CSRF), messenger
+  phone+OTP/2FA-password/bot-token linking, API key minting, connection
+  creation with dialog seeding.
+* **Odoo integration**: failure to-dos on business records, chatter posts
+  with deep links, connection health (webhook status, poll errors,
+  dialog sync), Persian/Arabic at 579/579.
+* Registering a webhook never drops the pending queue anymore.
+* **Hardening (2026-11-15)**: company record rules on chats/messages,
+  API-key redaction in logs/errors, per-chat gateway-id scoping for
+  edits/backfill, wizard inbound activation with polling fallback,
+  poll offset held on failed updates for retry, friendly gateway errors
+  everywhere, secrets wiped from the link wizard, audio/video players in
+  bubbles, profile-photo caching, read/delivery states from
+  getMessageStates, seen/view counts, message edit/delete from the
+  thread, RTL + English README split.
+* Suite: 101 tests green (polling, media, presence, dialogs, history,
+  read receipts, failure activities, attachments, link wizard, Discuss,
+  review-fix regressions).
+
 ## 18.0.1.2.1 (2026-10-30)
 
 * Demo: the prospect conversation now keeps its intended 9-hour-old timestamp

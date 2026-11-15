@@ -9,8 +9,11 @@
             <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
-                <field name="base_url"/>
+                <field name="platform" optional="show"/>
                 <field name="account_display" optional="show"/>
+                <field name="inbound_mode" widget="badge" decoration-info="inbound_mode == 'polling'" decoration-success="inbound_mode == 'webhook' and webhook_registered" optional="show"/>
+                <field name="webhook_pending_count" optional="hide"/>
+                <field name="last_poll_at" optional="hide"/>
                 <field name="company_id" groups="base.group_multi_company"/>
             </list>
         </field>
@@ -25,8 +28,12 @@
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_test_connection" type="object" string="Test Connection" icon="fa-plug" class="oe_stat_button"/>
-                        <button name="action_register_webhook" type="object" string="Register Webhook" icon="fa-rss" class="oe_stat_button"/>
+                        <button name="action_sync_dialogs" type="object" string="Sync Conversations" icon="fa-comments-o" class="oe_stat_button"/>
+                        <button name="action_register_webhook" type="object" string="Register Webhook" icon="fa-rss" class="oe_stat_button" invisible="inbound_mode == 'polling'"/>
+                        <button name="action_refresh_webhook_info" type="object" string="Webhook Status" icon="fa-info-circle" class="oe_stat_button" invisible="inbound_mode == 'polling'"/>
                         <button name="action_delete_webhook" type="object" string="Remove Webhook" icon="fa-times-circle" class="oe_stat_button" invisible="not webhook_registered"/>
+                        <button name="action_start_polling" type="object" string="Start Polling" icon="fa-refresh" class="oe_stat_button" invisible="inbound_mode == 'polling'"/>
+                        <button name="action_stop_polling" type="object" string="Stop Polling" icon="fa-pause" class="oe_stat_button" invisible="inbound_mode != 'polling'"/>
                         <button name="action_regenerate_webhook_secret" type="object" string="New Secret" icon="fa-key" class="oe_stat_button"/>
                     </div>
                     <div class="oe_title">
@@ -42,15 +49,30 @@
                             <field name="company_id" groups="base.group_multi_company"/>
                         </group>
                         <group string="Connected Account">
+                            <field name="platform"/>
                             <field name="account_display"/>
                             <field name="account_details" invisible="not account_details"/>
                         </group>
                     </group>
-                    <group string="Inbound Messages (Webhook)" name="webhook">
+                    <group string="Inbound Messages" name="inbound">
+                        <field name="inbound_mode" widget="radio"/>
+                        <field name="inbound_create_partner"/>
+                    </group>
+                    <group string="Webhook" name="webhook" invisible="inbound_mode != 'webhook'">
                         <field name="webhook_registered"/>
                         <field name="webhook_url"/>
                         <field name="webhook_secret" groups="uniom_connector.group_uniom_manager" password="True"/>
-                        <field name="inbound_create_partner"/>
+                        <field name="webhook_pending_count"/>
+                        <field name="webhook_last_error" invisible="not webhook_last_error"/>
+                        <field name="last_webhook_at"/>
+                    </group>
+                    <group string="Polling (getUpdates)" name="polling" invisible="inbound_mode != 'polling'">
+                        <field name="poll_offset"/>
+                        <field name="poll_allowed_updates"/>
+                        <field name="last_poll_at"/>
+                        <field name="poll_backoff_until" invisible="not poll_backoff_until"/>
+                        <field name="last_poll_error" invisible="not last_poll_error"/>
+                        <field name="last_dialog_sync_at"/>
                     </group>
                     <group string="Notes">
                         <field name="notes" nolabel="1" placeholder="Internal notes..."/>

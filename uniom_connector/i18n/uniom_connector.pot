@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-30 21:16\n"
-"PO-Revision-Date: 2026-10-30 21:16\n"
+"POT-Creation-Date: 2026-11-15 14:37\n"
+"PO-Revision-Date: 2026-11-15 14:37\n"
 "Last-Translator: Uniom\n"
 "Language-Team: Uniom\n"
 "MIME-Version: 1.0\n"
@@ -26,14 +26,43 @@ msgid ""
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "%(size)s %(unit)s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "%s conversations synchronized."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_chat.py:0
+msgid "%s message(s) loaded."
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/wizards/uniom_send_wizard.py:0
 msgid "%s message(s) sent."
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "%s update(s) failed processing and will be retried."
+msgstr ""
+
+#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
 msgid "+989123456789 or @channel"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "09123456789 or +989123456789"
 msgstr ""
 
 #. module: uniom_connector
@@ -57,8 +86,20 @@ msgid ""
 msgstr ""
 
 #. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid ""
+"A new Uniom API key is created for the linked account\n"
+"                        and saved on a connection in Odoo."
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__api_key
 msgid "API Key"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__api_key_name
+msgid "API Key Name"
 msgstr ""
 
 #. module: uniom_connector
@@ -104,6 +145,18 @@ msgstr ""
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "Advanced"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "All"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "All connections"
 msgstr ""
 
 #. module: uniom_connector
@@ -157,14 +210,78 @@ msgid "Attach PDF Report"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Attach a file"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__attachment_id
 msgid "Attachment"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_chat.py:0
+msgid "Attachment not found."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Attachment not sent"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__attachment_ids
+msgid "Attachments"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__message_kind__audio
+msgid "Audio"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Audio: %(name)s"
 msgstr ""
 
 #. module: uniom_connector
 #: model:ir.actions.act_window,name:uniom_connector.action_uniom_rule
 #: model:ir.ui.menu,name:uniom_connector.menu_uniom_rules
 msgid "Automation Rules"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__available_platforms
+msgid "Available Platforms"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__avatar_url
+msgid "Avatar Url"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Back"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_connection__platform__bale
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__link_platform__bale
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_setup_wizard__platform__bale
+msgid "Bale"
 msgstr ""
 
 #. module: uniom_connector
@@ -180,10 +297,26 @@ msgid ""
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__base_url_is_public
+msgid "Base Url Is Public"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__body
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_wizard__body
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__body
 msgid "Body"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_bot_token
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__step__bot_token
+msgid "Bot Token"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_chat__messenger_photo
+msgid "Cached profile photo from getUserProfilePhotos."
 msgstr ""
 
 #. module: uniom_connector
@@ -192,6 +325,8 @@ msgid "Can send Uniom messages and read the message log."
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_form
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_setup_wizard_form
@@ -200,9 +335,16 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__state__canceled
 msgid "Canceled"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_chat__chat_type__channel
+msgid "Channel"
 msgstr ""
 
 #. module: uniom_connector
@@ -215,6 +357,35 @@ msgstr ""
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__chat_session_id
 msgid "Chat Session"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__chat_type
+msgid "Chat Type"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_chat__chat_type
+msgid "Chat kind reported by the messenger."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Choose a messenger to link."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid ""
+"Choose the messenger and the phone number registered on\n"
+"                        it. Uniom sends the verification code through that\n"
+"                        messenger."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Close"
 msgstr ""
 
 #. module: uniom_connector
@@ -256,6 +427,13 @@ msgid "Connect your Uniom account"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid ""
+"Connect your messenger account and the conversations will show up here."
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__account_display
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Connected Account"
@@ -265,6 +443,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Connected as %(account)s via %(url)s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_setup_wizard.py:0
+msgid "Connected as %s"
 msgstr ""
 
 #. module: uniom_connector
@@ -286,10 +470,19 @@ msgid "Connections"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_message.py:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model:ir.model,name:uniom_connector.model_res_partner
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__message_kind__contact
 msgid "Contact"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Contact: %(name)s %(phone)s"
 msgstr ""
 
 #. module: uniom_connector
@@ -299,11 +492,18 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model:ir.actions.act_window,name:uniom_connector.action_uniom_chat
 #: model:ir.actions.client,name:uniom_connector.action_uniom_chat_dashboard
 #: model:ir.ui.menu,name:uniom_connector.menu_uniom_conversations
 msgid "Conversations"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+#: code:addons/uniom_connector/wizards/uniom_setup_wizard.py:0
+msgid "Conversations could not be synchronized yet: %s"
 msgstr ""
 
 #. module: uniom_connector
@@ -318,6 +518,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Could not render the PDF report: %s"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Create Connection"
 msgstr ""
 
 #. module: uniom_connector
@@ -352,13 +557,24 @@ msgid ""
 msgstr ""
 
 #. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Create the API key"
+msgstr ""
+
+#. module: uniom_connector
 #: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_connection
 msgid "Create your first Uniom connection"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__created_connection_id
+msgid "Created Connection"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__create_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__create_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__create_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__create_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__create_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__create_uid
@@ -371,6 +587,7 @@ msgstr ""
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__create_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__create_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__create_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__create_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__create_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__create_date
@@ -378,6 +595,21 @@ msgstr ""
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__create_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__credential_id
+msgid "Credential"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__credential_phone
+msgid "Credential Phone"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__credential_status
+msgid "Credential Status"
 msgstr ""
 
 #. module: uniom_connector
@@ -407,6 +639,30 @@ msgstr ""
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Default Uniom Bot API URL used by new connections."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Delete"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Delete this message from the messenger?"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__deleted_on_messenger
+msgid "Deleted On Messenger"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__seen_state__delivered
+msgid "Delivered"
 msgstr ""
 
 #. module: uniom_connector
@@ -450,6 +706,16 @@ msgid "Direction"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__discuss_channel_id
+msgid "Discuss Channel"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model,name:uniom_connector.model_discuss_channel
+msgid "Discussion Channel"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__display_label
 msgid "Display Label"
 msgstr ""
@@ -457,6 +723,7 @@ msgstr ""
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__display_name
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__display_name
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__display_name
@@ -467,9 +734,27 @@ msgid "Display Name"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__message_kind__document
+msgid "Document"
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Document not attached: %s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Document: %(name)s"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__step__done
+msgid "Done"
 msgstr ""
 
 #. module: uniom_connector
@@ -483,6 +768,12 @@ msgid "Earliest moment the queue cron may retry this message."
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Edit"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__edit_count
 msgid "Edit Count"
 msgstr ""
@@ -490,6 +781,76 @@ msgstr ""
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__edit_previous
 msgid "Edit Previous Message"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Edit message"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_connection__platform__eitaa
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__link_platform__eitaa
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_setup_wizard__platform__eitaa
+msgid "Eitaa"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Enter %(label)s."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid ""
+"Enter a valid phone number in international format, for example "
+"+989123456789."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Enter the 4 to 8 digit verification code."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Enter the Uniom code"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Enter the bot token."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid ""
+"Enter the code Uniom sent to your phone. You can request\n"
+"                        a new code if it did not arrive."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Enter the code you received in the messenger."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Enter the token."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Enter your two-step password."
 msgstr ""
 
 #. module: uniom_connector
@@ -523,6 +884,8 @@ msgid ""
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__state__error
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Failed"
@@ -534,15 +897,46 @@ msgid "Fallback Template"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "File download failed (HTTP %s)."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "File is larger than the %(mb)s MB limit."
+msgstr ""
+
+#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
 msgid "Gateway"
 msgstr ""
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__base_url
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__base_url
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__base_url
 #: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
 msgid "Gateway URL"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__uniom_update_id
+msgid "Gateway update id, used to ignore re-deliveries."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Give the API key a name."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_chat__chat_type__group
+msgid "Group"
 msgstr ""
 
 #. module: uniom_connector
@@ -588,6 +982,7 @@ msgstr ""
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__id
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__id
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__id
@@ -605,13 +1000,31 @@ msgstr ""
 
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
-msgid "Inbound Messages (Webhook)"
+msgid "Inbound Messages"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__inbound_mode
+msgid "Inbound Mode"
 msgstr ""
 
 #. module: uniom_connector
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__direction__in
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Incoming"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Incoming %(kind)s message"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__is_read
+msgid ""
+"Incoming messages start unread and are marked read when the conversation is "
+"opened or the messenger confirms the read receipt."
 msgstr ""
 
 #. module: uniom_connector
@@ -636,6 +1049,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "Invalid URL: control characters are not allowed."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_chat.py:0
+msgid "Invalid attachment."
 msgstr ""
 
 #. module: uniom_connector
@@ -678,8 +1097,35 @@ msgid "Invoice Posted (Persian)"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__is_read
+msgid "Is Read"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_allowed_updates
+msgid "JSON list of update types the polling cron subscribes to."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_link_wizard__link_auth_options
+msgid ""
+"JSON list of {type, name, description} for the chosen platform, from GET "
+"/platforms — drives the radio cards."
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model,name:uniom_connector.model_account_move
 msgid "Journal Entry"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
+msgid "Kind"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__message_kind
+msgid "Kind of content carried by this message."
 msgstr ""
 
 #. module: uniom_connector
@@ -693,6 +1139,11 @@ msgid "Language"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__last_dialog_sync_at
+msgid "Last Dialog Sync At"
+msgstr ""
+
+#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_form
 msgid "Last Error"
 msgstr ""
@@ -703,13 +1154,54 @@ msgid "Last Message Date"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__last_message_direction
+msgid "Last Message Direction"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__last_message_kind
+msgid "Last Message Kind"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__last_message_preview
 msgid "Last Message Preview"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__last_message_state
+msgid "Last Message State"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__last_poll_at
+msgid "Last Poll At"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__last_poll_error
+msgid "Last Poll Error"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__last_seen_at
+msgid "Last Seen At"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__last_seen_is_exact
+msgid "Last Seen Is Exact"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__last_seen_label
+msgid "Last Seen Label"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__write_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__write_uid
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__write_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__write_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__write_uid
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__write_uid
@@ -722,6 +1214,7 @@ msgstr ""
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__write_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__write_date
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__write_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__write_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_rule__write_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_send_recipient__write_date
@@ -729,6 +1222,41 @@ msgstr ""
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__write_date
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_template__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__last_webhook_at
+msgid "Last Webhook At"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Last seen %s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Last seen a long time ago"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Last seen recently"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Last seen within a month"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Last seen within a week"
 msgstr ""
 
 #. module: uniom_connector
@@ -742,9 +1270,140 @@ msgid "Leave empty to make this connection available in every company."
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__res_config_settings__uniom_outgoing_side__left
+msgid "Left"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_auth_options
+msgid "Link Auth Options"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Link Bot"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_credential_id
+msgid "Link Credential"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_dynamic_help
+msgid "Link Dynamic Help"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_dynamic_token_label
+msgid "Link Dynamic Token Label"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_dynamic_token_placeholder
+msgid "Link Dynamic Token Placeholder"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_message
+msgid "Link Message"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+#: model:ir.actions.act_window,name:uniom_connector.action_uniom_link_wizard
+#: model:ir.model,name:uniom_connector.model_uniom_link_wizard
+#: model:ir.ui.menu,name:uniom_connector.menu_uniom_link_messenger
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Link Messenger Account"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_pair_code
+msgid "Link Pair Code"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_phone_display
+msgid "Link Phone Display"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_qr_link
+msgid "Link Qr Link"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_session_id
+msgid "Link Session"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
+msgid "Link a contact..."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Link a messenger account"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Link a messenger account first."
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
-msgid "Manage"
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Link contact"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Link with a bot token"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
+msgid "Load History"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Load older messages"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Loading conversations..."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__message_kind__location
+msgid "Location"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Location: %(lat)s, %(lon)s"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_auth_type
+msgid "Login Method"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_link_wizard__link_auth_type
+msgid "Login methods offered by the gateway for this platform."
 msgstr ""
 
 #. module: uniom_connector
@@ -753,8 +1412,19 @@ msgid "Manage API-key connections and register the inbound webhook."
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Manage connections"
+msgstr ""
+
+#. module: uniom_connector
 #: model:res.groups,comment:uniom_connector.group_uniom_manager
 msgid "Manages connections, API keys, automation rules and templates."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
+msgid "Mark Read"
 msgstr ""
 
 #. module: uniom_connector
@@ -763,6 +1433,13 @@ msgid "Master switch for all automated Uniom messages."
 msgstr ""
 
 #. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
+msgid "Media"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "Message"
 msgstr ""
@@ -773,8 +1450,21 @@ msgid "Message Count"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__message_kind
+msgid "Message Kind"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_message__uniom_message_id
-msgid "Message id assigned by the messenger, needed to edit later."
+msgid ""
+"Message id assigned by the messenger, needed to edit later. Stored as text: "
+"gateway ids exceed the 32-bit integer range."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Message not sent"
 msgstr ""
 
 #. module: uniom_connector
@@ -798,11 +1488,87 @@ msgid "Messages"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_platform
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__platform
+msgid "Messenger"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_phone
+msgid "Messenger Phone"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__messenger_photo
+msgid "Messenger Photo"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__messenger_photo_updated_at
+msgid "Messenger Photo Updated At"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__messenger_photo_url
+msgid "Messenger Photo Url"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__messenger_title
+msgid "Messenger Title"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__messenger_username
+msgid "Messenger Username"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Messenger account linked"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Messenger account linked and API key created."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__credential_id
+msgid ""
+"Messenger credential id on the Uniom management API, when this connection "
+"was created by the Link Messenger Account wizard."
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_res_partner__uniom_chat_id
 #: model:ir.model.fields,help:uniom_connector.field_res_users__uniom_chat_id
 msgid ""
 "Messenger destination for this contact: phone (+989123456789), @username or "
 "numeric chat id. Leave empty to use the mobile/phone number."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_chat__platform
+msgid ""
+"Messenger of the connection, exposed so kanban cards can show the platform "
+"badge without an extra read."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__mgmt_cookies
+msgid "Mgmt Cookies"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__mgmt_csrf
+msgid "Mgmt Csrf"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__mgmt_signed_in
+msgid "Mgmt Signed In"
 msgstr ""
 
 #. module: uniom_connector
@@ -818,9 +1584,28 @@ msgid "Name"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_chat__discuss_channel_id
+msgid ""
+"Native Discuss thread mirroring this conversation: inbound messages are "
+"posted here so they appear under Discuss."
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Network error while contacting Uniom: %s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Network error while contacting the Uniom management API: %s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Network error while downloading a file: %s"
 msgstr ""
 
 #. module: uniom_connector
@@ -829,8 +1614,19 @@ msgid "New Secret"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "New conversation"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__next_attempt
 msgid "Next Attempt"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_offset
+msgid "Next getUpdates offset: the first update id the gateway may return."
 msgstr ""
 
 #. module: uniom_connector
@@ -840,14 +1636,28 @@ msgid "No Uniom Messages"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "No conversations match your search or filters."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_chat
 msgid "No conversations yet"
 msgstr ""
 
 #. module: uniom_connector
 #. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
-msgid "No conversations yet."
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "No messages yet. Say hello!"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_platform_picker.js:0
+msgid "No messengers available for linking right now."
 msgstr ""
 
 #. module: uniom_connector
@@ -888,14 +1698,37 @@ msgid "Notify customer: quotation sent"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Offline"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.constraint,message:uniom_connector.constraint_uniom_chat_connection_chat_uniq
 msgid "One conversation per connection and chat id."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Online"
 msgstr ""
 
 #. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "Only http:// and https:// URLs are allowed, got: %s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "Only outgoing text messages can be edited."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Open Connection"
 msgstr ""
 
 #. module: uniom_connector
@@ -911,6 +1744,23 @@ msgstr ""
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_form
 msgid "Open Record"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Open contact"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
+msgid "Open in Discuss"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Open in Uniom Conversations"
 msgstr ""
 
 #. module: uniom_connector
@@ -966,9 +1816,28 @@ msgid "Order Confirmed (Persian)"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_connection__platform__other
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_setup_wizard__platform__other
+msgid "Other"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__otp_client_id
+msgid "Otp Client"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__direction__out
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Outgoing"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_res_config_settings__uniom_outgoing_side
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
+msgid "Own Messages Side"
 msgstr ""
 
 #. module: uniom_connector
@@ -988,6 +1857,20 @@ msgstr ""
 msgid ""
 "Paste an API key from your Uniom dashboard — one key per messenger account "
 "(Bale, Rubika, Eitaa, Soroush+, Telegram)."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Paste the token issued by the messenger's bot father."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid ""
+"Paste the token issued by the messenger's bot father.\n"
+"                        The token is sent once to Uniom and is never stored in\n"
+"                        Odoo."
 msgstr ""
 
 #. module: uniom_connector
@@ -1028,6 +1911,20 @@ msgid "Phone number (+989123456789), @channel or numeric chat id."
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__credential_phone
+msgid "Phone number (or bot identity) of the linked messenger account."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__message_kind__photo
+msgid "Photo"
+msgstr ""
+
+#. module: uniom_connector
 #: model_terms:ir.actions.act_window,help:uniom_connector.action_uniom_rule
 msgid ""
 "Pick a business event (order confirmed, invoice posted, price changed...), a"
@@ -1039,6 +1936,99 @@ msgstr ""
 msgid ""
 "Placeholders use the standard Odoo syntax: {{ object.field }}, {{ "
 "object.partner_id.name }}, ..."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__platform
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__platform
+msgid "Platform"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__message_kind__poll
+msgid "Poll"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_allowed_updates
+msgid "Poll Allowed Updates"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_backoff_until
+msgid "Poll Backoff Until"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__poll_offset
+msgid "Poll Offset"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Poll: %(question)s"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_connection__inbound_mode__polling
+msgid "Polling"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
+msgid "Polling (getUpdates)"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__inbound_mode__polling
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_setup_wizard__inbound_mode__polling
+msgid "Polling (works everywhere)"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+#: code:addons/uniom_connector/wizards/uniom_setup_wizard.py:0
+msgid "Polling could not be started: %s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Polling enabled: incoming updates are fetched by the cron."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__poll_backoff_until
+msgid ""
+"Polling is paused until this moment (e.g. while a webhook is still "
+"registered on the gateway)."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Polling stopped. Register the webhook when your Odoo URL is reachable."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__presence_updated_at
+msgid "Presence Updated At"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Presence unavailable"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Presence updated %s"
 msgstr ""
 
 #. module: uniom_connector
@@ -1059,6 +2049,12 @@ msgstr ""
 #. module: uniom_connector
 #: model:uniom.template,name:uniom_connector.template_price_changed_fa
 msgid "Price Updated (Persian)"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_chat__chat_type__private
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_search
+msgid "Private"
 msgstr ""
 
 #. module: uniom_connector
@@ -1087,7 +2083,7 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__state__outgoing
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Queued"
@@ -1102,6 +2098,24 @@ msgstr ""
 #. module: uniom_connector
 #: model:uniom.template,name:uniom_connector.template_quotation_sent_en
 msgid "Quotation Sent (English)"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__seen_state__read
+msgid "Read"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__seen_state
+msgid "Read/delivery state reported by getMessageStates."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__inbound_mode
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_setup_wizard__inbound_mode
+msgid "Receive Messages Via"
 msgstr ""
 
 #. module: uniom_connector
@@ -1128,6 +2142,12 @@ msgstr ""
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__record_res_model
 msgid "Record Res Model"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Refresh"
 msgstr ""
 
 #. module: uniom_connector
@@ -1170,6 +2190,17 @@ msgid "Report Ref"
 msgstr ""
 
 #. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Resend Code"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Retry"
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_message.py:0
 msgid "Retry %(n)s/%(max)s scheduled in %(mins)s min: %(err)s"
@@ -1178,6 +2209,27 @@ msgstr ""
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__retry_count
 msgid "Retry Count"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__res_config_settings__uniom_outgoing_side__right
+msgid "Right"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.res_config_settings_view_form_uniom
+msgid ""
+"Right (WhatsApp style) or left for your outgoing bubbles; incoming takes the"
+" other side."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_connection__platform__rubika
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__link_platform__rubika
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_setup_wizard__platform__rubika
+msgid "Rubika"
 msgstr ""
 
 #. module: uniom_connector
@@ -1208,8 +2260,13 @@ msgid "Sales Order"
 msgstr ""
 
 #. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Scan this code with the messenger app, then press Verify."
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 msgid "Search conversations..."
 msgstr ""
 
@@ -1222,13 +2279,35 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
-msgid "Select a conversation to start chatting"
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__seen_state__seen
+msgid "Seen"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__seen_count
+msgid "Seen Count"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__seen_state
+msgid "Seen State"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__seen_count
+msgid "Seen count from getMessageStates."
 msgstr ""
 
 #. module: uniom_connector
 #. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Select a conversation to start chatting."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
 msgid "Send"
 msgstr ""
@@ -1236,6 +2315,11 @@ msgstr ""
 #. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_form
 msgid "Send / Retry"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Send Code"
 msgstr ""
 
 #. module: uniom_connector
@@ -1276,7 +2360,13 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Sending..."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 #: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__state__sent
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Sent"
@@ -1289,9 +2379,89 @@ msgid "Sequence"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_link_wizard__mgmt_cookies
+msgid ""
+"Serialized requests.Session cookie jar (HttpOnly gateway cookies included). "
+"Transient only: never copied to a connection."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_link_wizard__base_url
+msgid ""
+"Set once in Settings → Uniom → Gateway URL; every wizard and connection uses"
+" that value."
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Set the 'web.base.url' system parameter to your Odoo base URL first."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__step__draft
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Sign In"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_platform_picker.js:0
+msgid "Sign in first to load the available messengers."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Sign in to Uniom"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Sign in to Uniom first."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Signed in. Choose the messenger account to link."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Some messages could not be sent"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_connection__platform__soroushplus
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__link_platform__soroushplus
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_setup_wizard__platform__soroushplus
+msgid "Soroush+"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Start Linking"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
+msgid "Start Polling"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Start linking the messenger account first."
 msgstr ""
 
 #. module: uniom_connector
@@ -1300,8 +2470,66 @@ msgid "State"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__state_updated_at
+msgid "State Updated At"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__credential_status
+msgid "State reported for the linked messenger credential."
+msgstr ""
+
+#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
 msgid "Status"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__step
+msgid "Step"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__message_kind__sticker
+msgid "Sticker"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
+msgid "Stop Polling"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_chat__chat_type__supergroup
+msgid "Supergroup"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Sync"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
+msgid "Sync Conversations"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
+msgid "Sync Presence"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Sync presence"
 msgstr ""
 
 #. module: uniom_connector
@@ -1316,6 +2544,15 @@ msgstr ""
 msgid ""
 "Technical reference of the QWeb report to attach as a document, e.g. "
 "account.account_invoices."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_connection__platform__telegram
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__link_platform__telegram
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_setup_wizard__platform__telegram
+msgid "Telegram"
 msgstr ""
 
 #. module: uniom_connector
@@ -1352,6 +2589,32 @@ msgid "Test with Last Record"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__message_kind__text
+msgid "Text"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Text message"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid ""
+"The API key is stored on the connection below. Open it\n"
+"                        to send a test message or manage webhook/polling."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid ""
+"The API key was rejected (revoked or wrong account). Create a fresh key in "
+"your Uniom dashboard and update it here."
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "The URL %s has no host."
@@ -1368,7 +2631,85 @@ msgstr ""
 #. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "The Uniom gateway did not answer."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid ""
+"The Uniom gateway is having trouble (HTTP %s). Try again in a few minutes."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "The action did not complete."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "The action failed unexpectedly; retry it from the connection form."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "The attachment could not be sent."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_chat.py:0
+msgid "The attachment has no content."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "The connection '%s' has no API key."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "The file could not be uploaded."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "The message could not be sent."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "The message is queued and will be retried automatically."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__deleted_on_messenger
+msgid "The message was deleted on the messenger side."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "The new key could not be verified yet: %s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "The password was not accepted. Please try again."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "The requested conversation could not be found."
 msgstr ""
 
 #. module: uniom_connector
@@ -1380,14 +2721,88 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "There is no Uniom sign-in code to resend."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
 #: code:addons/uniom_connector/models/uniom_chat.py:0
 msgid "This conversation has an invalid destination: %s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "This conversation is not linked to a contact yet."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.constraint,message:uniom_connector.constraint_uniom_message_connection_update_uniq
+msgid "This gateway update was already stored for this connection."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid ""
+"This login method is not offered for this messenger. Pick one from the list."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid ""
+"This login method opens the Uniom dashboard in a browser. Link this account "
+"at %(url)s, then connect it here with an API key."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid ""
+"This messenger account has two-step verification\n"
+"                        enabled. Enter its password to finish linking."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "This messenger is not available right now. Pick one from the list."
 msgstr ""
 
 #. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__message_ids
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_form
 msgid "Thread"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_chat__messenger_title
+msgid "Title (or full name) reported by the messenger."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Today"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_dynamic_token
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Token"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Too many requests — try again in %s seconds."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Too many requests — wait a minute and try again."
 msgstr ""
 
 #. module: uniom_connector
@@ -1413,8 +2828,24 @@ msgid "Trigger Model"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_password
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__step__password
+msgid "Two-Step Password"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Two-step password"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_search
+msgid "Type"
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-javascript
-#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.xml:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
 msgid "Type a message"
 msgstr ""
 
@@ -1425,12 +2856,22 @@ msgid "Unexpected error: %s"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
 #. odoo-python
+#: code:addons/uniom_connector/models/uniom_chat.py:0
 #: code:addons/uniom_connector/models/uniom_connection.py:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
 #: code:addons/uniom_connector/wizards/uniom_send_wizard.py:0
 #: model:ir.module.category,name:uniom_connector.module_category_uniom
 #: model:ir.ui.menu,name:uniom_connector.menu_uniom_root
 msgid "Uniom"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Uniom %(platform)s"
 msgstr ""
 
 #. module: uniom_connector
@@ -1458,6 +2899,7 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
 #: code:addons/uniom_connector/wizards/uniom_setup_wizard.py:0
 #: model:ir.model,name:uniom_connector.model_uniom_connection
 msgid "Uniom Connection"
@@ -1526,8 +2968,18 @@ msgid "Uniom Notifications Enabled"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__uniom_phone
+msgid "Uniom Phone"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model,name:uniom_connector.model_uniom_send_recipient
 msgid "Uniom Send Wizard Recipient"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__uniom_update_id
+msgid "Uniom Update"
 msgstr ""
 
 #. module: uniom_connector
@@ -1544,8 +2996,68 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid ""
+"Uniom asked for a '%(mode)s' verification, which this wizard does not "
+"support. Link this account in the Uniom dashboard instead."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
 #: code:addons/uniom_connector/models/uniom_connection.py:0
 msgid "Uniom contact %s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Uniom could not send the verification code: %s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "Uniom delivery failed: %(name)s"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Uniom did not confirm the bot link."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Uniom did not confirm the messenger link. Please try again."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid ""
+"Uniom did not report a messenger account this wizard can link. Enable Bale, "
+"Rubika, Eitaa, Soroush+ or Telegram on the gateway and try again."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Uniom did not return a linking session. Please try again."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "Uniom did not return a messenger credential id. Please try again."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid ""
+"Uniom did not return an API key. Create one in the Uniom dashboard and "
+"connect it with the API-key wizard."
 msgstr ""
 
 #. module: uniom_connector
@@ -1568,13 +3080,37 @@ msgstr ""
 
 #. module: uniom_connector
 #. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid ""
+"Uniom signed you in but did not set an access-token cookie. Check that the "
+"gateway allows cookie sessions and try again."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
 #: code:addons/uniom_connector/models/uniom_template.py:0
 msgid "Uniom template preview"
 msgstr ""
 
 #. module: uniom_connector
+#: model:ir.actions.server,name:uniom_connector.ir_cron_uniom_poll_updates_ir_actions_server
+msgid "Uniom: poll inbound updates"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.actions.server,name:uniom_connector.ir_cron_uniom_process_queue_ir_actions_server
 msgid "Uniom: process message queue"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.actions.server,name:uniom_connector.ir_cron_uniom_sync_presence_ir_actions_server
+msgid "Uniom: sync chat presence"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_chat__chat_type__unknown
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__seen_state__unknown
+msgid "Unknown"
 msgstr ""
 
 #. module: uniom_connector
@@ -1584,13 +3120,148 @@ msgid "Unknown error"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_chat_search
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_message_search
+msgid "Unread"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_chat__unread_count
+msgid "Unread Count"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__message_kind__unknown
+msgid "Unsupported"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Unsupported message"
+msgstr ""
+
+#. module: uniom_connector
 #: model:uniom.rule,name:uniom_connector.rule_product_price_changed
 msgid "Update price post in channel"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Upload failed (HTTP %s)."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Uploading..."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Use a Bot Token"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid ""
+"Use the phone number of your Uniom account. We send a\n"
+"                        one-time code, then let you choose the messenger account\n"
+"                        to link."
+msgstr ""
+
+#. module: uniom_connector
 #: model:res.groups,name:uniom_connector.group_uniom_user
 msgid "User"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_chat__last_seen_label
+msgid "Verbatim last-activity label from the gateway."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__step__otp
+msgid "Verification"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__link_otp
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__uniom_otp
+msgid "Verification Code"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_link_wizard__verification_mode
+msgid "Verification Mode"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Verify"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Verify Password"
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_link_wizard_form
+msgid "Verify the messenger account"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__message_kind__video
+msgid "Video"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_message__views_count
+msgid "View count from getMessageStates."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_message__views_count
+msgid "Views Count"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-javascript
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_message__message_kind__voice
+msgid "Voice message"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_connection__inbound_mode__webhook
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
+msgid "Webhook"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_link_wizard__inbound_mode__webhook
+#: model:ir.model.fields.selection,name:uniom_connector.selection__uniom_setup_wizard__inbound_mode__webhook
+msgid "Webhook (instant)"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__webhook_last_error
+msgid "Webhook Last Error"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__webhook_pending_count
+msgid "Webhook Pending Count"
 msgstr ""
 
 #. module: uniom_connector
@@ -1604,8 +3275,20 @@ msgid "Webhook Secret"
 msgstr ""
 
 #. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_connection_form
+msgid "Webhook Status"
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,field_description:uniom_connector.field_uniom_connection__webhook_url
 msgid "Webhook Url"
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_setup_wizard__inbound_mode
+msgid ""
+"Webhook is instant but needs a publicly reachable Odoo; polling fetches new "
+"messages every minute and works behind NAT."
 msgstr ""
 
 #. module: uniom_connector
@@ -1615,10 +3298,57 @@ msgid "Webhook registered."
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+#: code:addons/uniom_connector/wizards/uniom_setup_wizard.py:0
+msgid ""
+"Webhook registration failed (%s); polling could not be started either (%s)."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+#: code:addons/uniom_connector/wizards/uniom_setup_wizard.py:0
+msgid "Webhook registration failed (%s); polling was started instead."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__inbound_mode
+msgid ""
+"Webhook requires a publicly reachable Odoo; polling works behind NAT and is "
+"driven by the getUpdates cron."
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "Webhook status refreshed."
+msgstr ""
+
+#. module: uniom_connector
 #: model:ir.model.fields,help:uniom_connector.field_uniom_connection__inbound_create_partner
 msgid ""
 "When an incoming message cannot be matched to an existing contact, create "
 "one automatically."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_connection__platform
+msgid ""
+"Which messenger this API key belongs to (pick it when you connect: the "
+"gateway does not report it via getMe)."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_uniom_setup_wizard__platform
+msgid "Which messenger this API key belongs to."
+msgstr ""
+
+#. module: uniom_connector
+#: model:ir.model.fields,help:uniom_connector.field_res_config_settings__uniom_outgoing_side
+msgid ""
+"Which side of the conversation your own (outgoing) messages appear on. "
+"Incoming messages take the other side."
 msgstr ""
 
 #. module: uniom_connector
@@ -1650,13 +3380,44 @@ msgid ""
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_message.py:0
+msgid "Write the edited text first."
+msgstr ""
+
+#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_send_wizard_form
 msgid "Write your message..."
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "Yesterday"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "You are already signed in to Uniom."
+msgstr ""
+
+#. module: uniom_connector
+#: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_setup_wizard_form
+msgid ""
+"Your Odoo URL is not publicly reachable, so the gateway cannot push messages"
+" to it. Polling is recommended here."
+msgstr ""
+
+#. module: uniom_connector
 #: model_terms:ir.ui.view,arch_db:uniom_connector.view_uniom_rule_form
 msgid "[('amount_total', '>', 1000000)]"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "contact"
 msgstr ""
 
 #. module: uniom_connector
@@ -1681,7 +3442,31 @@ msgid "e.g. Order Confirmed (English)"
 msgstr ""
 
 #. module: uniom_connector
+#. odoo-javascript
+#: code:addons/uniom_connector/static/src/uniom_chat_dashboard.js:0
+msgid "edited"
+msgstr ""
+
+#. module: uniom_connector
 #. odoo-python
 #: code:addons/uniom_connector/models/uniom_tools.py:0
 msgid "empty"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "file"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/models/uniom_connection.py:0
+msgid "poll"
+msgstr ""
+
+#. module: uniom_connector
+#. odoo-python
+#: code:addons/uniom_connector/wizards/uniom_link_wizard.py:0
+msgid "unknown error"
 msgstr ""

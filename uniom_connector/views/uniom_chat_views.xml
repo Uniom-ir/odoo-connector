@@ -11,6 +11,9 @@
                 <field name="chat_id"/>
                 <field name="partner_id"/>
                 <field name="connection_id"/>
+                <field name="platform"/>
+                <field name="chat_type"/>
+                <field name="unread_count"/>
                 <field name="last_message_preview"/>
                 <field name="last_message_date"/>
                 <field name="message_count"/>
@@ -33,7 +36,16 @@
                             </div>
                             <div class="text-truncate small"><field name="last_message_preview"/></div>
                             <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.8rem;">
-                                <span class="badge text-bg-light"><field name="connection_id"/></span>
+                                <span class="badge text-bg-light d-inline-flex align-items-center gap-1">
+                                    <t t-set="platform_icon" t-value="{'bale': 'bale.png', 'rubika': 'rubika.png', 'eitaa': 'eitaa.svg', 'soroushplus': 'soroushplus.svg', 'telegram': 'telegram.svg'}[record.platform.raw_value]"/>
+                                    <img t-if="platform_icon"
+                                         t-attf-src="/uniom_connector/static/img/platforms/#{platform_icon}"
+                                         t-att-alt="record.platform.value" width="14" height="14" class="rounded-1"/>
+                                    <field name="connection_id"/>
+                                </span>
+                                <t t-if="record.unread_count.raw_value">
+                                    <span class="badge rounded-pill text-bg-primary"><field name="unread_count"/></span>
+                                </t>
                                 <span><field name="message_count"/> <i class="fa fa-comment-o" role="img" aria-label="Messages"/></span>
                             </div>
                         </div>
@@ -51,10 +63,14 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_open_partner" type="object" string="Open Contact" icon="fa-user" class="oe_stat_button" invisible="not partner_id"/>
+                        <button name="action_open_discuss" type="object" string="Open in Discuss" icon="fa-comments" class="oe_stat_button"/>
+                        <button name="action_mark_read" type="object" string="Mark Read" icon="fa-check" class="oe_stat_button" invisible="unread_count == 0"/>
+                        <button name="action_sync_presence" type="object" string="Sync Presence" icon="fa-clock-o" class="oe_stat_button"/>
+                        <button name="action_load_history_button" type="object" string="Load History" icon="fa-history" class="oe_stat_button"/>
                     </div>
                     <div class="oe_title">
                         <h1><field name="display_name"/></h1>
-                        <p class="oe_text_muted"><field name="chat_id"/></p>
+                        <p class="oe_text_muted"><field name="chat_id"/> — <field name="chat_type"/></p>
                     </div>
                     <group name="reply" string="Reply">
                         <field name="reply_body" nolabel="1" placeholder="Write a reply and press Send Reply..."/>
@@ -69,21 +85,28 @@
                             <field name="direction" widget="badge"
                                    decoration-info="direction == 'in'"
                                    decoration-success="direction == 'out'"/>
+                            <field name="message_kind" optional="show"/>
                             <field name="body"/>
                             <field name="state" widget="badge"
                                    decoration-success="state == 'sent'"
                                    decoration-warning="state == 'outgoing'"
                                    decoration-danger="state == 'error'"/>
+                            <field name="is_read" optional="hide"/>
                         </list>
                     </field>
                     <group>
                         <group>
                             <field name="connection_id" readonly="1"/>
-                            <field name="partner_id" readonly="1"/>
+                            <field name="partner_id" placeholder="Link a contact..."/>
+                            <field name="messenger_title" readonly="1"/>
+                            <field name="messenger_username" readonly="1"/>
                         </group>
                         <group>
                             <field name="last_message_date" readonly="1"/>
                             <field name="message_count" readonly="1"/>
+                            <field name="unread_count" readonly="1"/>
+                            <field name="last_seen_label" readonly="1"/>
+                            <field name="last_seen_at" readonly="1"/>
                         </group>
                     </group>
                 </sheet>
@@ -98,9 +121,13 @@
             <search>
                 <field name="chat_id"/>
                 <field name="partner_id"/>
+                <field name="messenger_title"/>
                 <field name="last_message_preview"/>
+                <filter name="filter_unread" string="Unread" domain="[('unread_count', '&gt;', 0)]"/>
+                <filter name="filter_private" string="Private" domain="[('chat_type', '=', 'private')]"/>
                 <group expand="0" string="Group By">
                     <filter name="group_by_connection" string="Connection" context="{'group_by': 'connection_id'}"/>
+                    <filter name="group_by_type" string="Type" context="{'group_by': 'chat_type'}"/>
                     <filter name="group_by_partner" string="Customer" context="{'group_by': 'partner_id'}"/>
                 </group>
             </search>

@@ -112,7 +112,7 @@ class TestProductPriceEdit(UniomTestCase):
         )
         self.assertEqual(len(first), 1)
         self.assertIn("60", first.body)
-        first.uniom_message_id = 61
+        first.uniom_message_id = "61"
         with patched_transport([FakeResponse(ok_response({"message_id": 61}))]) as transport:
             product.list_price = 75
         self.assertEqual(len(transport.calls), 1)

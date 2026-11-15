@@ -46,7 +46,7 @@ class TestQueue(UniomTestCase):
         with patched_transport([FakeResponse(ok_response({"message_id": 555}))]):
             message._send_message()
         self.assertEqual(message.state, "sent")
-        self.assertEqual(message.uniom_message_id, 555)
+        self.assertEqual(message.uniom_message_id, "555")
         self.assertTrue(message.date_sent)
 
     def test_permanent_error_marks_failed_without_retry(self):
@@ -103,17 +103,17 @@ class TestQueue(UniomTestCase):
         self.assertEqual(canceled.state, "canceled")
 
     def test_edit_message_updates_in_place(self):
-        message = self._message(state="sent", uniom_message_id=777)
+        message = self._message(state="sent", uniom_message_id="777")
         with patched_transport([FakeResponse(ok_response({"message_id": 777}))]) as transport:
             message._edit_message("new price: 200")
         self.assertEqual(message.body, "new price: 200")
         self.assertEqual(message.edit_count, 1)
         self.assertEqual(
-            transport.calls[0]["json"]["message_id"], 777,
+            transport.calls[0]["json"]["message_id"], "777",
         )
 
     def test_edit_failure_falls_back_to_new_message(self):
-        message = self._message(state="sent", uniom_message_id=777)
+        message = self._message(state="sent", uniom_message_id="777")
         with patched_transport([
             FakeResponse(error_response(400, "Bad Request: message to edit not found"), status_code=400),
             FakeResponse(ok_response({"message_id": 778})),
@@ -121,7 +121,7 @@ class TestQueue(UniomTestCase):
             message._edit_message("new price: 300")
         self.assertEqual(len(transport.calls), 2)
         self.assertEqual(transport.calls[1]["json"]["text"], "new price: 300")
-        new_sent = self.env["uniom.message"].search([("uniom_message_id", "=", 778)])
+        new_sent = self.env["uniom.message"].search([("uniom_message_id", "=", "778")])
         self.assertTrue(new_sent)
 
     def test_auth_error_is_permanent(self):

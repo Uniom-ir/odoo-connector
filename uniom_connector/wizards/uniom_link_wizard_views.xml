@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
+     copyright and licensing details. -->
+<odoo>
+    <record id="view_uniom_link_wizard_form" model="ir.ui.view">
+        <field name="name">uniom.link.wizard.form</field>
+        <field name="model">uniom.link.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Link Messenger Account">
+                <field name="step" invisible="1"/>
+                <field name="mgmt_signed_in" invisible="1"/>
+                <field name="link_session_id" invisible="1"/>
+
+                <div class="alert alert-info" role="alert" invisible="not link_message">
+                    <field name="link_message" readonly="1" nolabel="1"/>
+                </div>
+
+                <!-- Step 1: sign in to Uniom with a one-time code. -->
+                <div class="mb-3" invisible="step != 'draft' or mgmt_signed_in">
+                    <h3>Sign in to Uniom</h3>
+                    <p class="text-muted">
+                        Use the phone number of your Uniom account. We send a
+                        one-time code, then let you choose the messenger account
+                        to link.
+                    </p>
+                </div>
+                <group invisible="step != 'draft' or mgmt_signed_in">
+                    <field name="base_url" invisible="1"/>
+                    <field name="uniom_phone" placeholder="+989123456789"/>
+                </group>
+
+                <!-- Step 2: the Uniom sign-in code. -->
+                <div class="mb-3" invisible="step != 'otp' or link_session_id">
+                    <h3>Enter the Uniom code</h3>
+                    <p class="text-muted">
+                        Enter the code Uniom sent to your phone. You can request
+                        a new code if it did not arrive.
+                    </p>
+                </div>
+                <group invisible="step != 'otp' or link_session_id">
+                    <field name="uniom_otp" placeholder="123456"/>
+                </group>
+
+                <!-- Step 3: choose and phone-link the messenger account. -->
+                <div class="mb-3" invisible="step != 'draft' or not mgmt_signed_in">
+                    <h3>Link a messenger account</h3>
+                    <p class="text-muted">
+                        Choose the messenger and the phone number registered on
+                        it. Uniom sends the verification code through that
+                        messenger.
+                    </p>
+                </div>
+                <group invisible="step != 'draft' or not mgmt_signed_in">
+                    <field name="available_platforms" invisible="1"/>
+                    <field name="link_auth_options" invisible="1"/>
+                </group>
+                <div invisible="step != 'draft' or not mgmt_signed_in">
+                    <label for="link_platform"/>
+                    <field name="link_platform" widget="uniom_platform_picker" nolabel="1"/>
+                </div>
+                <group invisible="step != 'draft' or not mgmt_signed_in">
+                    <field name="link_phone" placeholder="09123456789 or +989123456789"/>
+                </group>
+                <div invisible="step != 'draft' or not mgmt_signed_in">
+                    <label for="link_auth_type"/>
+                    <field name="link_auth_type" widget="uniom_auth_type_cards" nolabel="1"/>
+                </div>
+                <group invisible="step != 'draft' or not mgmt_signed_in or not link_dynamic_token_label" string="Token">
+                    <field name="link_dynamic_token" password="True"/>
+                    <field name="link_dynamic_token_label" invisible="1"/>
+                    <field name="link_dynamic_token_placeholder" invisible="1"/>
+                    <field name="link_dynamic_help" invisible="1"/>
+                </group>
+
+                <!-- Step 4: the messenger verification code. -->
+                <div class="mb-3" invisible="step != 'otp' or not link_session_id">
+                    <h3>Verify the messenger account</h3>
+                    <p class="text-muted">
+                        Enter the code you received in the messenger.
+                    </p>
+                </div>
+                <group invisible="step != 'otp' or not link_session_id">
+                    <field name="link_otp" placeholder="123456" invisible="verification_mode == 'qr' or verification_mode == 'pair_code'"/>
+                    <field name="verification_mode" invisible="1"/>
+                    <field name="link_pair_code" readonly="1" invisible="not link_pair_code"/>
+                </group>
+                <div class="mb-3" invisible="step != 'otp' or not link_session_id or not link_qr_link">
+                    <p class="text-muted">Scan this code with the messenger app, then press Verify.</p>
+                    <field name="link_qr_link" readonly="1" nolabel="1" widget="url"/>
+                </div>
+
+                <!-- Password-based verification (two-step accounts). -->
+                <div class="mb-3" invisible="step != 'password'">
+                    <h3>Two-step password</h3>
+                    <p class="text-muted">
+                        This messenger account has two-step verification
+                        enabled. Enter its password to finish linking.
+                    </p>
+                </div>
+                <group invisible="step != 'password'">
+                    <field name="link_password" password="True"/>
+                </group>
+
+                <!-- Bot-token alternative. -->
+                <div class="mb-3" invisible="step != 'bot_token'">
+                    <h3>Link with a bot token</h3>
+                    <p class="text-muted">
+                        Paste the token issued by the messenger's bot father.
+                        The token is sent once to Uniom and is never stored in
+                        Odoo.
+                    </p>
+                </div>
+                <group invisible="step != 'bot_token'">
+                    <field name="link_bot_token" password="True"/>
+                </group>
+
+                <!-- Step 5: API key + Odoo connection. -->
+                <div class="mb-3" invisible="step != 'done' or created_connection_id">
+                    <h3>Create the API key</h3>
+                    <p class="text-muted">
+                        A new Uniom API key is created for the linked account
+                        and saved on a connection in Odoo.
+                    </p>
+                </div>
+                <group invisible="step != 'done' or created_connection_id">
+                    <field name="link_phone_display" readonly="1"/>
+                    <field name="api_key_name" required="1"/>
+                    <field name="inbound_mode" widget="radio"/>
+                </group>
+
+                <div class="mb-3" invisible="step != 'done' or not created_connection_id">
+                    <h3>Messenger account linked</h3>
+                    <p class="text-muted">
+                        The API key is stored on the connection below. Open it
+                        to send a test message or manage webhook/polling.
+                    </p>
+                </div>
+                <group invisible="step != 'done' or not created_connection_id">
+                    <field name="created_connection_id" readonly="1"/>
+                </group>
+
+                <footer>
+                    <button name="action_send_otp" string="Send Code"
+                            type="object" class="btn-primary"
+                            invisible="step != 'draft' or mgmt_signed_in"/>
+                    <button name="action_login" string="Sign In"
+                            type="object" class="btn-primary"
+                            invisible="step != 'otp' or link_session_id"/>
+                    <button name="action_resend_otp" string="Resend Code"
+                            type="object" class="btn-link"
+                            invisible="step != 'otp' or link_session_id"/>
+                    <button name="action_start_link" string="Start Linking"
+                            type="object" class="btn-primary"
+                            invisible="step != 'draft' or not mgmt_signed_in"/>
+                    <button name="action_show_bot_token" string="Use a Bot Token"
+                            type="object" class="btn-link"
+                            invisible="step != 'draft' or not mgmt_signed_in"/>
+                    <button name="action_verify_link" string="Verify"
+                            type="object" class="btn-primary"
+                            invisible="step != 'otp' or not link_session_id"/>
+                    <button name="action_verify_password" string="Verify Password"
+                            type="object" class="btn-primary"
+                            invisible="step != 'password'"/>
+                    <button name="action_link_bot" string="Link Bot"
+                            type="object" class="btn-primary"
+                            invisible="step != 'bot_token'"/>
+                    <button name="action_back_to_link_phone" string="Back"
+                            type="object" class="btn-secondary"
+                            invisible="step != 'bot_token'"/>
+                    <button name="action_create_key" string="Create Connection"
+                            type="object" class="btn-primary"
+                            invisible="step != 'done' or created_connection_id"/>
+                    <button name="action_open_connection" string="Open Connection"
+                            type="object" class="btn-primary"
+                            invisible="step != 'done' or not created_connection_id"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_uniom_link_wizard" model="ir.actions.act_window">
+        <field name="name">Link Messenger Account</field>
+        <field name="res_model">uniom.link.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
