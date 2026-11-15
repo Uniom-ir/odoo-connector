@@ -161,6 +161,30 @@ class TestReviewFixes(UniomTestCase):
         self.assertEqual(self.connection.poll_offset, "2")
         self.assertIn("retried", self.connection.last_poll_error)
 
+    def test_poll_offset_skips_update_after_retry_bound(self):
+        self.connection.inbound_mode = "polling"
+        updates = [{"update_id": 1}, {"update_id": 2}, {"update_id": 3}]
+        real_process = UniomConnection._process_inbound_update
+
+        def always_fails(connection, update):
+            if update.get("update_id") == 2:
+                raise RuntimeError("permanent poison")
+            return real_process(connection, update)
+
+        with patched_transport([FakeResponse(ok_response(updates))]), patch.object(
+            UniomConnection, "_process_inbound_update", always_fails
+        ):
+            for _ in range(5):
+                self.connection._poll_once()
+            # still holding for retry at the bound
+            self.assertEqual(self.connection.poll_offset, "2")
+            self.connection._poll_once()
+        # past the bound: skipped loudly, polling advances
+        self.assertEqual(self.connection.poll_offset, "4")
+        self.assertFalse(self.connection.poll_failed_update_id)
+        self.assertEqual(self.connection.poll_failed_streak, 0)
+        self.assertIn("skipped", self.connection.last_poll_error)
+
     def test_photo_sync_caches_and_skips_when_fresh(self):
         partner = self.env["res.partner"].create({"name": "Photo P"})
         chat = self.env["uniom.chat"].create(
