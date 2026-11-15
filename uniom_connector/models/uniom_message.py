@@ -549,13 +549,14 @@ class UniomMessage(models.Model):
     def action_delete_message(self):
         """Delete one message from the messenger (client RPC)."""
         self.ensure_one()
+        if self.direction != "out":
+            raise UserError(_("Only outgoing messages can be deleted."))
         self.action_delete_from_messenger()
         return True
 
     # ------------------------------------------------------------------
     # Queue cron
     # ------------------------------------------------------------------
-    @api.model
     def _cron_process_queue(self):
         batch = self.search(
             [
@@ -567,6 +568,23 @@ class UniomMessage(models.Model):
         )
         _logger.info("Uniom queue cron processing %s messages", len(batch))
         batch._send_message()
+        return True
+
+    @api.model
+    def _cron_sync_states(self):
+        """Refresh read/delivery ticks for recent outbound messages."""
+        since = fields.Datetime.subtract(fields.Datetime.now(), days=7)
+        batch = self.search(
+            [
+                ("direction", "=", "out"),
+                ("state", "=", "sent"),
+                ("uniom_message_id", "!=", False),
+                ("date_sent", ">=", since),
+            ],
+            limit=100,
+            order="date_sent desc",
+        )
+        batch.action_sync_states()
         return True
 
     # ------------------------------------------------------------------
@@ -621,7 +639,9 @@ class UniomMessage(models.Model):
 
     def action_sync_states(self):
         """Refresh seen/edited/deleted state from getMessageStates (≤100)."""
-        targets = self.filtered(lambda m: m.uniom_message_id and m.state == "sent")
+        targets = self.filtered(
+            lambda m: m.direction == "out" and m.uniom_message_id and m.state == "sent"
+        )
         if not targets:
             return True
         for connection in targets.mapped("connection_id"):
@@ -668,7 +688,12 @@ class UniomMessage(models.Model):
 
     def action_delete_from_messenger(self):
         """Delete sent messages via deleteMessage (best effort each)."""
-        for message in self.filtered(lambda m: m.uniom_message_id and m.state == "sent"):
+        # direction guard: inbound rows carry gateway ids too, but only our
+        # own messages may ever be deleted from the messenger
+        targets = self.filtered(
+            lambda m: m.direction == "out" and m.uniom_message_id and m.state == "sent"
+        )
+        for message in targets:
             try:
                 message.connection_id.sudo()._call(
                     "deleteMessage",

@@ -1,5 +1,25 @@
 # Changelog
 
+## 18.0.2.0.2 (2026-11-15)
+
+Merge-review fixes (backend + frontend teams):
+
+* Read/delivery ticks now work: new 5-minute cron refreshes states for
+  recent outbound messages via getMessageStates (was wired to nothing).
+* Messenger delete is outbound-only: inbound rows carry gateway ids too,
+  so both delete paths now guard on direction.
+* Skipped poison updates keep a dead-letter payload on the connection
+  for support replay; chatter posts are best-effort guarded.
+* History backfill no longer flips directions when the own id is unknown.
+* Link-wizard key minting is row-locked against double-click/retried RPC.
+* Deep links use the Odoo router (locked key + ROUTE_CHANGE) instead of
+  the hash, so chatter links open the right conversation on /odoo/ URLs.
+* Wizard/settings translations fixed: whole-term model_terms (42 terms),
+  word-boundary substring fallback — no more "نظرسنجیing" corruption.
+* Removed dead scroll-pin flag and unused labels; declared the
+  decoration dependency in the connections list.
+* Suite: 105 tests green; Persian/Arabic at 586/586.
+
 ## 18.0.2.0.1 (2026-11-15)
 
 * Polling can no longer wedge on a poison update: the offset hold is now

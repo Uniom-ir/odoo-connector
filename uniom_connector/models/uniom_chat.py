@@ -670,6 +670,9 @@ class UniomChat(models.Model):
         existing = set(existing_rows.mapped("uniom_message_id"))
         by_gateway_id = {m.uniom_message_id: m for m in existing_rows}
         company = connection.company_id or self.company_id or self.env.company
+        # without a cached own id every direction reads "in": reconciling
+        # then would flip correct outbound rows to the incoming side
+        own_known = bool(connection._own_user_id())
         loaded = 0
         fixed = 0
         for item in history:
@@ -686,7 +689,7 @@ class UniomChat(models.Model):
                 # is the only source of truth. is_read untouched — old
                 # history must not re-badge the inbox.
                 row = by_gateway_id.get(message_key)
-                if row and row.direction != direction:
+                if own_known and row and row.direction != direction:
                     row.direction = direction
                     fixed += 1
                 continue

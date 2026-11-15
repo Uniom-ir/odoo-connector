@@ -234,8 +234,7 @@
                     </div>
                 </header>
 
-                <div class="o_uniom_thread flex-grow-1" t-ref="thread"
-                     t-on-scroll="onThreadScroll" role="log"
+                <div class="o_uniom_thread flex-grow-1" t-ref="thread" role="log"
                      t-att-aria-label="state.activeChat.display_name">
                     <div class="o_uniom_thread_top">
                         <button t-if="state.hasMoreHistory" type="button"

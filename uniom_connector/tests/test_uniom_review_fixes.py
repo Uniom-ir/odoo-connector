@@ -5,6 +5,8 @@ from unittest.mock import patch
 
 from markupsafe import Markup
 
+from odoo import fields
+
 from odoo.addons.uniom_connector.models import uniom_connection as uniom_connection_module
 from odoo.addons.uniom_connector.models.uniom_connection import UniomConnection
 
@@ -236,3 +238,58 @@ class TestReviewFixes(UniomTestCase):
         ):
             text = self.connection._friendly_call("action_test_connection")
         self.assertIn("rejected", text)
+
+    def test_friendly_call_returns_raised_user_error(self):
+        params = self.env["ir.config_parameter"].sudo()
+        previous = params.get_param("web.base.url", "")
+        params.set_param("web.base.url", "")
+        try:
+            text = self.connection._friendly_call("action_register_webhook")
+        finally:
+            params.set_param("web.base.url", previous)
+        self.assertIn("web.base.url", text)
+        # the wizard transaction stays usable afterwards
+        self.connection.write({"notes": "still works"})
+
+    def test_friendly_call_isolates_db_errors(self):
+        def bad_sql(connection):
+            connection.env.cr.execute("THIS IS NOT SQL")
+
+        with patch.object(UniomConnection, "action_sync_dialogs", bad_sql):
+            text = self.connection._friendly_call("action_sync_dialogs")
+        self.assertIn("unexpectedly", text)
+        # without the savepoint this raises InFailedSqlTransaction
+        self.connection.write({"notes": "still works"})
+
+    def test_states_cron_syncs_outbound_only(self):
+        partner = self.env["res.partner"].create({"name": "States P"})
+        out = self.env["uniom.message"].create(
+            {
+                "connection_id": self.connection.id,
+                "direction": "out",
+                "state": "sent",
+                "chat_id": "+989127777777",
+                "partner_id": partner.id,
+                "body": "hi",
+                "uniom_message_id": "9",
+                "date_sent": fields.Datetime.now(),
+            }
+        )
+        inbound = self.env["uniom.message"].create(
+            {
+                "connection_id": self.connection.id,
+                "direction": "in",
+                "state": "sent",
+                "chat_id": "+989127777777",
+                "partner_id": partner.id,
+                "body": "hello",
+                "uniom_message_id": "10",
+            }
+        )
+        states = [{"request_index": 0, "seen_state": "read", "seen_count": 2}]
+        with patched_transport([FakeResponse(ok_response(states))]) as transport:
+            self.env["uniom.message"]._cron_sync_states()
+        self.assertEqual(len(transport.calls), 1)
+        self.assertEqual(out.seen_state, "read")
+        self.assertEqual(out.seen_count, 2)
+        self.assertNotEqual(inbound.seen_state, "read")

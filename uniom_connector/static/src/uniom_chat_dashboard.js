@@ -2,6 +2,7 @@
 // Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
 // copyright and licensing details.
 import { Component, onMounted, onWillStart, onWillUnmount, useRef, useState } from "@odoo/owl";
+import { router, routerBus } from "@web/core/browser/router";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
@@ -117,6 +118,9 @@ export class UniomChatDashboard extends Component {
         this.actionService = useService("action");
         this.notificationService = useService("notification");
         this.busService = useService("bus_service");
+        // keep the deep-link chat id across router pushes (back/forward,
+        // canonical /odoo/ URLs); unlocked keys are dropped from the URL
+        router.addLockedKey("uniom_chat_id");
 
         this.threadRef = useRef("thread");
         this.composerRef = useRef("composer");
@@ -128,7 +132,6 @@ export class UniomChatDashboard extends Component {
         this._chatsLoadedOnce = false;
         this._pendingSeq = 0;
         this._polling = false;
-        this._pinnedToBottom = true;
         this._lastTypingAt = 0;
         this._lastErrorAt = 0;
         this._attachmentCache = new Map();
@@ -173,10 +176,10 @@ export class UniomChatDashboard extends Component {
             this.startBus();
             this.startPolling();
             this._onVisibilityChange = () => this.onVisibilityChange();
-            this._onHashChange = () => this.onHashChange();
+            this._onRouteChange = () => this.onRouteChange();
             document.addEventListener("visibilitychange", this._onVisibilityChange);
-            window.addEventListener("hashchange", this._onHashChange);
-            const chatId = this.hashChatId();
+            routerBus.addEventListener("ROUTE_CHANGE", this._onRouteChange);
+            const chatId = this.routeChatId();
             if (chatId) {
                 this.openChatById(chatId);
             }
@@ -192,8 +195,8 @@ export class UniomChatDashboard extends Component {
             if (this._onVisibilityChange) {
                 document.removeEventListener("visibilitychange", this._onVisibilityChange);
             }
-            if (this._onHashChange) {
-                window.removeEventListener("hashchange", this._onHashChange);
+            if (this._onRouteChange) {
+                routerBus.removeEventListener("ROUTE_CHANGE", this._onRouteChange);
             }
         });
     }
@@ -225,7 +228,6 @@ export class UniomChatDashboard extends Component {
             openPartner: _t("Open contact"),
             linkPartner: _t("Link contact"),
             syncPresence: _t("Sync presence"),
-            sync: _t("Sync"),
             composerPlaceholder: _t("Type a message"),
             send: _t("Send"),
             sending: _t("Sending..."),
@@ -268,7 +270,6 @@ export class UniomChatDashboard extends Component {
             queued: _t("Queued"),
             attachmentNotSent: _t("Attachment not sent"),
             uploadFailed: _t("The file could not be uploaded."),
-            noPartner: _t("This conversation is not linked to a contact yet."),
             chatNotFound: _t("The requested conversation could not be found."),
             genericError: _t("Something went wrong. Please try again."),
             groupChat: _t("Group"),
@@ -467,10 +468,9 @@ export class UniomChatDashboard extends Component {
         if (listed) {
             this.state.activeChat = listed;
         }
-        this.updateHash(chatId);
+        this.updateRoute(chatId);
         if (!isSame) {
             this._attachmentCache = new Map();
-            this._pinnedToBottom = true;
             this.state.messages = [];
             this.state.hasMoreHistory = true;
             await this.loadThread();
@@ -530,7 +530,6 @@ export class UniomChatDashboard extends Component {
             this.state.messages = messages;
             this.state.hasMoreHistory = rows.length >= THREAD_PAGE_SIZE;
             this.rememberLastDirection(chatId, messages);
-            this._pinnedToBottom = true;
             await this.nextFrame();
             this.scrollToBottom();
         } catch (error) {
@@ -870,26 +869,30 @@ export class UniomChatDashboard extends Component {
         }
     }
 
-    onHashChange() {
-        const chatId = this.hashChatId();
-        if (chatId) {
+    onRouteChange() {
+        const chatId = this.routeChatId();
+        if (chatId && chatId !== this.state.activeId) {
             this.openChatById(chatId);
         }
     }
 
-    hashChatId() {
+    routeChatId() {
+        const routed = Number(router.current.uniom_chat_id);
+        if (Number.isInteger(routed) && routed > 0) {
+            return routed;
+        }
+        // legacy /web# URLs carry the id in the hash
         const match = (window.location.hash || "").match(/uniom_chat_id=(\d+)/);
         return match ? Number(match[1]) : null;
     }
 
-    updateHash(chatId) {
+    updateRoute(chatId) {
         try {
-            const hash = `#uniom_chat_id=${chatId}`;
-            if (window.location.hash !== hash) {
-                window.history.replaceState(null, "", hash);
+            if (Number(router.current.uniom_chat_id) !== chatId) {
+                router.replaceState({ uniom_chat_id: chatId });
             }
         } catch {
-            // Hash is a convenience only.
+            // The route is a convenience only.
         }
     }
 
@@ -976,7 +979,6 @@ export class UniomChatDashboard extends Component {
         const pending = this.makePendingMessage(body);
         this.state.messages = this.applyDayDividers([...this.state.messages, pending]);
         this._lastDirectionByChat.set(chatId, "out");
-        this._pinnedToBottom = true;
         await this.nextFrame();
         this.scrollToBottom();
 
@@ -1853,11 +1855,6 @@ export class UniomChatDashboard extends Component {
     // ------------------------------------------------------------------
     // Scrolling / timers
     // ------------------------------------------------------------------
-    onThreadScroll(ev) {
-        const element = ev.target;
-        this._pinnedToBottom =
-            element.scrollHeight - element.scrollTop - element.clientHeight <= PIN_TOLERANCE_PX;
-    }
 
     isPinnedToBottom() {
         const element = this.threadRef.el;
@@ -1870,7 +1867,6 @@ export class UniomChatDashboard extends Component {
     }
 
     scrollToBottom() {
-        this._pinnedToBottom = true;
         window.requestAnimationFrame(() => {
             const element = this.threadRef.el;
             if (element) {

@@ -43,7 +43,7 @@ Highlights
     "author": "Uniom",
     "website": "https://uniom.ir",
     "category": "Discuss",
-    "version": "18.0.2.0.1",
+    "version": "18.0.2.0.2",
     "license": "LGPL-3",
     "development_status": "Production/Stable",
     "depends": [

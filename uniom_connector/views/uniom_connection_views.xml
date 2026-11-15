@@ -12,6 +12,7 @@
                 <field name="platform" optional="show"/>
                 <field name="account_display" optional="show"/>
                 <field name="inbound_mode" widget="badge" decoration-info="inbound_mode == 'polling'" decoration-success="inbound_mode == 'webhook' and webhook_registered" optional="show"/>
+                <field name="webhook_registered" column_invisible="True"/>
                 <field name="webhook_pending_count" optional="hide"/>
                 <field name="last_poll_at" optional="hide"/>
                 <field name="company_id" groups="base.group_multi_company"/>
@@ -72,6 +73,7 @@
                         <field name="last_poll_at"/>
                         <field name="poll_backoff_until" invisible="not poll_backoff_until"/>
                         <field name="last_poll_error" invisible="not last_poll_error"/>
+                        <field name="poll_dead_update" invisible="not poll_dead_update"/>
                         <field name="last_dialog_sync_at"/>
                     </group>
                     <group string="Notes">
