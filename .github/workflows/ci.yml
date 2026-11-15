@@ -46,7 +46,8 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          # native interpreter per series (odoo:19 ships Python 3.12)
+          python-version: ${{ matrix.odoo == '19.0' && '3.12' || '3.11' }}
           cache: pip
 
       - name: Install Odoo python dependencies
