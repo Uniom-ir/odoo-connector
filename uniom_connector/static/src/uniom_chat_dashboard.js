@@ -1,7 +1,8 @@
 /** @odoo-module **/
 // Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
 // copyright and licensing details.
-import { Component, onMounted, onWillStart, onWillUnmount, useRef, useState } from "@odoo/owl";
+import { Component, onMounted, onWillStart, onWillUnmount, proxy, signal } from "@odoo/owl";
+import { router, routerBus } from "@web/core/browser/router";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
@@ -86,17 +87,17 @@ const PLATFORM_ICON_FILES = {
 const PLATFORM_ICON_BASE = "/uniom_connector/static/img/platforms/";
 
 const KIND_ICONS = {
-    photo: "fa-camera",
-    document: "fa-file-o",
-    video: "fa-video-camera",
-    audio: "fa-volume-up",
-    voice: "fa-microphone",
-    sticker: "fa-smile-o",
-    location: "fa-map-marker",
-    contact: "fa-user",
-    poll: "fa-bar-chart",
-    text: "fa-comment-o",
-    unknown: "fa-comment-o",
+    photo: "photo_camera",
+    document: "description",
+    video: "videocam",
+    audio: "volume_up",
+    voice: "mic",
+    sticker: "sentiment_satisfied",
+    location: "location_on",
+    contact: "person",
+    poll: "bar_chart",
+    text: "chat_bubble",
+    unknown: "chat_bubble",
 };
 
 /**
@@ -117,10 +118,13 @@ export class UniomChatDashboard extends Component {
         this.actionService = useService("action");
         this.notificationService = useService("notification");
         this.busService = useService("bus_service");
+        // keep the deep-link chat id across router pushes (back/forward,
+        // canonical /odoo/ URLs); unlocked keys are dropped from the URL
+        router.addLockedKey("uniom_chat_id");
 
-        this.threadRef = useRef("thread");
-        this.composerRef = useRef("composer");
-        this.fileInputRef = useRef("fileInput");
+        this.threadRef = signal.ref();
+        this.composerRef = signal.ref();
+        this.fileInputRef = signal.ref();
 
         this._timers = {};
         this._destroyed = false;
@@ -128,16 +132,14 @@ export class UniomChatDashboard extends Component {
         this._chatsLoadedOnce = false;
         this._pendingSeq = 0;
         this._polling = false;
-        this._pinnedToBottom = true;
         this._lastTypingAt = 0;
         this._lastErrorAt = 0;
         this._attachmentCache = new Map();
-        this._lastDirectionByChat = new Map();
         this._optionalChatFields = [];
         this._displayNameSearchable = false;
         this._locale = user.lang || "en-US";
 
-        this.state = useState({
+        this.state = proxy({
             chats: [],
             connections: [],
             activeId: null,
@@ -158,6 +160,7 @@ export class UniomChatDashboard extends Component {
             failedChatIds: [],
             hasMoreHistory: true,
             brokenAvatars: [],
+            lastDirectionByChat: {},
         });
 
         onWillStart(async () => {
@@ -173,10 +176,10 @@ export class UniomChatDashboard extends Component {
             this.startBus();
             this.startPolling();
             this._onVisibilityChange = () => this.onVisibilityChange();
-            this._onHashChange = () => this.onHashChange();
+            this._onRouteChange = () => this.onRouteChange();
             document.addEventListener("visibilitychange", this._onVisibilityChange);
-            window.addEventListener("hashchange", this._onHashChange);
-            const chatId = this.hashChatId();
+            routerBus.addEventListener("ROUTE_CHANGE", this._onRouteChange);
+            const chatId = this.routeChatId();
             if (chatId) {
                 this.openChatById(chatId);
             }
@@ -192,8 +195,8 @@ export class UniomChatDashboard extends Component {
             if (this._onVisibilityChange) {
                 document.removeEventListener("visibilitychange", this._onVisibilityChange);
             }
-            if (this._onHashChange) {
-                window.removeEventListener("hashchange", this._onHashChange);
+            if (this._onRouteChange) {
+                routerBus.removeEventListener("ROUTE_CHANGE", this._onRouteChange);
             }
         });
     }
@@ -225,7 +228,6 @@ export class UniomChatDashboard extends Component {
             openPartner: _t("Open contact"),
             linkPartner: _t("Link contact"),
             syncPresence: _t("Sync presence"),
-            sync: _t("Sync"),
             composerPlaceholder: _t("Type a message"),
             send: _t("Send"),
             sending: _t("Sending..."),
@@ -268,7 +270,6 @@ export class UniomChatDashboard extends Component {
             queued: _t("Queued"),
             attachmentNotSent: _t("Attachment not sent"),
             uploadFailed: _t("The file could not be uploaded."),
-            noPartner: _t("This conversation is not linked to a contact yet."),
             chatNotFound: _t("The requested conversation could not be found."),
             genericError: _t("Something went wrong. Please try again."),
             groupChat: _t("Group"),
@@ -467,10 +468,9 @@ export class UniomChatDashboard extends Component {
         if (listed) {
             this.state.activeChat = listed;
         }
-        this.updateHash(chatId);
+        this.updateRoute(chatId);
         if (!isSame) {
             this._attachmentCache = new Map();
-            this._pinnedToBottom = true;
             this.state.messages = [];
             this.state.hasMoreHistory = true;
             await this.loadThread();
@@ -530,7 +530,6 @@ export class UniomChatDashboard extends Component {
             this.state.messages = messages;
             this.state.hasMoreHistory = rows.length >= THREAD_PAGE_SIZE;
             this.rememberLastDirection(chatId, messages);
-            this._pinnedToBottom = true;
             await this.nextFrame();
             this.scrollToBottom();
         } catch (error) {
@@ -554,7 +553,7 @@ export class UniomChatDashboard extends Component {
         if (!chatId) {
             return;
         }
-        const threadEl = this.threadRef.el;
+        const threadEl = this.threadRef();
         const wasPinned = threadEl ? this.isPinnedToBottom() : true;
         const previousTop = threadEl ? threadEl.scrollTop : 0;
         const loadedBefore = this.state.messages.filter((message) => !message.optimistic).length;
@@ -594,8 +593,8 @@ export class UniomChatDashboard extends Component {
             await this.nextFrame();
             if (wasPinned) {
                 this.scrollToBottom();
-            } else if (this.threadRef.el) {
-                this.threadRef.el.scrollTop = previousTop;
+            } else if (this.threadRef()) {
+                this.threadRef().scrollTop = previousTop;
             }
         } catch (error) {
             this.notifyError(error);
@@ -627,7 +626,7 @@ export class UniomChatDashboard extends Component {
         const sameDateCount = dated.filter(
             (message) => message.date_sent === oldest.date_sent
         ).length;
-        const threadEl = this.threadRef.el;
+        const threadEl = this.threadRef();
         const previousHeight = threadEl ? threadEl.scrollHeight : 0;
         const previousTop = threadEl ? threadEl.scrollTop : 0;
         this.state.loadingOlder = true;
@@ -671,9 +670,9 @@ export class UniomChatDashboard extends Component {
             );
             this.state.hasMoreHistory = pageRows.length >= THREAD_PAGE_SIZE;
             await this.nextFrame();
-            if (this.threadRef.el) {
-                this.threadRef.el.scrollTop =
-                    this.threadRef.el.scrollHeight - previousHeight + previousTop;
+            if (this.threadRef()) {
+                this.threadRef().scrollTop =
+                    this.threadRef().scrollHeight - previousHeight + previousTop;
             }
         } catch (error) {
             this.notifyError(error);
@@ -801,7 +800,7 @@ export class UniomChatDashboard extends Component {
         }
         const chatId = Number(payload.chat_id);
         if (chatId) {
-            this._lastDirectionByChat.set(chatId, payload.direction === "out" ? "out" : "in");
+            this.state.lastDirectionByChat[chatId] = payload.direction === "out" ? "out" : "in";
         }
         this.scheduleSidebarRefresh();
         if (chatId && chatId === this.state.activeId) {
@@ -870,26 +869,30 @@ export class UniomChatDashboard extends Component {
         }
     }
 
-    onHashChange() {
-        const chatId = this.hashChatId();
-        if (chatId) {
+    onRouteChange() {
+        const chatId = this.routeChatId();
+        if (chatId && chatId !== this.state.activeId) {
             this.openChatById(chatId);
         }
     }
 
-    hashChatId() {
+    routeChatId() {
+        const routed = Number(router.current.uniom_chat_id);
+        if (Number.isInteger(routed) && routed > 0) {
+            return routed;
+        }
+        // legacy /web# URLs carry the id in the hash
         const match = (window.location.hash || "").match(/uniom_chat_id=(\d+)/);
         return match ? Number(match[1]) : null;
     }
 
-    updateHash(chatId) {
+    updateRoute(chatId) {
         try {
-            const hash = `#uniom_chat_id=${chatId}`;
-            if (window.location.hash !== hash) {
-                window.history.replaceState(null, "", hash);
+            if (Number(router.current.uniom_chat_id) !== chatId) {
+                router.replaceState({ uniom_chat_id: chatId });
             }
         } catch {
-            // Hash is a convenience only.
+            // The route is a convenience only.
         }
     }
 
@@ -898,8 +901,8 @@ export class UniomChatDashboard extends Component {
     // ------------------------------------------------------------------
     focusComposer() {
         window.requestAnimationFrame(() => {
-            if (this.composerRef.el) {
-                this.composerRef.el.focus();
+            if (this.composerRef()) {
+                this.composerRef().focus();
             }
         });
     }
@@ -929,23 +932,23 @@ export class UniomChatDashboard extends Component {
     }
 
     resetComposerHeight() {
-        if (this.composerRef.el) {
-            this.composerRef.el.style.height = "";
-            this.composerRef.el.style.overflowY = "";
+        if (this.composerRef()) {
+            this.composerRef().style.height = "";
+            this.composerRef().style.overflowY = "";
         }
     }
 
     clearComposer() {
-        if (this.composerRef.el) {
-            this.composerRef.el.value = "";
+        if (this.composerRef()) {
+            this.composerRef().value = "";
             this.resetComposerHeight();
         }
     }
 
     restoreComposer(body) {
-        if (this.composerRef.el && !this.composerRef.el.value.trim()) {
-            this.composerRef.el.value = body;
-            this.autogrow(this.composerRef.el);
+        if (this.composerRef() && !this.composerRef().value.trim()) {
+            this.composerRef().value = body;
+            this.autogrow(this.composerRef());
             this.focusComposer();
         }
     }
@@ -966,7 +969,7 @@ export class UniomChatDashboard extends Component {
     }
 
     async sendReply() {
-        const body = (this.composerRef.el ? this.composerRef.el.value : "").trim();
+        const body = (this.composerRef() ? this.composerRef().value : "").trim();
         const chatId = this.state.activeId;
         if (!body || !chatId || this.state.sending || this.state.uploading) {
             return;
@@ -975,8 +978,7 @@ export class UniomChatDashboard extends Component {
         this.clearComposer();
         const pending = this.makePendingMessage(body);
         this.state.messages = this.applyDayDividers([...this.state.messages, pending]);
-        this._lastDirectionByChat.set(chatId, "out");
-        this._pinnedToBottom = true;
+        this.state.lastDirectionByChat[chatId] = "out";
         await this.nextFrame();
         this.scrollToBottom();
 
@@ -1021,6 +1023,14 @@ export class UniomChatDashboard extends Component {
         this.focusComposer();
     }
 
+    get timeFormat() {
+        // Odoo 20 dropped localization.shortTimeFormat; derive HH:mm from the
+        // locale time format (strip the seconds token and keep js/luxon as-is).
+        return (localization.timeFormat || "HH:mm:ss")
+            .replace(/:s{1,2}/, "")
+            .replace(/\s+([aApP])$/, " $1");
+    }
+
     makePendingMessage(body) {
         const now = DateTime.local();
         return {
@@ -1035,7 +1045,7 @@ export class UniomChatDashboard extends Component {
             attachments: [],
             extra: null,
             timestamp: now.toMillis(),
-            timeLabel: now.toFormat(localization.shortTimeFormat),
+            timeLabel: now.toFormat(this.timeFormat),
             dayLabel: this.dayLabel(now),
             showDay: false,
             error_message: "",
@@ -1052,8 +1062,8 @@ export class UniomChatDashboard extends Component {
         if (this.state.uploading || !this.state.activeId) {
             return;
         }
-        if (this.fileInputRef.el) {
-            this.fileInputRef.el.click();
+        if (this.fileInputRef()) {
+            this.fileInputRef().click();
         }
     }
 
@@ -1064,7 +1074,7 @@ export class UniomChatDashboard extends Component {
             return;
         }
         const chatId = this.state.activeId;
-        const caption = (this.composerRef.el ? this.composerRef.el.value : "").trim();
+        const caption = (this.composerRef() ? this.composerRef().value : "").trim();
         this.state.uploading = true;
         try {
             const attachment = await this.uploadAttachment(file, chatId);
@@ -1261,7 +1271,7 @@ export class UniomChatDashboard extends Component {
         message.kind = message.message_kind || this.inferKind(message);
         const sentAt = this.toDateTime(message.date_sent || message.create_date);
         message.timestamp = sentAt ? sentAt.toMillis() : null;
-        message.timeLabel = sentAt ? sentAt.toFormat(localization.shortTimeFormat) : "";
+        message.timeLabel = sentAt ? sentAt.toFormat(this.timeFormat) : "";
         message.dayLabel = sentAt ? this.dayLabel(sentAt) : "";
         message.extra = this.buildExtra(message);
         message.showBody = this.shouldShowBody(message);
@@ -1414,7 +1424,7 @@ export class UniomChatDashboard extends Component {
     rememberLastDirection(chatId, messages) {
         const latest = [...messages].reverse().find((message) => !message.optimistic);
         if (latest && chatId) {
-            this._lastDirectionByChat.set(chatId, latest.direction === "in" ? "in" : "out");
+            this.state.lastDirectionByChat[chatId] = latest.direction === "in" ? "in" : "out";
         }
     }
 
@@ -1662,7 +1672,7 @@ export class UniomChatDashboard extends Component {
 
     lastDirectionIsOut(chat) {
         const direction =
-            chat.last_message_direction || this._lastDirectionByChat.get(chat.id) || "";
+            chat.last_message_direction || this.state.lastDirectionByChat[chat.id] || "";
         return direction === "out";
     }
 
@@ -1853,14 +1863,8 @@ export class UniomChatDashboard extends Component {
     // ------------------------------------------------------------------
     // Scrolling / timers
     // ------------------------------------------------------------------
-    onThreadScroll(ev) {
-        const element = ev.target;
-        this._pinnedToBottom =
-            element.scrollHeight - element.scrollTop - element.clientHeight <= PIN_TOLERANCE_PX;
-    }
-
     isPinnedToBottom() {
-        const element = this.threadRef.el;
+        const element = this.threadRef();
         if (!element) {
             return true;
         }
@@ -1870,9 +1874,8 @@ export class UniomChatDashboard extends Component {
     }
 
     scrollToBottom() {
-        this._pinnedToBottom = true;
         window.requestAnimationFrame(() => {
-            const element = this.threadRef.el;
+            const element = this.threadRef();
             if (element) {
                 element.scrollTop = element.scrollHeight;
             }

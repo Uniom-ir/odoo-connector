@@ -42,7 +42,7 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_view_record" type="object" string="Open Record" icon="fa-external-link" class="oe_stat_button" invisible="not record_res_id"/>
+                        <button name="action_view_record" type="object" string="Open Record" icon="open_in_new" class="oe_stat_button" invisible="not record_res_id"/>
                     </div>
                     <div class="oe_title">
                         <h1><field name="chat_id"/></h1>
@@ -108,7 +108,7 @@
                 <separator/>
                 <filter name="filter_media" string="Media" domain="[('message_kind', 'not in', ('text', 'unknown'))]"/>
                 <filter name="filter_with_errors" string="With Errors" domain="[('error_message', '!=', False)]"/>
-                <group expand="0" string="Group By">
+                <group>
                     <filter name="group_by_state" string="Status" context="{'group_by': 'state'}"/>
                     <filter name="group_by_direction" string="Direction" context="{'group_by': 'direction'}"/>
                     <filter name="group_by_kind" string="Kind" context="{'group_by': 'message_kind'}"/>

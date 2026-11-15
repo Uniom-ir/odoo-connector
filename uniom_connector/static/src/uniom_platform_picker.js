@@ -1,7 +1,7 @@
 /** @odoo-module **/
 // Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
 // copyright and licensing details.
-import { Component, useState } from "@odoo/owl";
+import { Component, useProps } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { standardFieldProps } from "@web/views/fields/standard_field_props";
@@ -17,11 +17,7 @@ import { standardFieldProps } from "@web/views/fields/standard_field_props";
  */
 export class UniomPlatformPicker extends Component {
     static template = "uniom_connector.PlatformPicker";
-    static props = { ...standardFieldProps };
-
-    setup() {
-        this.state = useState({});
-    }
+    props = useProps(standardFieldProps);
 
     get platforms() {
         try {
@@ -74,11 +70,7 @@ registry.category("fields").add("uniom_platform_picker", uniomPlatformPicker);
  */
 export class UniomAuthTypeCards extends Component {
     static template = "uniom_connector.AuthTypeCards";
-    static props = { ...standardFieldProps };
-
-    setup() {
-        this.state = useState({});
-    }
+    props = useProps(standardFieldProps);
 
     get authTypes() {
         try {

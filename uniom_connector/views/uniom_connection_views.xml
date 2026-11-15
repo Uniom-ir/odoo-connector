@@ -12,6 +12,7 @@
                 <field name="platform" optional="show"/>
                 <field name="account_display" optional="show"/>
                 <field name="inbound_mode" widget="badge" decoration-info="inbound_mode == 'polling'" decoration-success="inbound_mode == 'webhook' and webhook_registered" optional="show"/>
+                <field name="webhook_registered" column_invisible="True"/>
                 <field name="webhook_pending_count" optional="hide"/>
                 <field name="last_poll_at" optional="hide"/>
                 <field name="company_id" groups="base.group_multi_company"/>
@@ -27,14 +28,14 @@
                 <sheet>
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                     <div class="oe_button_box" name="button_box">
-                        <button name="action_test_connection" type="object" string="Test Connection" icon="fa-plug" class="oe_stat_button"/>
-                        <button name="action_sync_dialogs" type="object" string="Sync Conversations" icon="fa-comments-o" class="oe_stat_button"/>
-                        <button name="action_register_webhook" type="object" string="Register Webhook" icon="fa-rss" class="oe_stat_button" invisible="inbound_mode == 'polling'"/>
-                        <button name="action_refresh_webhook_info" type="object" string="Webhook Status" icon="fa-info-circle" class="oe_stat_button" invisible="inbound_mode == 'polling'"/>
-                        <button name="action_delete_webhook" type="object" string="Remove Webhook" icon="fa-times-circle" class="oe_stat_button" invisible="not webhook_registered"/>
-                        <button name="action_start_polling" type="object" string="Start Polling" icon="fa-refresh" class="oe_stat_button" invisible="inbound_mode == 'polling'"/>
-                        <button name="action_stop_polling" type="object" string="Stop Polling" icon="fa-pause" class="oe_stat_button" invisible="inbound_mode != 'polling'"/>
-                        <button name="action_regenerate_webhook_secret" type="object" string="New Secret" icon="fa-key" class="oe_stat_button"/>
+                        <button name="action_test_connection" type="object" string="Test Connection" icon="power" class="oe_stat_button"/>
+                        <button name="action_sync_dialogs" type="object" string="Sync Conversations" icon="forum" class="oe_stat_button"/>
+                        <button name="action_register_webhook" type="object" string="Register Webhook" icon="rss_feed" class="oe_stat_button" invisible="inbound_mode == 'polling'"/>
+                        <button name="action_refresh_webhook_info" type="object" string="Webhook Status" icon="info" class="oe_stat_button" invisible="inbound_mode == 'polling'"/>
+                        <button name="action_delete_webhook" type="object" string="Remove Webhook" icon="cancel" class="oe_stat_button" invisible="not webhook_registered"/>
+                        <button name="action_start_polling" type="object" string="Start Polling" icon="refresh" class="oe_stat_button" invisible="inbound_mode == 'polling'"/>
+                        <button name="action_stop_polling" type="object" string="Stop Polling" icon="pause" class="oe_stat_button" invisible="inbound_mode != 'polling'"/>
+                        <button name="action_regenerate_webhook_secret" type="object" string="New Secret" icon="key" class="oe_stat_button"/>
                     </div>
                     <div class="oe_title">
                         <label for="name"/>
@@ -72,6 +73,7 @@
                         <field name="last_poll_at"/>
                         <field name="poll_backoff_until" invisible="not poll_backoff_until"/>
                         <field name="last_poll_error" invisible="not last_poll_error"/>
+                        <field name="poll_dead_update" invisible="not poll_dead_update"/>
                         <field name="last_dialog_sync_at"/>
                     </group>
                     <group string="Notes">

@@ -8,14 +8,14 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="inside">
-                <button name="action_uniom_send" type="object" class="oe_stat_button" icon="fa-send-o"
+                <button name="action_uniom_send" type="object" class="oe_stat_button" icon="send"
                         groups="uniom_connector.group_uniom_user">
                     <div class="o_stat_info">
                         <span class="o_stat_text">Uniom</span>
                         <span class="o_stat_text">Send</span>
                     </div>
                 </button>
-                <button name="action_view_uniom_messages" type="object" class="oe_stat_button" icon="fa-comments-o"
+                <button name="action_view_uniom_messages" type="object" class="oe_stat_button" icon="forum"
                         groups="uniom_connector.group_uniom_user" invisible="uniom_chat_count == 0">
                     <field name="uniom_chat_count" widget="statinfo" string="Uniom Conversations"/>
                 </button>

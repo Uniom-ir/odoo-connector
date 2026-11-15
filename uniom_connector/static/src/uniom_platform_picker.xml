@@ -5,44 +5,44 @@
 
 <t t-name="uniom_connector.PlatformPicker">
     <div class="o_uniom_platform_picker d-flex flex-wrap gap-2">
-        <t t-if="platforms.length">
-            <t t-foreach="platforms" t-as="platform" t-key="platform.name">
+        <t t-if="this.platforms.length">
+            <t t-foreach="this.platforms" t-as="platform" t-key="platform.name">
                 <button type="button"
                         class="btn o_uniom_platform_item d-flex align-items-center gap-2"
-                        t-att-class="isActive(platform.name) ? 'btn-primary' : 'btn-light border'"
+                        t-att-class="this.isActive(platform.name) ? 'btn-primary' : 'btn-light border'"
                         t-on-click="() => this.pick(platform.name)"
-                        t-att-aria-pressed="isActive(platform.name)">
-                    <t t-if="platformIcon(platform.name)">
-                        <img t-att-src="platformIcon(platform.name)"
+                        t-att-aria-pressed="this.isActive(platform.name)">
+                    <t t-if="this.platformIcon(platform.name)">
+                        <img t-att-src="this.platformIcon(platform.name)"
                              t-att-alt="platform.display_name or platform.name"
                              width="22" height="22" class="rounded-1"/>
                     </t>
                     <t t-else="">
                         <span class="o_uniom_platform_fallback"
-                              t-esc="(platform.display_name or platform.name or '?').slice(0, 1)"/>
+                              t-out="(platform.display_name or platform.name or '?').slice(0, 1)"/>
                     </t>
-                    <span t-esc="platform.display_name or platform.name"/>
+                    <span t-out="platform.display_name or platform.name"/>
                 </button>
             </t>
         </t>
         <t t-else="">
-            <span class="text-muted" t-esc="emptyText"/>
+            <span class="text-muted" t-out="this.emptyText"/>
         </t>
     </div>
 </t>
 
 <t t-name="uniom_connector.AuthTypeCards">
     <div class="o_uniom_auth_cards d-flex flex-column gap-2">
-        <t t-foreach="authTypes" t-as="auth" t-key="auth.type">
+        <t t-foreach="this.authTypes" t-as="auth" t-key="auth.type">
             <label class="o_uniom_auth_card d-flex gap-2 p-2 border rounded"
-                   t-att-class="{ 'border-primary': isActive(auth.type) }">
+                   t-att-class="{ 'border-primary': this.isActive(auth.type) }">
                 <input type="radio" name="uniom_auth_type"
                        t-att-value="auth.type"
-                       t-att-checked="isActive(auth.type)"
+                       t-att-checked="this.isActive(auth.type)"
                        t-on-change="() => this.pick(auth.type)"/>
                 <div class="min-w-0">
-                    <div class="fw-semibold" t-esc="auth.name or auth.type"/>
-                    <div t-if="auth.description" class="text-muted small" t-esc="auth.description"/>
+                    <div class="fw-semibold" t-out="auth.name or auth.type"/>
+                    <div t-if="auth.description" class="text-muted small" t-out="auth.description"/>
                 </div>
             </label>
         </t>

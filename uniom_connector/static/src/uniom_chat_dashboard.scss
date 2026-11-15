@@ -213,7 +213,7 @@
         letter-spacing: 0.02em;
         user-select: none;
 
-        .fa {
+        .oi {
             font-size: 18px;
             font-weight: normal;
         }
@@ -282,7 +282,7 @@
         color: $o-brand-primary;
         font-size: 9px;
 
-        .fa + .fa {
+        .oi + .oi {
             margin-inline-start: -4px;
         }
     }
