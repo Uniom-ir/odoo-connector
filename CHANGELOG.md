@@ -1,5 +1,23 @@
 # Changelog
 
+## 19.0.2.0.3 (2026-11-16)
+
+Verification round, ported to the 19.0 APIs (same fixes as 18.0.2.0.3):
+
+* Read/delivery ticks parse the gateway's ``{items: [...]}`` envelope.
+* Price rules refresh the newest message per channel.
+* Delivery templates guard the optional ``carrier_id`` field.
+* Send wizard validates every destination before queueing.
+* Cancel covers failed rows; the dashboard uses the server action.
+* Partner matching accepts local phone spellings (phone-only on 19).
+* Webhook: route-level body cap, 5xx on transient failure, 50 MiB media cap.
+* "Open in Discuss" opens the conversation (``mail.action_discuss``).
+* ``edited_channel_post`` subscribed by polling and setWebhook.
+* CI tests the triggering commit; gen_i18n reproducible.
+* Store screenshots reshot from demo data (a live identity leaked).
+* Demo data loads again (``group_ids``; 19 dropped ``groups_id``).
+* Suite: 110 tests green.
+
 ## 19.0.2.0.2 (2026-11-15)
 
 Odoo 19 series: same features as 18.0.2.0.2, ported to the 19.0 APIs:
