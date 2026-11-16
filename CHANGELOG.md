@@ -1,5 +1,29 @@
 # Changelog
 
+## 20.0.1.0.1 (2026-11-16)
+
+Verification round on the Odoo 20 port (same fixes as 18.0.2.0.3):
+
+* Read/delivery ticks parse the gateway's ``{items: [...]}`` envelope.
+* Price rules refresh the newest message per channel.
+* Delivery templates guard the optional ``carrier_id`` field.
+* Send wizard validates every destination before queueing.
+* Cancel covers failed rows; the dashboard uses the server action.
+* Partner matching accepts local phone spellings (phone-only on 20).
+* Webhook: route-level body cap, 5xx on transient failure, 50 MiB media cap.
+* "Open in Discuss" opens the conversation (``mail.action_discuss``).
+* ``edited_channel_post`` subscribed by polling and setWebhook.
+* CI covers 17/18/19/20 and tests the triggering commit.
+* Store screenshots reshot from demo data (a live identity leaked).
+* Suite: 112 tests green.
+
+## 20.0.1.0.0 (2026-11-15)
+
+First Odoo 20 port: OWL 3 dashboard (proxy/signal, ``t-out``, signal refs),
+Material Symbols icons, unified ``ir.access`` security, typed
+``ir.config_parameter`` getters, ``BinaryBytes`` writes, ``models.Constraint``
+uniqueness, ``_rec_names_search`` display names, and ``phone``-only contacts.
+
 ## 18.0.2.0.2 (2026-11-15)
 
 Merge-review fixes (backend + frontend teams):
