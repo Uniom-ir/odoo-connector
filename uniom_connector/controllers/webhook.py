@@ -12,6 +12,7 @@ body size is capped — Telegram-style updates are tiny.
 """
 
 import hmac
+import json
 import logging
 
 from odoo import fields, http
@@ -31,12 +32,14 @@ class UniomWebhookController(http.Controller):
         methods=["POST"],
         csrf=False,
         save_session=False,
+        # enforced by the dispatcher BEFORE the body is read (a chunked
+        # request has no Content-Length, so a manual check is too late)
+        max_content_length=MAX_BODY_BYTES,
     )
     def uniom_webhook(self, connection_id, **kwargs):
-        # cheap size guard before any parsing
-        content_length = request.httprequest.content_length or 0
-        if content_length > MAX_BODY_BYTES:
-            return request.make_json_response({"ok": False, "error": "too large"}, status=413)
+        # the route's max_content_length already refused oversized bodies;
+        # parse the (cached) bounded payload ourselves
+        raw = request.httprequest.get_data(cache=True) or b""
 
         connection = request.env["uniom.connection"].sudo().browse(connection_id).exists()
         provided = (request.httprequest.headers.get(SECRET_HEADER, "") or "").encode("utf-8")
@@ -52,8 +55,8 @@ class UniomWebhookController(http.Controller):
             return request.make_json_response({"ok": False, "error": "not found"}, status=404)
 
         try:
-            update = request.get_json_data()
-        except Exception:  # noqa: BLE001 - malformed body
+            update = json.loads(raw.decode("utf-8") or "null")
+        except (UnicodeDecodeError, ValueError):  # malformed body
             update = None
         if not isinstance(update, dict):
             return request.make_json_response({"ok": False, "error": "invalid payload"}, status=400)
@@ -63,7 +66,12 @@ class UniomWebhookController(http.Controller):
             # not abort the request transaction: roll back just this attempt
             with request.env.cr.savepoint():
                 connection._process_inbound_update(update)
-        except Exception:  # noqa: BLE001 - always ACK so Uniom does not retry endlessly
+        except Exception:  # noqa: BLE001 - let the gateway retry a transient failure
+            # dedupe (update id + message id + IntegrityError) makes the retry
+            # safe; a 200 here would silently drop the message instead
             _logger.exception("Uniom webhook: processing failed for connection %s", connection_id)
+            return request.make_json_response(
+                {"ok": False, "error": "retry later"}, status=500
+            )
         connection.sudo().write({"last_webhook_at": fields.Datetime.now()})
         return request.make_json_response({"ok": True})

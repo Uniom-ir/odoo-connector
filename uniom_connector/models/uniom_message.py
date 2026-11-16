@@ -621,7 +621,11 @@ class UniomMessage(models.Model):
         return True
 
     def action_cancel(self):
-        self.filtered(lambda m: m.state == "outgoing").write({"state": "canceled"})
+        """Cancel queued rows; a failed row is dismissable from the dashboard
+        too (the JS calls this for both states, not an ad-hoc write)."""
+        self.filtered(lambda m: m.state in ("outgoing", "error")).write(
+            {"state": "canceled"}
+        )
         return True
 
     def action_view_record(self):
@@ -662,8 +666,11 @@ class UniomMessage(models.Model):
                 )
                 continue
             by_index = {}
-            if isinstance(states, list):
-                for item in states:
+            # the gateway answers {"items": [...], "total", "success_count",
+            # "partial_failure"}; keep the bare-list shape for older bridges
+            items = states.get("items") if isinstance(states, dict) else states
+            if isinstance(items, list):
+                for item in items:
                     if isinstance(item, dict) and "request_index" in item:
                         by_index[item["request_index"]] = item
             now = fields.Datetime.now()

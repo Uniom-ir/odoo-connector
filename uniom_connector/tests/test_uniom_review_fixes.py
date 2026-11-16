@@ -187,6 +187,48 @@ class TestReviewFixes(UniomTestCase):
         self.assertEqual(self.connection.poll_failed_streak, 0)
         self.assertIn("skipped", self.connection.last_poll_error)
 
+    def test_edit_previous_updates_every_channel(self):
+        partner = self.env["res.partner"].create({"name": "Multi"})
+        template = self.env["uniom.template"].create(
+            {
+                "name": "Price body",
+                "model_id": self.env.ref("product.model_product_template").id,
+                "body": "price {{ object.list_price }}",
+            }
+        )
+        rule = self.env["uniom.rule"].create(
+            {
+                "name": "Price per channel",
+                "trigger": "product_price_changed",
+                "template_id": template.id,
+                "edit_previous": True,
+                "manual_chat_ids": "@chan_a\n@chan_b",
+            }
+        )
+        product = self.env["product.template"].create(
+            {"name": "Widget", "list_price": 10}
+        )
+        first = self.env["uniom.message"]
+        for chat in ("@chan_a", "@chan_b"):
+            first |= self.env["uniom.message"].create(
+                {
+                    "connection_id": self.connection.id,
+                    "direction": "out",
+                    "state": "sent",
+                    "chat_id": chat,
+                    "partner_id": partner.id,
+                    "body": "old price",
+                    "rule_id": rule.id,
+                    "record_res_model": "product.template",
+                    "record_res_id": product.id,
+                    "uniom_message_id": "m-%s" % chat,
+                }
+            )
+        with patched_transport():
+            rule._process_record(product, self.connection)
+        self.assertEqual(len(first), 2)
+        self.assertTrue(all(m.edit_count == 1 for m in first))
+
     def test_photo_sync_caches_and_skips_when_fresh(self):
         partner = self.env["res.partner"].create({"name": "Photo P"})
         chat = self.env["uniom.chat"].create(
@@ -288,7 +330,14 @@ class TestReviewFixes(UniomTestCase):
                 "uniom_message_id": "10",
             }
         )
-        states = [{"request_index": 0, "seen_state": "read", "seen_count": 2}]
+        # the gateway wraps the list: {"items": [...], "total", "success_count"}
+        # — a bare list here would hide the envelope bug this test guards
+        states = {
+            "items": [{"request_index": 0, "seen_state": "read", "seen_count": 2}],
+            "total": 1,
+            "success_count": 1,
+            "partial_failure": False,
+        }
         with patched_transport([FakeResponse(ok_response(states))]) as transport:
             self.env["uniom.message"]._cron_sync_states()
         self.assertEqual(len(transport.calls), 1)

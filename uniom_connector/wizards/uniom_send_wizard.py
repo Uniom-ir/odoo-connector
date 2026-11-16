@@ -77,6 +77,9 @@ class UniomSendWizard(models.TransientModel):
             record = self.env[self.active_model].browse(self.active_id).exists()
         else:
             record = self.env["res.partner"]
+        # validate every destination BEFORE creating rows: a typo must not
+        # leave half the recipients queued (a retry would duplicate them)
+        resolved = []
         for recipient in self.recipient_ids:
             chat_id = canonicalize_chat_id(recipient.chat_id)
             if not chat_id:
@@ -84,6 +87,8 @@ class UniomSendWizard(models.TransientModel):
                     _("Invalid destination '%s'. Use +989123456789, @channel or a numeric id."),
                     recipient.chat_id,
                 )
+            resolved.append((recipient, chat_id))
+        for recipient, chat_id in resolved:
             messages |= self.env["uniom.message"].create(
                 {
                     "connection_id": self.connection_id.id,
