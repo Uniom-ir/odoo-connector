@@ -108,7 +108,7 @@ odoo-bin -d test --test-enable --stop-after-init \
 python3 scripts/gen_i18n.py
 ```
 
-CI (`.github/workflows/ci.yml`) مجموعه کامل را روی Odoo 18 با
+CI (`.github/workflows/ci.yml`) مجموعه کامل را روی Odoo 17/18/19 با
 `fa_IR`/`ar_001` لودشده اجرا می‌کند. `screenshots.yml` (با
 workflow_dispatch) اودو را با داده نمایشی بالا می‌آورد و با Playwright
 اسکرین‌شات‌های فروشگاه را می‌گیرد.

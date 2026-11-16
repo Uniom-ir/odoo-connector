@@ -113,7 +113,7 @@ odoo-bin -d test --test-enable --stop-after-init \
 python3 scripts/gen_i18n.py
 ```
 
-CI (`.github/workflows/ci.yml`) runs the full suite on Odoo 18 with
+CI (`.github/workflows/ci.yml`) runs the full suite on Odoo 17/18/19 with
 `fa_IR`/`ar_001` loaded. `screenshots.yml` (via workflow_dispatch)
 boots Odoo with demo data and captures the store screenshots with
 Playwright.
