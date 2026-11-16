@@ -32,10 +32,10 @@ jobs:
       DB_HOST: localhost
       DB_PORT: 5432
     steps:
-      - name: Checkout module (branch matching the Odoo version)
+      # the module under test is the triggering commit; only Odoo itself is
+      # pinned per series (pinning this too made every PR test the branch tip)
+      - name: Checkout module
         uses: actions/checkout@v4
-        with:
-          ref: ${{ matrix.odoo }}
 
       - name: Checkout Odoo ${{ matrix.odoo }}
         uses: actions/checkout@v4

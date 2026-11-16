@@ -225,8 +225,11 @@ class UniomRule(models.Model):
             _logger.info("Uniom rule %s: empty body for %s, skipped", self.name, record)
             return False
 
+        # one prior message per destination: a rule that fans out to several
+        # channels must refresh every channel, not just the newest row
+        previous_by_chat = {}
         if self.edit_previous:
-            previous = self.env["uniom.message"].search(
+            rows = self.env["uniom.message"].search(
                 [
                     ("rule_id", "=", self.id),
                     ("record_res_model", "=", record._name),
@@ -235,11 +238,9 @@ class UniomRule(models.Model):
                     ("direction", "=", "out"),
                 ],
                 order="id desc",
-                limit=1,
             )
-            if previous:
-                previous._edit_message(body)
-                return True
+            for row in rows:
+                previous_by_chat.setdefault(row.chat_id, row)
 
         values_base = {
             "connection_id": connection.id,
@@ -255,13 +256,19 @@ class UniomRule(models.Model):
             "company_id": (getattr(record, "company_id", False) or self.env.company).id,
         }
         messages = self.env["uniom.message"]
+        edited = False
         for chat_id, partner in self._resolve_recipients(record):
+            previous = previous_by_chat.get(chat_id)
+            if previous:
+                previous._edit_message(body)
+                edited = True
+                continue
             messages |= self.env["uniom.message"].create(
                 dict(values_base, chat_id=chat_id, partner_id=partner.id if partner else False)
             )
-        if self.send_immediately:
+        if messages and self.send_immediately:
             messages._send_message()
-        return True
+        return edited or bool(messages)
 
     def _get_lang(self, record):
         partner = self._get_partner(record)

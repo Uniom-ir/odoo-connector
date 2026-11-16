@@ -1,5 +1,9 @@
 # Part of Uniom Messaging Gateway for Odoo. See LICENSE file for full
 # copyright and licensing details.
+import json
+
+from odoo.tests import HttpCase, tagged
+
 from .common import BASE_URL, FAKE_KEY, UniomTestCase
 
 
@@ -54,3 +58,72 @@ class TestInboundWebhook(UniomTestCase):
 
     def test_non_message_update_ignored(self):
         self.assertFalse(self.connection._process_inbound_update({"update_id": 2}))
+
+
+@tagged("post_install", "-at_install")
+class TestWebhookRoute(HttpCase):
+    readonly_enabled = False
+
+    """The HTTP surface: secret check, size cap and ACK/retry semantics."""
+
+    def setUp(self):
+        super().setUp()
+        self.connection = self.env["uniom.connection"].create(
+            {
+                "name": "Route Test",
+                "base_url": BASE_URL,
+                "api_key": FAKE_KEY,
+                "webhook_secret": "route-secret",
+            }
+        )
+        self.url = "/uniom/webhook/%s" % self.connection.id
+        self.payload = {
+            "update_id": 77,
+            "message": {
+                "message_id": 770,
+                "text": "hello route",
+                "chat": {"id": "+989120000077", "type": "private"},
+                "from": {"id": 15, "first_name": "Route"},
+            },
+        }
+
+    def test_missing_secret_is_indistinguishable_404(self):
+        for url in (self.url, "/uniom/webhook/999999"):
+            res = self.url_open(url, data="{}", headers={"Content-Type": "application/json"})
+            self.assertEqual(res.status_code, 404, url)
+
+    def test_valid_secret_stores_the_message(self):
+        res = self.url_open(
+            self.url,
+            data=json.dumps(self.payload),
+            headers={
+                "Content-Type": "application/json",
+                "X-Telegram-Bot-Api-Secret-Token": "route-secret",
+            },
+        )
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(json.loads(res.content).get("ok"), True)
+        message = self.env["uniom.message"].search(
+            [("connection_id", "=", self.connection.id)], limit=1
+        )
+        self.assertEqual(message.body, "hello route")
+
+    def test_oversized_body_is_rejected(self):
+        # rejected before parsing, whichever layer answers first (our cap or
+        # the server's own body limit) — the point is it is never processed
+        res = self.url_open(
+            self.url,
+            data="x" * (1024 * 1024 + 10),
+            headers={
+                "Content-Type": "application/json",
+                "X-Telegram-Bot-Api-Secret-Token": "route-secret",
+            },
+        )
+        # the dispatcher refuses it before the payload is read
+        self.assertEqual(res.status_code, 413)
+        self.assertEqual(
+            self.env["uniom.message"].search_count(
+                [("connection_id", "=", self.connection.id)]
+            ),
+            0,
+        )

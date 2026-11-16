@@ -354,10 +354,13 @@ class UniomChat(models.Model):
         """Open the mirrored Discuss thread (creating it on first use)."""
         self.ensure_one()
         channel = self._ensure_discuss_channel()
+        # 18.0+ registers only the mail.action_discuss client action; it reads
+        # params.active_id as "discuss.channel_<id>" (a bare "discuss" tag or
+        # params.channel_id opens the inbox instead of the conversation).
         return {
             "type": "ir.actions.client",
-            "tag": "discuss",
-            "params": {"channel_id": channel.id},
+            "tag": "mail.action_discuss",
+            "params": {"active_id": "discuss.channel_%s" % channel.id},
         }
 
     def _ensure_discuss_channel(self):

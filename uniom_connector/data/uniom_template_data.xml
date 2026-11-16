@@ -42,7 +42,7 @@ Thank you!</field>
         <field name="name">Delivery Done (English)</field>
         <field name="model_id" ref="stock.model_stock_picking"/>
         <field name="body">Hello {{ object.partner_id.name }},
-your order is on its way! Delivery {{ object.name }} has been validated{{ ', carrier: ' + object.carrier_id.name if object.carrier_id else '' }}.
+your order is on its way! Delivery {{ object.name }} has been validated{{ ', carrier: ' + object.carrier_id.name if 'carrier_id' in object._fields and object.carrier_id else '' }}.
 Thank you for shopping with {{ object.company_id.name }}!</field>
     </record>
 
@@ -86,7 +86,7 @@ New price: {{ object.list_price }} {{ object.company_id.currency_id.name }}</fie
         <field name="model_id" ref="stock.model_stock_picking"/>
         <field name="lang_id" search="[('code', '=', 'fa_IR')]"/>
         <field name="body">سلام {{ object.partner_id.name }} عزیز،
-سفارش شما ارسال شد! حواله {{ object.name }} ثبت شد{{ '، حمل‌کننده: ' + object.carrier_id.name if object.carrier_id else '' }}.
+سفارش شما ارسال شد! حواله {{ object.name }} ثبت شد{{ '، حمل‌کننده: ' + object.carrier_id.name if 'carrier_id' in object._fields and object.carrier_id else '' }}.
 خرید شما را از {{ object.company_id.name }} سپاسگزاریم!</field>
     </record>
 
@@ -132,7 +132,7 @@ New price: {{ object.list_price }} {{ object.company_id.currency_id.name }}</fie
         <field name="model_id" ref="stock.model_stock_picking"/>
         <field name="lang_id" search="[('code', '=', 'ar_001')]"/>
         <field name="body">مرحبا {{ object.partner_id.name }}،
-طلبكم في الطريق! تم تأكيد التسليم {{ object.name }}{{ '، الناقل: ' + object.carrier_id.name if object.carrier_id else '' }}.
+طلبكم في الطريق! تم تأكيد التسليم {{ object.name }}{{ '، الناقل: ' + object.carrier_id.name if 'carrier_id' in object._fields and object.carrier_id else '' }}.
 شكراً لتسوقكم من {{ object.company_id.name }}!</field>
     </record>
 
