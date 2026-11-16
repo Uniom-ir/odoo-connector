@@ -68,22 +68,6 @@ def _phone_candidates(chat_id):
     return candidates
 
 
-def _phone_candidates(chat_id):
-    """Stored-contact phone spellings equal to one gateway chat id.
-
-    Contacts are often typed locally (09123456789) while the gateway keys
-    chats as +989123456789; matching only the canonical form would create a
-    duplicate contact and split the thread.
-    """
-    if not chat_id or not chat_id.startswith("+"):
-        return [chat_id] if chat_id else []
-    candidates = [chat_id]
-    digits = chat_id[1:]
-    if digits.startswith("98") and len(digits) > 4:
-        candidates.append("0" + digits[2:])
-    return candidates
-
-
 def _datetime_from_timestamp(value):
     """Unix seconds (as sent by the Bot API) -> naive UTC datetime."""
     try:
