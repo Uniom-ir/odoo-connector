@@ -1,5 +1,25 @@
 # Changelog
 
+## 18.0.2.0.3 (2026-11-16)
+
+Verification-team round (3 flow reviewers + 3 repo reviewers):
+
+* Read/delivery ticks actually work: the gateway's ``{items: [...]}``
+  envelope is parsed (was treated as a bare list).
+* Price rules refresh the newest message per channel, not one global row.
+* Delivery templates guard the optional ``carrier_id`` field.
+* Send wizard validates every destination before queueing anything.
+* Cancel works for failed rows too; the dashboard uses the server action.
+* Partner matching accepts local phone spellings (0912... = +98912...).
+* Webhook: route-level body cap (chunked included), 5xx on transient
+  failure so the gateway retries; media cap aligned to the gateway's 50 MiB.
+* "Open in Discuss" opens the conversation (mail.action_discuss + active_id).
+* ``edited_channel_post`` is subscribed by polling and setWebhook.
+* CI tests the triggering commit; gen_i18n is reproducible and series-aware.
+* Store screenshots reshot from demo data (a live account identity leaked).
+* Suite: 109 tests green, including new webhook-route and multi-channel
+  edit regressions.
+
 ## 18.0.2.0.2 (2026-11-15)
 
 Merge-review fixes (backend + frontend teams):
