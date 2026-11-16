@@ -62,7 +62,8 @@ class TestInboundWebhook(UniomTestCase):
 
 @tagged("post_install", "-at_install")
 class TestWebhookRoute(HttpCase):
-    readonly_enabled = False
+    # the route writes rows; HttpCase defaults the registry to read-only
+    _registry_readonly_enabled = False
 
     """The HTTP surface: secret check, size cap and ACK/retry semantics."""
 
