@@ -346,8 +346,8 @@ class UniomChat(models.Model):
         """Open the mirrored Discuss thread (creating it on first use)."""
         self.ensure_one()
         channel = self._ensure_discuss_channel()
-        # the discuss client action (tag "mail.action_discuss" since 18.0)
-        # restores a thread from active_id formatted as "model_id"
+        # the Discuss client action restores a thread from active_id
+        # formatted as 'model_id' (a bare tag or channel_id opens the inbox)
         return {
             "type": "ir.actions.client",
             "tag": "mail.action_discuss",

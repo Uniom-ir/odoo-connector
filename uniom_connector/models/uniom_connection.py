@@ -38,8 +38,9 @@ POLL_CONFLICT_BACKOFF_MINUTES = 10
 # a failing update holds the poll offset for retry; past this many
 # consecutive failures it is skipped loudly so polling never wedges.
 MAX_POLL_FAILED_STREAK = 5
-# inbound files are streamed into ir.attachment; refuse anything above 20 MiB.
-MAX_MEDIA_BYTES = 20 * 1024 * 1024
+# inbound files are streamed into ir.attachment; the gateway accepts files
+# up to 50 MiB, so cap there (still bounded, never unbounded streaming).
+MAX_MEDIA_BYTES = 50 * 1024 * 1024
 # update keys that carry a Message object, in the order they are looked up.
 UPDATE_MESSAGE_KEYS = (
     "message",
@@ -49,6 +50,22 @@ UPDATE_MESSAGE_KEYS = (
     "business_message",
     "edited_business_message",
 )
+
+
+def _phone_candidates(chat_id):
+    """Stored-contact phone spellings equal to one gateway chat id.
+
+    Contacts are often typed locally (09123456789) while the gateway keys
+    chats as +989123456789; matching only the canonical form would create a
+    duplicate contact and split the thread.
+    """
+    if not chat_id or not chat_id.startswith("+"):
+        return [chat_id] if chat_id else []
+    candidates = [chat_id]
+    digits = chat_id[1:]
+    if digits.startswith("98") and len(digits) > 4:
+        candidates.append("0" + digits[2:])
+    return candidates
 
 
 def _datetime_from_timestamp(value):
@@ -174,7 +191,7 @@ class UniomConnection(models.Model):
         help="Next getUpdates offset: the first update id the gateway may return.",
     )
     poll_allowed_updates = fields.Text(
-        default='["message","edited_message","channel_post"]',
+        default='["message","edited_message","channel_post","edited_channel_post"]',
         help="JSON list of update types the polling cron subscribes to.",
     )
     last_poll_at = fields.Datetime(readonly=True, copy=False)
@@ -517,7 +534,12 @@ class UniomConnection(models.Model):
                     {
                         "url": url,
                         "secret_token": connection.webhook_secret,
-                        "allowed_updates": ["message", "edited_message", "channel_post"],
+                        "allowed_updates": [
+                            "message",
+                            "edited_message",
+                            "channel_post",
+                            "edited_channel_post",
+                        ],
                         # NEVER drop the backlog on register: anything queued
                         # while polling (or while the webhook was down) must
                         # still be delivered afterwards.
@@ -680,8 +702,9 @@ class UniomConnection(models.Model):
             if explicit:
                 return explicit
             if chat_id.startswith("+"):
+                spellings = _phone_candidates(chat_id)
                 phone_like = partner.search(
-                    [("phone", "=", chat_id)], limit=1
+                    [("phone", "in", spellings)], limit=1
                 )
                 if phone_like:
                     return phone_like
@@ -1388,8 +1411,9 @@ class UniomConnection(models.Model):
             if explicit:
                 return explicit
             if chat_id.startswith("+"):
+                spellings = _phone_candidates(chat_id)
                 phone_like = partner.search(
-                    [("phone", "=", chat_id)], limit=1
+                    [("phone", "in", spellings)], limit=1
                 )
                 if phone_like:
                     return phone_like

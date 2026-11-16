@@ -14,14 +14,22 @@ Without a skeleton argument, entries are emitted with synthetic
 missing).
 """
 import datetime
+import os
 import re
 import sys
 
 import polib
 from pathlib import Path
 
-NOW = datetime.datetime.now().strftime("%Y-%m-%d %H:%M%z")
+# reproducible: honor SOURCE_DATE_EPOCH (defaults to a fixed stamp) so a
+# regeneration never rewrites headers and every i18n diff is content-only
+_stamp = datetime.datetime.fromtimestamp(
+    int(os.environ.get("SOURCE_DATE_EPOCH", "1763200000"))
+)  # 2025-11-15T00:00:00Z
+NOW = _stamp.strftime("%Y-%m-%d %H:%M") + "+0000"
 MODULE = "uniom_connector"
+# manifest series, so a 19/20 checkout stamps its own version
+SERIES = __import__("os").environ.get("ODOO_SERIES") or "18.0"
 HERE = Path(__file__).resolve().parent
 I18N = HERE.parent / MODULE / "i18n"
 I18N.mkdir(exist_ok=True)
@@ -1015,7 +1023,7 @@ T = {
 
 def _metadata(code=None, team=None):
     meta = {
-        "Project-Id-Version": "Odoo Server 18.0",
+        "Project-Id-Version": "Odoo Server %s" % SERIES,
         "Report-Msgid-Bugs-To": "",
         "POT-Creation-Date": NOW,
         "PO-Revision-Date": NOW,

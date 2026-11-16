@@ -1141,13 +1141,9 @@ export class UniomChatDashboard extends Component {
 
     async cancelMessage(message) {
         try {
-            if (message.state === "error") {
-                // action_cancel only stops queued rows; a failed row is already
-                // terminal, so dismissing it means marking it canceled.
-                await this.orm.write("uniom.message", [message.id], { state: "canceled" });
-            } else {
-                await this.orm.call("uniom.message", "action_cancel", [[message.id]]);
-            }
+            // one server action for both states: it knows which are
+            // cancellable, so the dashboard never bypasses the ORM contract
+            await this.orm.call("uniom.message", "action_cancel", [[message.id]]);
         } catch (error) {
             this.notifyError(error);
             return;
